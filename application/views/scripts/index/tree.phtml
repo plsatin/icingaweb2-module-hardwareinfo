@@ -1,0 +1,472 @@
+<div class="controls">
+<?= $this->tabs ?>
+</div>
+
+<link rel="stylesheet" href="<?= $this->baseUrl('plsatin/css/default/style.min.css');?>" type="text/css" media="all" />
+
+
+
+<div class="content">
+
+
+<?php
+use Icinga\Application\Config;
+
+// Requirements
+global $config;
+global $dbh;
+
+$config = Config::module('hardwareinfo');
+
+//error_reporting(E_ALL ^ E_DEPRECATED);
+
+$errors = array();
+
+
+
+if (!empty($_GET["q"])) {
+
+	$str_q = $_GET["q"];
+
+} else {
+
+	$str_q = '[]';
+	echo "No computer selected!";
+}
+
+$host = $config->get('db', 'host'); // имя хоста 
+$database = $config->get('db', 'name'); // имя базы данных 
+$user = $config->get('db', 'user'); // имя пользователя
+$pswd = $config->get('db', 'password'); // пароль
+
+
+$dbh = mysqli_connect($host, $user, $pswd, $database);
+mysqli_query($dbh, "SET names UTF8");
+
+
+function GetSQLWin32Class($str_host, $str_class, $dbh)
+{
+  $q_Win32_Class = "SELECT tbInventoryClass.Name AS ClassName, tbInventoryProperty.Name AS PropertyName, tbComputerInventory.Value, tbComputerInventory.InstanceId
+    FROM tbComputerInventory INNER JOIN
+    tbInventoryClass ON tbComputerInventory.ClassID = tbInventoryClass.ClassID INNER JOIN
+    tbInventoryProperty ON tbComputerInventory.PropertyID = tbInventoryProperty.PropertyID INNER JOIN
+    tbComputerTarget ON tbComputerInventory.ComputerTargetId = tbComputerTarget.ComputerTargetId
+    WHERE  (tbComputerTarget.Name LIKE '%$str_host%' AND tbInventoryClass.ClassID ='$str_class');";
+
+
+  $r_Win32_Class = mysqli_query($dbh, $q_Win32_Class)  or die(mysqli_error());
+  return $r_Win32_Class;
+}
+
+
+$r_Win32_BIOS = GetSQLWin32Class($str_q, '1', $dbh);
+$r_Win32_ComputerSystem = GetSQLWin32Class($str_q, '2', $dbh);
+$r_Win32_BaseBoard = GetSQLWin32Class($str_q, '16', $dbh);
+$r_Win32_OperatingSystem = GetSQLWin32Class($str_q, '8', $dbh);
+$r_Win32_Processor = GetSQLWin32Class($str_q, '11', $dbh);
+$r_Win32_PhysicalMemory = GetSQLWin32Class($str_q, '15', $dbh);
+$r_Win32_DiskDrive = GetSQLWin32Class($str_q, '4', $dbh);
+$r_Win32_LogicalDisk = GetSQLWin32Class($str_q, '5', $dbh);
+$r_Win32_NetworkAdapter = GetSQLWin32Class($str_q, '6', $dbh);
+$r_Win32_VideoController = GetSQLWin32Class($str_q, '13', $dbh);
+$r_Win32_SoundDevice = GetSQLWin32Class($str_q, '12', $dbh);
+$r_Win32_Printer = GetSQLWin32Class($str_q, '10', $dbh);
+$r_Win32_DesktopMonitor = GetSQLWin32Class($str_q, '3', $dbh);
+$r_Win32_NetworkAdapterConfiguration = GetSQLWin32Class($str_q, '7', $dbh);
+$r_Win32_IDEController = GetSQLWin32Class($str_q, '17', $dbh);
+$r_Win32_SCSIController = GetSQLWin32Class($str_q, '18', $dbh);
+$r_Win32_USBController = GetSQLWin32Class($str_q, '19', $dbh);
+$r_Win32_USBHub = GetSQLWin32Class($str_q, '20', $dbh);
+$r_Win32_PointingDevice = GetSQLWin32Class($str_q, '21', $dbh);
+$r_Win32_Keyboard = GetSQLWin32Class($str_q, '22', $dbh);
+
+
+
+?>
+
+<div style="width: 100%;">
+
+	<h1>Hardware Information</h1>
+	<div id="jstreehtml" class="demo">
+		<ul>
+			<li data-jstree='{ "opened" : "true", "icon" : "/icingaweb2/plsatin/img/tree/hardware.ico" }'>Computer: <?php echo $str_q ?>
+        <ul>
+
+<?php
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/non-pnp.ico\" }'>Win32_OperatingSystem<ul>";
+while($row = mysqli_fetch_array($r_Win32_OperatingSystem)) {
+  echo "<li>".$row['PropertyName'].": ".$row['Value']."</li>";
+}
+echo "</ul></li>";
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/computer.ico\" }'>Win32_ComputerSystem<ul>";
+while($row = mysqli_fetch_array($r_Win32_ComputerSystem)) {
+  echo "<li>".$row['PropertyName'].": ".$row['Value']."</li>";
+}
+echo "</ul></li>";
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/system.ico\" }'>Win32_BaseBoard<ul>";
+while($row = mysqli_fetch_array($r_Win32_BaseBoard)) {
+  echo "<li>".$row['PropertyName'].": ".$row['Value']."</li>";
+}
+echo "</ul></li>";
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/bios.ico\" }'>Win32_BIOS<ul>";
+while($row = mysqli_fetch_array($r_Win32_BIOS)) {
+  echo "<li>".$row['PropertyName'].": ".$row['Value']."</li>";
+}
+echo "</ul></li>";
+
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/cpu.ico\" }'>Win32_Processor<ul>";
+$adapters = array();
+while($row = mysqli_fetch_array($r_Win32_Processor)) {
+  $InstId = $row['InstanceId'];
+  $PropName = $row['PropertyName'];
+  $PropValue = $row['Value'];
+  $adapters[$InstId][$PropName]["Value"] = $PropValue;
+}
+$i = 1;
+foreach ( $adapters as $adapter ) {
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/cpu.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  foreach ( $adapter as $key => $value ) {
+    echo "<li>".$key.": ".$value["Value"]."</li>";
+  }
+  echo '</ul></li>';
+  $i ++;
+}
+echo "</ul></li>";
+
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/ram.ico\" }'>Win32_PhysicalMemory<ul>";
+$adapters = array();
+while($row = mysqli_fetch_array($r_Win32_PhysicalMemory)) {
+  $InstId = $row['InstanceId'];
+  $PropName = $row['PropertyName'];
+  $PropValue = $row['Value'];
+  $adapters[$InstId][$PropName]["Value"] = $PropValue;
+}
+$i = 1;
+foreach ( $adapters as $adapter ) {
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/ram.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  foreach ( $adapter as $key => $value ) {
+    echo "<li>".$key.": ".$value["Value"]."</li>";
+  }
+  echo '</ul></li>';
+  $i ++;
+}
+echo "</ul></li>";
+
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/disk.ico\" }'>Win32_DiskDrive<ul>";
+$adapters = array();
+while($row = mysqli_fetch_array($r_Win32_DiskDrive)) {
+  $InstId = $row['InstanceId'];
+  $PropName = $row['PropertyName'];
+  $PropValue = $row['Value'];
+  $adapters[$InstId][$PropName]["Value"] = $PropValue;
+}
+$i = 1;
+foreach ( $adapters as $adapter ) {
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/disk.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  foreach ( $adapter as $key => $value ) {
+    echo "<li>".$key.": ".$value["Value"]."</li>";
+  }
+  echo '</ul></li>';
+  $i ++;
+}
+echo "</ul></li>";
+
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/disk.ico\" }'>Win32_LogicalDisk<ul>";
+$adapters = array();
+while($row = mysqli_fetch_array($r_Win32_LogicalDisk)) {
+  $InstId = $row['InstanceId'];
+  $PropName = $row['PropertyName'];
+  $PropValue = $row['Value'];
+  $adapters[$InstId][$PropName]["Value"] = $PropValue;
+}
+$i = 1;
+foreach ( $adapters as $adapter ) {
+  if ($adapters[$i]["DriveType"]["Value"] == 5) {
+      echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/cdrom.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  } else if ($adapters[$i]["DriveType"]["Value"] == 2) {
+      echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/disk.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  } else {
+      echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/disk.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  }
+  foreach ( $adapter as $key => $value ) {
+    echo "<li>".$key.": ".$value["Value"]."</li>";
+  }
+  echo '</ul></li>';
+  $i ++;
+}
+echo "</ul></li>";
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/ide-controller.ico\" }'>Win32_IDEController<ul>";
+$adapters = array();
+while($row = mysqli_fetch_array($r_Win32_IDEController)) {
+  $InstId = $row['InstanceId'];
+  $PropName = $row['PropertyName'];
+  $PropValue = $row['Value'];
+  $adapters[$InstId][$PropName]["Value"] = $PropValue;
+}
+$i = 1;
+foreach ( $adapters as $adapter ) {
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/ide-controller.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  foreach ( $adapter as $key => $value ) {
+    echo "<li>".$key.": ".$value["Value"]."</li>";
+  }
+  echo '</ul></li>';
+  $i ++;
+}
+echo "</ul></li>";
+
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/scsi-controller.ico\" }'>Win32_SCSIController<ul>";
+$adapters = array();
+while($row = mysqli_fetch_array($r_Win32_SCSIController)) {
+  $InstId = $row['InstanceId'];
+  $PropName = $row['PropertyName'];
+  $PropValue = $row['Value'];
+  $adapters[$InstId][$PropName]["Value"] = $PropValue;
+}
+$i = 1;
+foreach ( $adapters as $adapter ) {
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/scsi-controller.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  foreach ( $adapter as $key => $value ) {
+    echo "<li>".$key.": ".$value["Value"]."</li>";
+  }
+  echo '</ul></li>';
+  $i ++;
+}
+echo "</ul></li>";
+
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/usb-controller.ico\" }'>Win32_USBController<ul>";
+$adapters = array();
+while($row = mysqli_fetch_array($r_Win32_USBController)) {
+  $InstId = $row['InstanceId'];
+  $PropName = $row['PropertyName'];
+  $PropValue = $row['Value'];
+  $adapters[$InstId][$PropName]["Value"] = $PropValue;
+}
+$i = 1;
+foreach ( $adapters as $adapter ) {
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/usb-controller.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  foreach ( $adapter as $key => $value ) {
+    echo "<li>".$key.": ".$value["Value"]."</li>";
+  }
+  echo '</ul></li>';
+  $i ++;
+}
+echo "</ul></li>";
+
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/usb.ico\" }'>Win32_USBHub<ul>";
+$adapters = array();
+while($row = mysqli_fetch_array($r_Win32_USBHub)) {
+  $InstId = $row['InstanceId'];
+  $PropName = $row['PropertyName'];
+  $PropValue = $row['Value'];
+  $adapters[$InstId][$PropName]["Value"] = $PropValue;
+}
+$i = 1;
+foreach ( $adapters as $adapter ) {
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/usb.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  foreach ( $adapter as $key => $value ) {
+    echo "<li>".$key.": ".$value["Value"]."</li>";
+  }
+  echo '</ul></li>';
+  $i ++;
+}
+echo "</ul></li>";
+
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/mouse.ico\" }'>Win32_PointingDevice<ul>";
+$adapters = array();
+while($row = mysqli_fetch_array($r_Win32_PointingDevice)) {
+  $InstId = $row['InstanceId'];
+  $PropName = $row['PropertyName'];
+  $PropValue = $row['Value'];
+  $adapters[$InstId][$PropName]["Value"] = $PropValue;
+}
+$i = 1;
+foreach ( $adapters as $adapter ) {
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/mouse.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  foreach ( $adapter as $key => $value ) {
+    echo "<li>".$key.": ".$value["Value"]."</li>";
+  }
+  echo '</ul></li>';
+  $i ++;
+}
+echo "</ul></li>";
+
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/keyboard.ico\" }'>Win32_Keyboard<ul>";
+$adapters = array();
+while($row = mysqli_fetch_array($r_Win32_Keyboard)) {
+  $InstId = $row['InstanceId'];
+  $PropName = $row['PropertyName'];
+  $PropValue = $row['Value'];
+  $adapters[$InstId][$PropName]["Value"] = $PropValue;
+}
+$i = 1;
+foreach ( $adapters as $adapter ) {
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/keyboard.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  foreach ( $adapter as $key => $value ) {
+    echo "<li>".$key.": ".$value["Value"]."</li>";
+  }
+  echo '</ul></li>';
+  $i ++;
+}
+echo "</ul></li>";
+
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/network.ico\" }'>Win32_NetworkAdapter<ul>";
+$adapters = array();
+while($row = mysqli_fetch_array($r_Win32_NetworkAdapter)) {
+  $InstId = $row['InstanceId'];
+  $PropName = $row['PropertyName'];
+  $PropValue = $row['Value'];
+  $adapters[$InstId][$PropName]["Value"] = $PropValue;
+}
+$i = 1;
+foreach ( $adapters as $adapter ) {
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/network.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  foreach ( $adapter as $key => $value ) {
+    echo "<li>".$key.": ".$value["Value"]."</li>";
+  }
+  echo '</ul></li>';
+  $i ++;
+}
+echo "</ul></li>";
+
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/network.ico\" }'>Win32_NetworkAdapterConfiguration<ul>";
+$adapters = array();
+while($row = mysqli_fetch_array($r_Win32_NetworkAdapterConfiguration)) {
+  $InstId = $row['InstanceId'];
+  $PropName = $row['PropertyName'];
+  $PropValue = $row['Value'];
+  $adapters[$InstId][$PropName]["Value"] = $PropValue;
+}
+$i = 1;
+foreach ( $adapters as $adapter ) {
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/network.ico\" }'>".$adapters[$i]["Caption"]["Value"]."<ul>";
+  foreach ( $adapter as $key => $value ) {
+    echo "<li>".$key.": ".$value["Value"]."</li>";
+  }
+  echo '</ul></li>';
+  $i ++;
+}
+echo "</ul></li>";
+
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/video.ico\" }'>Win32_VideoController<ul>";
+$adapters = array();
+while($row = mysqli_fetch_array($r_Win32_VideoController)) {
+  $InstId = $row['InstanceId'];
+  $PropName = $row['PropertyName'];
+  $PropValue = $row['Value'];
+  $adapters[$InstId][$PropName]["Value"] = $PropValue;
+}
+$i = 1;
+foreach ( $adapters as $adapter ) {
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/video.ico\" }'>".$adapters[$i]["Description"]["Value"]."<ul>";
+  foreach ( $adapter as $key => $value ) {
+    echo "<li>".$key.": ".$value["Value"]."</li>";
+  }
+  echo '</ul></li>';
+  $i ++;
+}
+echo "</ul></li>";
+
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/monitor.ico\" }'>Win32_DesktopMonitor<ul>";
+$adapters = array();
+while($row = mysqli_fetch_array($r_Win32_DesktopMonitor)) {
+  $InstId = $row['InstanceId'];
+  $PropName = $row['PropertyName'];
+  $PropValue = $row['Value'];
+  $adapters[$InstId][$PropName]["Value"] = $PropValue;
+}
+$i = 1;
+foreach ( $adapters as $adapter ) {
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/monitor.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  foreach ( $adapter as $key => $value ) {
+    echo "<li>".$key.": ".$value["Value"]."</li>";
+  }
+  echo '</ul></li>';
+  $i ++;
+}
+echo "</ul></li>";
+
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/audio.ico\" }'>Win32_SoundDevice<ul>";
+$adapters = array();
+while($row = mysqli_fetch_array($r_Win32_SoundDevice)) {
+  $InstId = $row['InstanceId'];
+  $PropName = $row['PropertyName'];
+  $PropValue = $row['Value'];
+  $adapters[$InstId][$PropName]["Value"] = $PropValue;
+}
+$i = 1;
+foreach ( $adapters as $adapter ) {
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/audio.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  foreach ( $adapter as $key => $value ) {
+    echo "<li>".$key.": ".$value["Value"]."</li>";
+  }
+  echo '</ul></li>';
+  $i ++;
+}
+echo "</ul></li>";
+
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/printer.ico\" }'>Win32_Printer<ul>";
+$adapters = array();
+while($row = mysqli_fetch_array($r_Win32_Printer)) {
+  $InstId = $row['InstanceId'];
+  $PropName = $row['PropertyName'];
+  $PropValue = $row['Value'];
+  $adapters[$InstId][$PropName]["Value"] = $PropValue;
+}
+$i = 1;
+foreach ( $adapters as $adapter ) {
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/printer.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  foreach ( $adapter as $key => $value ) {
+    echo "<li>".$key.": ".$value["Value"]."</li>";
+  }
+  echo '</ul></li>';
+  $i ++;
+}
+echo "</ul></li>";
+
+
+?>
+
+
+
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+
+
+</div>
+
+
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+	<script src="<?= $this->baseUrl('plsatin/js/jstree.min.js');?>"></script>
+	
+	<script>
+		$('#jstreehtml').jstree();
+	</script>
+			
+
+
+</div>
