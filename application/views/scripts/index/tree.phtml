@@ -5,14 +5,12 @@
 <link rel="stylesheet" href="<?= $this->baseUrl('plsatin/css/default/style.min.css');?>" type="text/css" media="all" />
 
 
-
 <div class="content">
-
 
 <?php
 use Icinga\Application\Config;
 
-// Requirements
+
 global $config;
 global $dbh;
 
@@ -34,10 +32,10 @@ if (!empty($_GET["q"])) {
 	echo "No computer selected!";
 }
 
-$host = $config->get('db', 'host'); // имя хоста 
-$database = $config->get('db', 'name'); // имя базы данных 
-$user = $config->get('db', 'user'); // имя пользователя
-$pswd = $config->get('db', 'password'); // пароль
+$host = $config->get('db', 'host');
+$database = $config->get('db', 'name');
+$user = $config->get('db', 'user');
+$pswd = $config->get('db', 'password');
 
 
 $dbh = mysqli_connect($host, $user, $pswd, $database);
