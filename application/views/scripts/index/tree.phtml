@@ -312,7 +312,7 @@ while($row = mysqli_fetch_array($r_Win32_Keyboard)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
-  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/keyboard.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/keyboard.ico\" }'>".$adapters[$i]["Caption"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
   }

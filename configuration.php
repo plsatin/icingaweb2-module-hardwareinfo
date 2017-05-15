@@ -1,5 +1,7 @@
 <?php
 
+/** @var \Icinga\Application\Modules\Module $this */
+
 use Icinga\Application\Config;
 
 $section = $this->menuSection('Hardware Info', array(
@@ -13,3 +15,10 @@ $this->provideConfigTab('general', array(
     'label' => $this->translate('General'),
     'url' => 'config'
 ));
+
+//$this->provideCssFile('jstree/default/style.min.css');
+//$this->provideJsFile('jstree/jstree.min.js');
+
+
+//
+//$this->provideCssFile('/icingaweb2/plsatin/css/icons.css');
