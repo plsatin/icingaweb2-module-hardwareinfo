@@ -16,9 +16,7 @@ $this->provideConfigTab('general', array(
     'url' => 'config'
 ));
 
-//$this->provideCssFile('jstree/default/style.min.css');
-//$this->provideJsFile('jstree/jstree.min.js');
+$this->provideCssFile('jstree/style.css');
+$this->provideJsFile('jstree/jstree.min.js');
+$this->provideJsFile('jstree/jstree.init.js');
 
-
-//
-//$this->provideCssFile('/icingaweb2/plsatin/css/icons.css');

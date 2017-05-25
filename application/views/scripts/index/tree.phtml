@@ -2,7 +2,7 @@
 <?= $this->tabs ?>
 </div>
 
-<link rel="stylesheet" href="<?= $this->baseUrl('plsatin/css/default/style.min.css');?>" type="text/css" media="all" />
+
 
 
 <div class="content">
@@ -87,37 +87,37 @@ $r_Win32_Keyboard = GetSQLWin32Class($str_q, '22', $dbh);
 	<h1>Hardware Information</h1>
 	<div id="jstreehtml" class="demo">
 		<ul>
-			<li data-jstree='{ "opened" : "true", "icon" : "/icingaweb2/plsatin/img/tree/hardware.ico" }'>Computer: <?php echo $str_q ?>
+			<li data-jstree='{ "opened" : "true", "icon" : "../../img/hardwareinfo/icons/hardware.ico" }'>Computer: <?php echo $str_q ?>
         <ul>
 
 <?php
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/non-pnp.ico\" }'>Win32_OperatingSystem<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/non-pnp.ico\" }'>Win32_OperatingSystem<ul>";
 while($row = mysqli_fetch_array($r_Win32_OperatingSystem)) {
   echo "<li>".$row['PropertyName'].": ".$row['Value']."</li>";
 }
 echo "</ul></li>";
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/computer.ico\" }'>Win32_ComputerSystem<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/computer.ico\" }'>Win32_ComputerSystem<ul>";
 while($row = mysqli_fetch_array($r_Win32_ComputerSystem)) {
   echo "<li>".$row['PropertyName'].": ".$row['Value']."</li>";
 }
 echo "</ul></li>";
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/system.ico\" }'>Win32_BaseBoard<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/system.ico\" }'>Win32_BaseBoard<ul>";
 while($row = mysqli_fetch_array($r_Win32_BaseBoard)) {
   echo "<li>".$row['PropertyName'].": ".$row['Value']."</li>";
 }
 echo "</ul></li>";
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/bios.ico\" }'>Win32_BIOS<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/bios.ico\" }'>Win32_BIOS<ul>";
 while($row = mysqli_fetch_array($r_Win32_BIOS)) {
   echo "<li>".$row['PropertyName'].": ".$row['Value']."</li>";
 }
 echo "</ul></li>";
 
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/cpu.ico\" }'>Win32_Processor<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/cpu.ico\" }'>Win32_Processor<ul>";
 $adapters = array();
 while($row = mysqli_fetch_array($r_Win32_Processor)) {
   $InstId = $row['InstanceId'];
@@ -127,7 +127,7 @@ while($row = mysqli_fetch_array($r_Win32_Processor)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
-  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/cpu.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/cpu.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
   }
@@ -137,7 +137,7 @@ foreach ( $adapters as $adapter ) {
 echo "</ul></li>";
 
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/ram.ico\" }'>Win32_PhysicalMemory<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/ram.ico\" }'>Win32_PhysicalMemory<ul>";
 $adapters = array();
 while($row = mysqli_fetch_array($r_Win32_PhysicalMemory)) {
   $InstId = $row['InstanceId'];
@@ -147,7 +147,7 @@ while($row = mysqli_fetch_array($r_Win32_PhysicalMemory)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
-  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/ram.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/ram.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
   }
@@ -157,7 +157,7 @@ foreach ( $adapters as $adapter ) {
 echo "</ul></li>";
 
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/disk.ico\" }'>Win32_DiskDrive<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/disk.ico\" }'>Win32_DiskDrive<ul>";
 $adapters = array();
 while($row = mysqli_fetch_array($r_Win32_DiskDrive)) {
   $InstId = $row['InstanceId'];
@@ -167,7 +167,7 @@ while($row = mysqli_fetch_array($r_Win32_DiskDrive)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
-  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/disk.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/disk.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
   }
@@ -177,7 +177,7 @@ foreach ( $adapters as $adapter ) {
 echo "</ul></li>";
 
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/disk.ico\" }'>Win32_LogicalDisk<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/disk.ico\" }'>Win32_LogicalDisk<ul>";
 $adapters = array();
 while($row = mysqli_fetch_array($r_Win32_LogicalDisk)) {
   $InstId = $row['InstanceId'];
@@ -188,11 +188,11 @@ while($row = mysqli_fetch_array($r_Win32_LogicalDisk)) {
 $i = 1;
 foreach ( $adapters as $adapter ) {
   if ($adapters[$i]["DriveType"]["Value"] == 5) {
-      echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/cdrom.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+      echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/cdrom.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   } else if ($adapters[$i]["DriveType"]["Value"] == 2) {
-      echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/disk.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+      echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/disk.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   } else {
-      echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/disk.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+      echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/disk.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   }
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
@@ -202,7 +202,7 @@ foreach ( $adapters as $adapter ) {
 }
 echo "</ul></li>";
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/ide-controller.ico\" }'>Win32_IDEController<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/ide-controller.ico\" }'>Win32_IDEController<ul>";
 $adapters = array();
 while($row = mysqli_fetch_array($r_Win32_IDEController)) {
   $InstId = $row['InstanceId'];
@@ -212,7 +212,7 @@ while($row = mysqli_fetch_array($r_Win32_IDEController)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
-  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/ide-controller.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/ide-controller.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
   }
@@ -222,7 +222,7 @@ foreach ( $adapters as $adapter ) {
 echo "</ul></li>";
 
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/scsi-controller.ico\" }'>Win32_SCSIController<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/scsi-controller.ico\" }'>Win32_SCSIController<ul>";
 $adapters = array();
 while($row = mysqli_fetch_array($r_Win32_SCSIController)) {
   $InstId = $row['InstanceId'];
@@ -232,7 +232,7 @@ while($row = mysqli_fetch_array($r_Win32_SCSIController)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
-  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/scsi-controller.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/scsi-controller.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
   }
@@ -242,7 +242,7 @@ foreach ( $adapters as $adapter ) {
 echo "</ul></li>";
 
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/usb-controller.ico\" }'>Win32_USBController<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/usb-controller.ico\" }'>Win32_USBController<ul>";
 $adapters = array();
 while($row = mysqli_fetch_array($r_Win32_USBController)) {
   $InstId = $row['InstanceId'];
@@ -252,7 +252,7 @@ while($row = mysqli_fetch_array($r_Win32_USBController)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
-  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/usb-controller.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/usb-controller.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
   }
@@ -262,7 +262,7 @@ foreach ( $adapters as $adapter ) {
 echo "</ul></li>";
 
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/usb.ico\" }'>Win32_USBHub<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/usb.ico\" }'>Win32_USBHub<ul>";
 $adapters = array();
 while($row = mysqli_fetch_array($r_Win32_USBHub)) {
   $InstId = $row['InstanceId'];
@@ -272,7 +272,7 @@ while($row = mysqli_fetch_array($r_Win32_USBHub)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
-  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/usb.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/usb.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
   }
@@ -282,7 +282,7 @@ foreach ( $adapters as $adapter ) {
 echo "</ul></li>";
 
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/mouse.ico\" }'>Win32_PointingDevice<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/mouse.ico\" }'>Win32_PointingDevice<ul>";
 $adapters = array();
 while($row = mysqli_fetch_array($r_Win32_PointingDevice)) {
   $InstId = $row['InstanceId'];
@@ -292,7 +292,7 @@ while($row = mysqli_fetch_array($r_Win32_PointingDevice)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
-  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/mouse.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/mouse.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
   }
@@ -302,7 +302,7 @@ foreach ( $adapters as $adapter ) {
 echo "</ul></li>";
 
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/keyboard.ico\" }'>Win32_Keyboard<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/keyboard.ico\" }'>Win32_Keyboard<ul>";
 $adapters = array();
 while($row = mysqli_fetch_array($r_Win32_Keyboard)) {
   $InstId = $row['InstanceId'];
@@ -312,7 +312,7 @@ while($row = mysqli_fetch_array($r_Win32_Keyboard)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
-  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/keyboard.ico\" }'>".$adapters[$i]["Caption"]["Value"]."<ul>";
+  echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/keyboard.ico\" }'>".$adapters[$i]["Caption"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
   }
@@ -322,7 +322,7 @@ foreach ( $adapters as $adapter ) {
 echo "</ul></li>";
 
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/network.ico\" }'>Win32_NetworkAdapter<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/network.ico\" }'>Win32_NetworkAdapter<ul>";
 $adapters = array();
 while($row = mysqli_fetch_array($r_Win32_NetworkAdapter)) {
   $InstId = $row['InstanceId'];
@@ -332,7 +332,7 @@ while($row = mysqli_fetch_array($r_Win32_NetworkAdapter)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
-  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/network.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/network.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
   }
@@ -342,7 +342,7 @@ foreach ( $adapters as $adapter ) {
 echo "</ul></li>";
 
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/network.ico\" }'>Win32_NetworkAdapterConfiguration<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/network.ico\" }'>Win32_NetworkAdapterConfiguration<ul>";
 $adapters = array();
 while($row = mysqli_fetch_array($r_Win32_NetworkAdapterConfiguration)) {
   $InstId = $row['InstanceId'];
@@ -352,7 +352,7 @@ while($row = mysqli_fetch_array($r_Win32_NetworkAdapterConfiguration)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
-  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/network.ico\" }'>".$adapters[$i]["Caption"]["Value"]."<ul>";
+  echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/network.ico\" }'>".$adapters[$i]["Caption"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
   }
@@ -362,7 +362,7 @@ foreach ( $adapters as $adapter ) {
 echo "</ul></li>";
 
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/video.ico\" }'>Win32_VideoController<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/video.ico\" }'>Win32_VideoController<ul>";
 $adapters = array();
 while($row = mysqli_fetch_array($r_Win32_VideoController)) {
   $InstId = $row['InstanceId'];
@@ -372,7 +372,7 @@ while($row = mysqli_fetch_array($r_Win32_VideoController)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
-  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/video.ico\" }'>".$adapters[$i]["Description"]["Value"]."<ul>";
+  echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/video.ico\" }'>".$adapters[$i]["Description"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
   }
@@ -382,7 +382,7 @@ foreach ( $adapters as $adapter ) {
 echo "</ul></li>";
 
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/monitor.ico\" }'>Win32_DesktopMonitor<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/monitor.ico\" }'>Win32_DesktopMonitor<ul>";
 $adapters = array();
 while($row = mysqli_fetch_array($r_Win32_DesktopMonitor)) {
   $InstId = $row['InstanceId'];
@@ -392,7 +392,7 @@ while($row = mysqli_fetch_array($r_Win32_DesktopMonitor)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
-  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/monitor.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/monitor.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
   }
@@ -402,7 +402,7 @@ foreach ( $adapters as $adapter ) {
 echo "</ul></li>";
 
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/audio.ico\" }'>Win32_SoundDevice<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/audio.ico\" }'>Win32_SoundDevice<ul>";
 $adapters = array();
 while($row = mysqli_fetch_array($r_Win32_SoundDevice)) {
   $InstId = $row['InstanceId'];
@@ -412,7 +412,7 @@ while($row = mysqli_fetch_array($r_Win32_SoundDevice)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
-  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/audio.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/audio.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
   }
@@ -422,7 +422,7 @@ foreach ( $adapters as $adapter ) {
 echo "</ul></li>";
 
 
-echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/printer.ico\" }'>Win32_Printer<ul>";
+echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/printer.ico\" }'>Win32_Printer<ul>";
 $adapters = array();
 while($row = mysqli_fetch_array($r_Win32_Printer)) {
   $InstId = $row['InstanceId'];
@@ -432,7 +432,7 @@ while($row = mysqli_fetch_array($r_Win32_Printer)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
-  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/plsatin/img/tree/printer.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
+  echo "<li data-jstree='{ \"icon\" : \"../../img/hardwareinfo/icons/printer.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
   }
@@ -456,15 +456,14 @@ echo "</ul></li>";
 </div>
 
 
-
+<!--
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-
 	<script src="<?= $this->baseUrl('plsatin/js/jstree.min.js');?>"></script>
-	
+
 	<script>
 		$('#jstreehtml').jstree();
 	</script>
-			
+-->			
 
 
 </div>
