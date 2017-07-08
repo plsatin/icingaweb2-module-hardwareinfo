@@ -61,6 +61,11 @@ while($row = mysqli_fetch_array($r_report)) {
 
     echo "<tr style='cursor: pointer;' onclick=\"location='/icingaweb2/hardwareinfo/index/tree?q=".$row['Host']."'\">";
         echo "<td>".$row['Host']."</td>";
+    
+    //echo "<tr>";
+    //    echo "<td><a href='/icingaweb2/hardwareinfo/index/tree?q=".$row['Host']."' >".$row['Host']."</a></td>";
+
+
         echo "<td>".$row['CPU']."</td>";
         echo "<td>".$row['CPUSpeed']."</td>";
         echo "<td>".$row['RAMCapacity']."</td>";
