@@ -9,10 +9,12 @@
 4. [Requirements](#requirements)
 5. [Installation](#installation)
 6. [Configuration](#configuration)
+7. [FAQ](#FAQ)
 
 ## About
 
-The module adds a graphical representation of the hardware tree view. To display information in the form of a tree, [jsTree](https://www.jstree.com).
+The module is designed to display information (so far only for Windows systems) about the hardware from the MySQL database. For Linux systems, information can be collected using [OMI](https://github.com/Microsoft/omi). To display information in the form of a tree, [jsTree](https://www.jstree.com).
+
 
 [Description of the project, while in Russian.](http://webnote.satin-pl.com/2017/05/09/icingaweb2_module_hardwareinfo/)
 
