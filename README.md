@@ -13,7 +13,7 @@
 
 ## About
 
-The module is designed to display information (so far only for Windows systems) about the hardware from the MySQL database. For Linux systems, information can be collected using [OMI](https://github.com/Microsoft/omi). To display information in the form of a tree, [jsTree](https://www.jstree.com).
+The module is designed to display information (so far only for Windows systems) about the hardware from the MySQL database. For Linux systems, information can be collected using [OMI](https://github.com/Microsoft/omi). The module used the [jsTree](https://www.jstree.com) library.
 
 
 [Description of the project, while in Russian.](http://webnote.satin-pl.com/2017/05/09/icingaweb2_module_hardwareinfo/)
