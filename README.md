@@ -12,8 +12,7 @@
 
 ## About
 
-The module adds a graphical representation of the hardware
-  tree view.
+The module adds a graphical representation of the hardware tree view. To display information in the form of a tree, [jsTree](https://www.jstree.com).
 
 [Description of the project, while in Russian.](http://webnote.satin-pl.com/2017/05/09/icingaweb2_module_hardwareinfo/)
 
@@ -73,7 +72,7 @@ Password           | **Required.** Database user password.
 
 ### Manual collection of information
 
-To collect information, the script should be used: [powershell/check_hard_inventory.ps1](powershell/check_hard_inventory.ps1).
+To collect information, it's enough to run the powershell script [powershell/check_hard_inventory.ps1](powershell/check_hard_inventory.ps1) on the local system.
 
 
 ### Collection of information with the icinga2 service
