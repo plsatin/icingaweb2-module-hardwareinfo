@@ -60,7 +60,7 @@ icingacli module enable hardwareinfo
 
 ### Global Configuration
 
-You can edit global configuration settings in Icinga Web 2 in `Configuration -> Modules -> hardwareinfo -> General`.
+You can edit global configuration settings in Icinga Web 2 in `Configuration -> Modules -> hardwareinfo -> Configuration`.
 
 Setting            | Description
 -------------------|-------------------

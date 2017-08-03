@@ -10,9 +10,9 @@ $section = $this->menuSection('Hardware Info', array(
     'icon' => 'host'
 ));
 
-$this->provideConfigTab('general', array(
+$this->provideConfigTab('Configuration', array(
     'title' => $this->translate('Adjust the general configuration of the hardwareinfo module'),
-    'label' => $this->translate('General'),
+    'label' => $this->translate('Configuration'),
     'url' => 'config'
 ));
 
