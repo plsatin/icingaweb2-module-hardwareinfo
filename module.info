@@ -1,3 +1,5 @@
 Module: hardwareinfo
 Version: 0.1.0
-Description: The module is designed to display information (so far only for Windows systems) about the hardware from the MySQL database. For Linux systems, information can be collected using OMI. The module used the jsTree library.
+Description: The module is designed to display information (so far only for Windows systems) about the hardware from the MySQL database.
+
+For Linux systems, information can be collected using OMI. The module used the jsTree library.

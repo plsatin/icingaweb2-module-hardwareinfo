@@ -4,11 +4,29 @@
 
 use Icinga\Application\Config;
 
-$section = $this->menuSection('Hardware Info', array(
-    'url' => 'hardwareinfo',
-    'title' => 'Hardware Information',
-    'icon' => 'host'
-));
+
+use Icinga\Authentication\Auth;
+$auth = Auth::getInstance();
+
+$this->providePermission(
+    'hardwareinfo/hosts',
+    $this->translate('Allow unrestricted access to query data in Hardware Information')
+);
+
+
+
+if ($auth->hasPermission('hardwareinfo/hosts'))
+{
+
+    $section = $this->menuSection('Hardware Info', array(
+        'url' => 'hardwareinfo',
+        'title' => 'Hardware Information',
+        'icon' => 'host'
+    ));
+
+}
+
+
 
 $this->provideConfigTab('Configuration', array(
     'title' => $this->translate('Adjust the general configuration of the hardwareinfo module'),

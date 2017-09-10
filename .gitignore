@@ -1,2 +1,4 @@
 .hg/
 ^.hgignore
+^.gitignore
+Thumbs.db

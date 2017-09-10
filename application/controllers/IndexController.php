@@ -6,6 +6,10 @@ use Icinga\Application\Icinga;
 use Icinga\Web\Controller;
 use Icinga\Web\Widget;
 
+use Icinga\Authentication\Auth;
+
+
+
 class Hardwareinfo_IndexController extends ModuleActionController
 {
     public function indexAction()
@@ -21,21 +25,41 @@ class Hardwareinfo_IndexController extends ModuleActionController
 
     protected function tabs()
     {
-        return Widget::create('tabs')->add(
-            'index',
-            array(
-                'label' => $this->translate('Hosts'),
-                'url'   => 'hardwareinfo'
-            )
-        )->add(
-            'tree',
-            array(
-                'label' => $this->translate('Information'),
-                'title' => $this->translate('Hardware Information'),
-                'url'   => 'hardwareinfo/index/tree'
-            )
-        );
-    }
+        $auth = Auth::getInstance();
+        
+        if ($auth->hasPermission('hardwareinfo/hosts'))
+        {
 
+
+            return Widget::create('tabs')->add(
+                'index',
+                array(
+                    'label' => $this->translate('Hosts'),
+                    'url'   => 'hardwareinfo'
+                )
+            )->add(
+                'tree',
+                array(
+                    'label' => $this->translate('Information'),
+                    'title' => $this->translate('Hardware Information'),
+                    'url'   => 'hardwareinfo/index/tree'
+                )
+            );
+
+
+        } else {
+
+            return Widget::create('tabs')->add(
+                'tree',
+                array(
+                    'label' => $this->translate('Information'),
+                    'title' => $this->translate('Hardware Information'),
+                    'url'   => 'hardwareinfo/index/tree'
+                )
+            );
+
+
+        }
+    }
 
 }
