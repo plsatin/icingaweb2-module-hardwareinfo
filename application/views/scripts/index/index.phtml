@@ -2,6 +2,11 @@
 
 use Icinga\Application\Config;
 
+if (!empty($_POST["host"])) {
+    $hostsearch = $_POST["host"];
+} else {
+    $hostsearch = "%";
+}
 
 global $config;
 
@@ -35,7 +40,7 @@ MAX(IF(PropertyID=75,Value, NULL)) AS VideoRAM,
 MAX(IF(PropertyID=71,Value, NULL)) AS Sound
 FROM tbComputerInventory INNER JOIN
 tbComputerTarget ON tbComputerInventory.ComputerTargetId = tbComputerTarget.ComputerTargetId
-GROUP BY tbComputerTarget.Name;";
+WHERE tbComputerTarget.Name LIKE '%".$hostsearch."%' GROUP BY tbComputerTarget.Name;";
 
 $r_report = mysqli_query($dbh, $q_report)  or die(mysqli_error());
 
@@ -50,10 +55,19 @@ $r_report = mysqli_query($dbh, $q_report)  or die(mysqli_error());
 
 <h1>Hosts</h1>
 
+<form action="/icingaweb2/hardwareinfo" metod="post" id="HostSearchForm">
+    <div class="control-group">
+        <input type="text" name="host" size="20" value="<?php echo $hostsearch; ?>" style="width: 8em" class="search" placeholder="Search...">
+        <!-- <input type="submit" value="Search"> -->
+    </div>
+
+</form>
+
+<br>
+
 <?php
 
-//echo '<table data-base-target="_next" class="common-table">';
-echo '<table>';
+echo '<table data-base-target="_next" class="common-table" style="font-size: 0.75em;">';
 
 echo '<tr><th>Host</th><th>CPU</th><th>CPU Speed</th><th>RAM Capacity</th><th>RAM Speed</th><th>HDD</th><th>HDD Size</th><th>Net</th><th>Video</th><th>Video RAM</th><th>Sound</th></tr>';
 
