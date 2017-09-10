@@ -2,11 +2,28 @@
 
 use Icinga\Application\Config;
 
-if (!empty($_POST["host"])) {
-    $hostsearch = $_POST["host"];
+if (!empty($_GET["host"])) {
+    $hostsearch = $_GET["host"];
 } else {
-    $hostsearch = "%";
+    if (!empty($_POST["host"])) {
+        $hostsearch = $_POST["host"];
+    } else {
+        $hostsearch = "";
+    }
 }
+
+
+
+$per_page = 25;
+
+//получаем номер страницы и значение для лимита 
+$cur_page = 1;
+if (isset($_GET['page']) && $_GET['page'] > 0) 
+{
+    $cur_page = $_GET['page'];
+}
+$start = ($cur_page - 1) * $per_page;
+
 
 global $config;
 
@@ -40,10 +57,21 @@ MAX(IF(PropertyID=75,Value, NULL)) AS VideoRAM,
 MAX(IF(PropertyID=71,Value, NULL)) AS Sound
 FROM tbComputerInventory INNER JOIN
 tbComputerTarget ON tbComputerInventory.ComputerTargetId = tbComputerTarget.ComputerTargetId
-WHERE tbComputerTarget.Name LIKE '%".$hostsearch."%' GROUP BY tbComputerTarget.Name;";
+WHERE tbComputerTarget.Name LIKE '%".$hostsearch."%' GROUP BY tbComputerTarget.Name LIMIT ".$start.", ".$per_page.";";
 
-$r_report = mysqli_query($dbh, $q_report)  or die(mysqli_error());
+$q_report_sum = "SELECT Name FROM tbComputerTarget WHERE Name LIKE '%".$hostsearch."%';";
 
+
+$r_report_sum = mysqli_query($dbh, $q_report_sum) or die(mysqli_error());
+
+
+$num_rows = $r_report_sum->num_rows;
+
+$num_pages = ceil($num_rows / $per_page);
+
+$page = 0;
+
+$r_report = mysqli_query($dbh, $q_report) or die(mysqli_error());
 
 ?>
 
@@ -55,14 +83,76 @@ $r_report = mysqli_query($dbh, $q_report)  or die(mysqli_error());
 
 <h1>Hosts</h1>
 
+<div class="pagination-control" role="navigation">
+
+<!--
+    <h2 id="pagination-zsylqfnevpbt" class="sr-only" tabindex="-1">Pagination</h2>
+-->
+
+    <ul class="nav tab-nav">
+
+<? if ($cur_page == 1): ?>
+        <li class="nav-item disabled" aria-hidden="true">
+            <span class="previous-page">
+                <span class="sr-only">Previous page</span>
+                <i aria-hidden="true" class="icon-angle-double-left"></i></span>
+        </li>
+<? else: ?>
+        <li class="nav-item">
+            <a href="/icingaweb2/hardwareinfo?page=<?=$cur_page - 1?>&host=<?=$hostsearch?>" title="Show previous page" aria-label="Show previous page" class="previous-page">
+                <i aria-hidden="true" class="icon-angle-double-left"></i></a>
+        </li>
+<? endif ?>
+
+<? while ($page++ < $num_pages): ?>
+<? $rend = $page * $per_page; ?>
+<? $rstart = $rend - $per_page + 1; ?>
+<? if ($page == $num_pages): ?>
+<? $rend = $num_rows; ?>
+<? endif ?>
+<? if ($page == $cur_page): ?>
+    <li class="active nav-item">
+        <a href="/icingaweb2/hardwareinfo?page=<?=$page?>&host=<?=$hostsearch?>" title="Show rows <?=$rstart?> to <?=$rend?> of <?php echo $num_rows; ?>" aria-label="Show rows <?=$rstart?> to <?=$rend?> of <?=$num_rows?>"><?=$page?></a>
+    </li>
+<? else: ?> 
+    <li class="nav-item">
+        <a href="/icingaweb2/hardwareinfo?page=<?=$page?>&host=<?=$hostsearch?>" title="Show rows <?=$rstart?> to <?=$rend?> of <?php echo $num_rows; ?>" aria-label="Show rows <?=$rstart?> to <?=$rend?> of <?=$num_rows?>"><?=$page?></a>
+    </li>
+<? endif ?> 
+<? endwhile ?>
+
+<? if ($cur_page == $num_pages): ?>
+        <li class="nav-item disabled" aria-hidden="true">
+            <span class="next-page">
+                <span class="sr-only">Previous page</span>
+                <i aria-hidden="true" class="icon-angle-double-right"></i></span>
+        </li>
+<? else: ?>
+        <li class="nav-item">
+            <a href="/icingaweb2/hardwareinfo?page=<?=$cur_page + 1?>&host=<?=$hostsearch?>" title="Show next page" aria-label="Show next page" class="next-page">
+                <i aria-hidden="true" class="icon-angle-double-right"></i></a>
+        </li>
+<? endif ?>
+
+
+    </ul>
+
+</div>
+
+<br>
+<br>
+
+<div class="pagination-control">
 <form action="/icingaweb2/hardwareinfo" metod="post" id="HostSearchForm">
     <div class="control-group">
         <input type="text" name="host" size="20" value="<?php echo $hostsearch; ?>" style="width: 8em" class="search" placeholder="Search...">
         <!-- <input type="submit" value="Search"> -->
+        <a href="#" aria-label="Query: host = %<?=$hostsearch?>%" title="Query: host = %<?=$hostsearch?>%"><i aria-hidden="true" class="icon-filter" disabled></i></a>
+        host = %<?=$hostsearch?>% 
     </div>
 
 </form>
-
+</div>
 <br>
 
 <?php
