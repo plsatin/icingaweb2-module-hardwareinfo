@@ -23,7 +23,6 @@ class GeneralConfigForm extends ConfigForm
             array(
                 'value'         => 'localhost',
                 'label'         => $this->translate('Host'),
-                //'description'   => $this->translate('DB Host'),
                 'requirement'   => $this->translate('The hostname of the database.')
             )
         );
@@ -34,7 +33,6 @@ class GeneralConfigForm extends ConfigForm
             array(
                 'value'         => 'inventory',
                 'label'         => $this->translate('Database'),
-                //'description'   => $this->translate('Database Name'),
                 'requirement'   => $this->translate('The name of the database.')
             )
         );
@@ -45,18 +43,17 @@ class GeneralConfigForm extends ConfigForm
             array(
                 'value'         => 'inventory',
                 'label'         => $this->translate('User'),
-                //'description'   => $this->translate('Database User'),
                 'requirement'   => $this->translate('The user of the database.')
             )
         );
 
         $this->addElement(
-            'text',
+            'password',
             'db_password',
             array(
+                'renderPassword'=> true,
                 'value'         => '',
                 'label'         => $this->translate('Password'),
-                //'description'   => $this->translate('Database User Password'),
                 'requirement'   => $this->translate('The user passsword of the database.')
             )
         );

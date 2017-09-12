@@ -103,7 +103,7 @@ object CheckCommand "powershell" {
 ```
 
 ```
-apply Service "hardware-inventory-system" {
+apply Service "hardware-inventory" {
     enable_active_checks = false
     max_check_attempts = 2
     check_interval = 1440m
