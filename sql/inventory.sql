@@ -8,26 +8,44 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 DROP TABLE IF EXISTS `tbComputerInventory`;
 CREATE TABLE `tbComputerInventory` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `ComputerTargetId` varchar(256) NOT NULL,
+  `ComputerTargetId` varchar(255) NOT NULL,
   `ClassID` int(5) NOT NULL,
   `PropertyID` int(5) NOT NULL,
   `Value` varchar(256) NOT NULL,
-  `InstanceId` bigint(20) NOT NULL DEFAULT '1',
+  `InstanceId` int(5) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `ClassID` (`ClassID`),
   KEY `PropertyID` (`PropertyID`),
+  KEY `ComputerTargetId` (`ComputerTargetId`),
   CONSTRAINT `tbComputerInventory_ibfk_2` FOREIGN KEY (`PropertyID`) REFERENCES `tbInventoryProperty` (`PropertyID`),
   CONSTRAINT `tbComputerInventory_ibfk_3` FOREIGN KEY (`ClassID`) REFERENCES `tbInventoryClass` (`ClassID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `tbComputerSoftInventory`;
+CREATE TABLE `tbComputerSoftInventory` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `ComputerTargetId` varchar(255) NOT NULL,
+  `PropertyID` int(5) NOT NULL,
+  `Value` varchar(256) NOT NULL,
+  `InstanceId` int(5) NOT NULL DEFAULT '1',
+  `SnapshotId` int(5) NOT NULL,
+  `SnapshotDate` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ComputerTargetId` (`ComputerTargetId`),
+  KEY `PropertyID` (`PropertyID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 DROP TABLE IF EXISTS `tbComputerTarget`;
 CREATE TABLE `tbComputerTarget` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
-  `ComputerTargetId` varchar(256) NOT NULL,
-  `Name` varchar(255) NOT NULL,
+  `ComputerTargetId` varchar(255) NOT NULL,
+  `Name` varchar(256) NOT NULL,
   `LastReportedInventoryTime` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  `LastReportedSoftInventoryTime` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ComputerTargetId` (`ComputerTargetId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -60,7 +78,8 @@ INSERT INTO `tbInventoryClass` (`ClassID`, `Name`) VALUES
 (21,	'Win32_PointingDevice'),
 (22,	'Win32_Keyboard'),
 (23,	'Win32_SerialPort'),
-(24,	'Win32_ParallelPort');
+(24,	'Win32_ParallelPort'),
+(90,	'Win32_Product');
 
 DROP TABLE IF EXISTS `tbInventoryProperty`;
 CREATE TABLE `tbInventoryProperty` (
@@ -246,6 +265,14 @@ INSERT INTO `tbInventoryProperty` (`PropertyID`, `ClassID`, `Name`, `Type`) VALU
 (186,	24,	'Name',	'String'),
 (188,	24,	'Status',	'String'),
 (189,	24,	'StatusInfo',	'UInt16'),
-(190,	24,	'PNPDeviceID',	'String');
+(190,	24,	'PNPDeviceID',	'String'),
+(191,	8,	'InstallDate',	'DateTime'),
+(192,	2,	'Description',	'String'),
+(193,	8,	'Description',	'String'),
+(901,	90,	'Name',	'String'),
+(902,	90,	'Version',	'String'),
+(903,	90,	'Vendor',	'String'),
+(904,	90,	'InstallDate',	'DateTime'),
+(905,	90,	'IdentifyingNumber',	'String');
 
--- 2017-05-09 04:48:07
+-- 2017-10-24 17:45:34
