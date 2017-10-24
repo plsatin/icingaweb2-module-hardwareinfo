@@ -6,18 +6,24 @@ Description: Скрипт для Icinga 2 - Информация о железе
 Pavel Satin (c) 2016
 pslater.ru@gmail.com
 #>
-#[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
 $returnStateOK = 0
 $returnStateWarning = 1
 $returnStateCritical = 2
 $returnStateUnknown = 3
 
-#$ErrorActionPreference = "SilentlyContinue"
+$ErrorActionPreference = "SilentlyContinue"
 
 $connString = "Server=mysql.server.com;Uid=db_user;Pwd=password;database=inventory;charset=utf8"
 
-$myFQDN = (Get-WmiObject win32_computersystem).DNSHostName+"."+(Get-WmiObject win32_computersystem).Domain
+if ((Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain) {
+    $myFQDN = (Get-WmiObject win32_computersystem).DNSHostName+"."+(Get-WmiObject win32_computersystem).Domain
+
+} else {
+    $myFQDN = (Get-WmiObject win32_computersystem).DNSHostName
+    
+}
 
 #Проверка аргументов
 if ( $args[0] -ne $Null) {
@@ -33,43 +39,6 @@ if ( $args[1] -ne $Null) {
 
 
 
-##Не используется в текущей версии
-function get-WmiMemoryType {
-param ([uint16] $char)
-
-If ($char -ge 0 -and  $char  -le 25) {
-        switch ($char) {
-            0     {"00-Unknown"}
-            1     {"01-Other"}
-            2     {"02-DRAM"}
-            3     {"03-Synchronous DRAM"}
-            4     {"04-Cache DRAM"}
-            5     {"05-EDO"}
-            6     {"06-EDRAM"}
-            7     {"07-VRAM"}
-            8     {"08-SRAM"}
-            9     {"09-ROM"}
-            10     {"10-ROM"}
-            11     {"11-FLASH"}
-            12     {"12-EEPROM"}
-            13     {"13-FEPROM"}
-            14     {"14-EPROM"}
-            15     {"15-CDRAM"}
-            16     {"16-3DRAM"}
-            17     {"17-SDRAM"}
-            18     {"18-SGRAM"}
-            19     {"19-RDRAM"}
-            20     {"20-DDR"}
-            21     {"21-DDR2"}
-            22     {"22-DDR2 FB-DIMM"}
-            24     {"24-DDR3"}
-            25     {"25-FBD2"}
-        }
-    } else {
-        "{0} - undefined value" -f $char
-    }
-    Return
-}
 
 #Функция выполнения MySQL запроса
 function run-MySQLQuery {
@@ -136,6 +105,7 @@ if ($ComputerName -eq ".") {
 }
 
 
+$myFQDN = $myFQDN.ToLower()
 
 
 if ($result) {
@@ -145,52 +115,39 @@ $OSSerial = get-wmiobject Win32_OperatingSystem -computername $ComputerName | Se
 
 $ComputerUUID = $ComputerUUID + "-" + $OSSerial
 
-<#
-$Reg = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey('LocalMachine', $ComputerName)
-$RegKey= $Reg.OpenSubKey("SOFTWARE\\Microsoft\\Cryptography")
-$ComputerGUID = $RegKey.GetValue("MachineGuid")
-#>
-
 if ( $ComputerUUID -eq "00000000-0000-0000-0000-000000000000") {
     $ComputerUUID = $ComputerUUID + "-" + $addUUID
 } elseif ( $ComputerUUID -eq $Null ) {
     $ComputerUUID = "00000000-0000-0000-0000-000000000000-" + $addUUID
 }
 
-<#
-if ( $ComputerName -eq "localhost" ) {
-    $computerPSVer = $PSVersionTable.psversion
-} else {
-    $computerPSVer = Invoke-Command  -Computername $ComputerName -Scriptblock {$PSVersionTable.psversion}
-}
-#>
 
 #Write-Host "Обновляем данные системы в tbComputerTarget"
 ############################################################################
 
-#$sQLquery = "SELECT ComputerTargetId FROM tbComputerTarget WHERE Name='$ComputerName'"
 $sQLquery = "SELECT Name, ComputerTargetId FROM tbComputerTarget WHERE ComputerTargetId='$ComputerUUID'"
 $rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
 [string]$LastReportedInventoryTime = get-date -Format "yyyy-MM-dd HH:mm:ss"
 
 if ($rQLquery.ComputerTargetId -ne $Null) {
 
-    #$sQLquery = "UPDATE tbComputerTarget SET ComputerTargetId='$ComputerUUID', LastReportedInventoryTime='$LastReportedInventoryTime' WHERE Name='$ComputerName'"
     $sQLquery = "UPDATE tbComputerTarget SET Name='$myFQDN', LastReportedInventoryTime='$LastReportedInventoryTime' WHERE ComputerTargetId='$ComputerUUID'"
     $rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
 
     $sQLquery = "DELETE FROM tbComputerInventory WHERE ComputerTargetId='$ComputerUUID'"
     $rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
+
 } else {
 
     $sQLquery = "INSERT INTO tbComputerTarget ( ComputerTargetId, Name, LastReportedInventoryTime ) VALUES ( '$ComputerUUID', '$myFQDN', '$LastReportedInventoryTime' )"
     $rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
+
 }
 ##########################################################################
 
 
-
-$sQLquery = "SELECT ClassID, Name FROM tbInventoryClass"
+##Выбираем все классы кроме Win32_Product (90)
+$sQLquery = "SELECT ClassID, Name FROM tbInventoryClass WHERE ClassID != 90"
 $rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
 
 $recordCount = 0
@@ -234,9 +191,7 @@ Write-Host "Inserted $recordCount entries in the database"
 
 $watch.Stop() #Остановка таймера
 Write-Host $watch.Elapsed #Время выполнения
-
 Write-Host (Get-Date)
-
 [System.Environment]::Exit($returnStateOK)
 
 } #End if test-connection result

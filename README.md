@@ -19,9 +19,9 @@ The module is designed to display information (so far only for Windows systems) 
 [Description of the project, while in Russian.](http://webnote.satin-pl.com/2017/05/09/icingaweb2_module_hardwareinfo/)
 
 
-![Pic1](images/2017-07-08_12-32-53.png)
+![Pic1](images/icingaweb2_module_hardwareinfo_pic1.png)
 
-![Pic2](images/2017-05-09_10-10-02.png)
+![Pic2](images/icingaweb2_module_hardwareinfo_pic2.png)
 
 ## License
 
