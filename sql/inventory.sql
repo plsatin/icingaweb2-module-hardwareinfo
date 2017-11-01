@@ -53,33 +53,37 @@ DROP TABLE IF EXISTS `tbInventoryClass`;
 CREATE TABLE `tbInventoryClass` (
   `ClassID` int(5) NOT NULL,
   `Name` varchar(256) NOT NULL,
+  `Namespace` varchar(256) NOT NULL DEFAULT 'root\\cimv2',
+  `Enabled` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`ClassID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `tbInventoryClass` (`ClassID`, `Name`) VALUES
-(1,	'Win32_BIOS'),
-(2,	'Win32_ComputerSystem'),
-(3,	'Win32_DesktopMonitor'),
-(4,	'Win32_DiskDrive'),
-(5,	'Win32_LogicalDisk'),
-(6,	'Win32_NetworkAdapter'),
-(7,	'Win32_NetworkAdapterConfiguration'),
-(8,	'Win32_OperatingSystem'),
-(10,	'Win32_Printer'),
-(11,	'Win32_Processor'),
-(12,	'Win32_SoundDevice'),
-(13,	'Win32_VideoController'),
-(15,	'Win32_PhysicalMemory'),
-(16,	'Win32_BaseBoard'),
-(17,	'Win32_IDEController'),
-(18,	'Win32_SCSIController'),
-(19,	'Win32_USBController'),
-(20,	'Win32_USBHub'),
-(21,	'Win32_PointingDevice'),
-(22,	'Win32_Keyboard'),
-(23,	'Win32_SerialPort'),
-(24,	'Win32_ParallelPort'),
-(90,	'Win32_Product');
+INSERT INTO `tbInventoryClass` (`ClassID`, `Name`, `Namespace`, `Enabled`) VALUES
+(1,	'Win32_BIOS',	'root\\cimv2',	1),
+(2,	'Win32_ComputerSystem',	'root\\cimv2',	1),
+(3,	'Win32_DesktopMonitor',	'root\\cimv2',	1),
+(4,	'Win32_DiskDrive',	'root\\cimv2',	1),
+(5,	'Win32_LogicalDisk',	'root\\cimv2',	1),
+(6,	'Win32_NetworkAdapter',	'root\\cimv2',	0),
+(7,	'Win32_NetworkAdapterConfiguration',	'root\\cimv2',	0),
+(8,	'Win32_OperatingSystem',	'root\\cimv2',	1),
+(10,	'Win32_Printer',	'root\\cimv2',	1),
+(11,	'Win32_Processor',	'root\\cimv2',	1),
+(12,	'Win32_SoundDevice',	'root\\cimv2',	1),
+(13,	'Win32_VideoController',	'root\\cimv2',	1),
+(15,	'Win32_PhysicalMemory',	'root\\cimv2',	1),
+(16,	'Win32_BaseBoard',	'root\\cimv2',	1),
+(17,	'Win32_IDEController',	'root\\cimv2',	1),
+(18,	'Win32_SCSIController',	'root\\cimv2',	1),
+(19,	'Win32_USBController',	'root\\cimv2',	1),
+(20,	'Win32_USBHub',	'root\\cimv2',	1),
+(21,	'Win32_PointingDevice',	'root\\cimv2',	1),
+(22,	'Win32_Keyboard',	'root\\cimv2',	1),
+(23,	'Win32_SerialPort',	'root\\cimv2',	1),
+(24,	'Win32_ParallelPort',	'root\\cimv2',	1),
+(25,	'Win32_ComputerSystemProduct',	'root\\cimv2',	1),
+(90,	'Win32_Product',	'root\\cimv2',	0),
+(91,	'SoftwareLicensingProduct',	'root\\cimv2',	0);
 
 DROP TABLE IF EXISTS `tbInventoryProperty`;
 CREATE TABLE `tbInventoryProperty` (
@@ -269,10 +273,16 @@ INSERT INTO `tbInventoryProperty` (`PropertyID`, `ClassID`, `Name`, `Type`) VALU
 (191,	8,	'InstallDate',	'DateTime'),
 (192,	2,	'Description',	'String'),
 (193,	8,	'Description',	'String'),
+(194,	25,	'UUID',	'String'),
+(195,	6,	'GUID',	'String'),
 (901,	90,	'Name',	'String'),
 (902,	90,	'Version',	'String'),
 (903,	90,	'Vendor',	'String'),
 (904,	90,	'InstallDate',	'DateTime'),
-(905,	90,	'IdentifyingNumber',	'String');
+(905,	90,	'IdentifyingNumber',	'String'),
+(910,	91,	'Name',	'String'),
+(911,	91,	'ApplicationId',	'String'),
+(912,	91,	'LicenseStatus',	'UInt16'),
+(913,	91,	'ProductKeyChannel',	'String');
 
--- 2017-10-24 17:45:34
+-- 2017-11-01 17:17:50

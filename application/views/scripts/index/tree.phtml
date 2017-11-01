@@ -73,7 +73,8 @@ $r_Win32_USBController = GetSQLWin32Class($str_q, '19', $dbh);
 $r_Win32_USBHub = GetSQLWin32Class($str_q, '20', $dbh);
 $r_Win32_PointingDevice = GetSQLWin32Class($str_q, '21', $dbh);
 $r_Win32_Keyboard = GetSQLWin32Class($str_q, '22', $dbh);
-
+$r_Win32_SerialPort = GetSQLWin32Class($str_q, '23', $dbh);
+$r_Win32_ParallelPort = GetSQLWin32Class($str_q, '24', $dbh);
 
 
 ?>
@@ -317,6 +318,43 @@ foreach ( $adapters as $adapter ) {
 }
 echo "</ul></li>";
 
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/com.ico\" }'>Win32_SerialPort<ul>";
+$adapters = array();
+while($row = mysqli_fetch_array($r_Win32_SerialPort)) {
+  $InstId = $row['InstanceId'];
+  $PropName = $row['PropertyName'];
+  $PropValue = $row['Value'];
+  $adapters[$InstId][$PropName]["Value"] = $PropValue;
+}
+$i = 1;
+foreach ( $adapters as $adapter ) {
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/com.ico\" }'>".$adapters[$i]["Caption"]["Value"]."<ul>";
+  foreach ( $adapter as $key => $value ) {
+    echo "<li>".$key.": ".$value["Value"]."</li>";
+  }
+  echo '</ul></li>';
+  $i ++;
+}
+echo "</ul></li>";
+
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/lpt.ico\" }'>Win32_ParallelPort<ul>";
+$adapters = array();
+while($row = mysqli_fetch_array($r_Win32_ParallelPort)) {
+  $InstId = $row['InstanceId'];
+  $PropName = $row['PropertyName'];
+  $PropValue = $row['Value'];
+  $adapters[$InstId][$PropName]["Value"] = $PropValue;
+}
+$i = 1;
+foreach ( $adapters as $adapter ) {
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/lpt.ico\" }'>".$adapters[$i]["Caption"]["Value"]."<ul>";
+  foreach ( $adapter as $key => $value ) {
+    echo "<li>".$key.": ".$value["Value"]."</li>";
+  }
+  echo '</ul></li>';
+  $i ++;
+}
+echo "</ul></li>";
 
 echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/network.ico\" }'>Win32_NetworkAdapter<ul>";
 $adapters = array();

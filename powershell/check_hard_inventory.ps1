@@ -13,9 +13,9 @@ $returnStateWarning = 1
 $returnStateCritical = 2
 $returnStateUnknown = 3
 
-$ErrorActionPreference = "SilentlyContinue"
+#$ErrorActionPreference = "SilentlyContinue"
 
-$connString = "Server=mysql.server.com;Uid=db_user;Pwd=password;database=inventory;charset=utf8"
+$connString = "Server=192.168.0.209;Uid=inventory_user;Pwd=password;database=inventory;charset=utf8"
 
 if ((Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain) {
     $myFQDN = (Get-WmiObject win32_computersystem).DNSHostName+"."+(Get-WmiObject win32_computersystem).Domain
@@ -35,7 +35,6 @@ if ( $args[0] -ne $Null) {
 if ( $args[1] -ne $Null) {
      $myFQDN = $args[1]
 }
-
 
 
 
@@ -110,92 +109,100 @@ $myFQDN = $myFQDN.ToLower()
 
 if ($result) {
 
-$ComputerUUID = get-wmiobject Win32_ComputerSystemProduct -computername $ComputerName | Select-Object -ExpandProperty UUID
-$OSSerial = get-wmiobject Win32_OperatingSystem -computername $ComputerName | Select-Object -ExpandProperty SerialNumber
+    $ComputerUUID = get-wmiobject Win32_ComputerSystemProduct -computername $ComputerName | Select-Object -ExpandProperty UUID
+    $OSSerial = get-wmiobject Win32_OperatingSystem -computername $ComputerName | Select-Object -ExpandProperty SerialNumber
 
-$ComputerUUID = $ComputerUUID + "-" + $OSSerial
+    $ComputerUUID = $ComputerUUID + "-" + $OSSerial
 
-if ( $ComputerUUID -eq "00000000-0000-0000-0000-000000000000") {
-    $ComputerUUID = $ComputerUUID + "-" + $addUUID
-} elseif ( $ComputerUUID -eq $Null ) {
-    $ComputerUUID = "00000000-0000-0000-0000-000000000000-" + $addUUID
-}
-
-
-#Write-Host "Обновляем данные системы в tbComputerTarget"
-############################################################################
-
-$sQLquery = "SELECT Name, ComputerTargetId FROM tbComputerTarget WHERE ComputerTargetId='$ComputerUUID'"
-$rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
-[string]$LastReportedInventoryTime = get-date -Format "yyyy-MM-dd HH:mm:ss"
-
-if ($rQLquery.ComputerTargetId -ne $Null) {
-
-    $sQLquery = "UPDATE tbComputerTarget SET Name='$myFQDN', LastReportedInventoryTime='$LastReportedInventoryTime' WHERE ComputerTargetId='$ComputerUUID'"
-    $rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
-
-    $sQLquery = "DELETE FROM tbComputerInventory WHERE ComputerTargetId='$ComputerUUID'"
-    $rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
-
-} else {
-
-    $sQLquery = "INSERT INTO tbComputerTarget ( ComputerTargetId, Name, LastReportedInventoryTime ) VALUES ( '$ComputerUUID', '$myFQDN', '$LastReportedInventoryTime' )"
-    $rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
-
-}
-##########################################################################
-
-
-##Выбираем все классы кроме Win32_Product (90)
-$sQLquery = "SELECT ClassID, Name FROM tbInventoryClass WHERE ClassID != 90"
-$rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
-
-$recordCount = 0
-
-foreach ($row in $rQLquery) {
-
-[string]$Win32ClassName = $row.Name
-$Win32ClassID = $row.ClassID
-
-##Отладочный вывод названия обрабатываемого класса ###############################################################
-#Write-Host $Win32ClassName
-
-$computerClassI = Get-WMIObject -Class $Win32ClassName -Computer $ComputerName
-$InstanceId = 0
-
-    foreach ($computerClass in $computerClassI) {
-        $InstanceId = $InstanceId + 1
-        $ClassName = $Win32ClassName
-
-        $sQLqueryProp = "SELECT PropertyID, ClassID, Name FROM tbInventoryProperty WHERE ClassID='$Win32ClassID'"
-        $rQLqueryProp = run-MySQLQuery -connectionString $connString -query $sQLqueryProp
-        
-        foreach ($rowProp in $rQLqueryProp) {
-            $PropertyID = $rowProp.PropertyID
-            $PropertyName = $rowProp.Name
-            $Value = $computerClass.$PropertyName
-
-            $sQLDings = "INSERT INTO tbComputerInventory ( ComputerTargetId, ClassID, PropertyID, Value, InstanceId )
-                VALUES ( '$ComputerUUID', '$Win32ClassID', '$PropertyID', '$Value', '$InstanceId' )"
-            
-            run-MySQLQuery -connectionString $connString -query $sQLDings
-            $recordCount ++
-        }
+    if ( $ComputerUUID -eq "00000000-0000-0000-0000-000000000000") {
+        $ComputerUUID = $ComputerUUID + "-" + $addUUID
+    } elseif ( $ComputerUUID -eq $Null ) {
+        $ComputerUUID = "00000000-0000-0000-0000-000000000000-" + $addUUID
     }
 
 
-}
+    #Write-Host "Обновляем данные системы в tbComputerTarget"
+    ############################################################################
+
+    $sQLquery = "SELECT Name, ComputerTargetId FROM tbComputerTarget WHERE ComputerTargetId='$ComputerUUID'"
+    $rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
+    [string]$LastReportedInventoryTime = get-date -Format "yyyy-MM-dd HH:mm:ss"
+
+    if ($rQLquery.ComputerTargetId -ne $Null) {
+
+        $sQLquery = "UPDATE tbComputerTarget SET Name='$myFQDN', LastReportedInventoryTime='$LastReportedInventoryTime' WHERE ComputerTargetId='$ComputerUUID'"
+        $rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
 
 
-Write-Host "Inserted $recordCount entries in the database"
+    } else {
 
-$watch.Stop() #Остановка таймера
-Write-Host $watch.Elapsed #Время выполнения
-Write-Host (Get-Date)
-[System.Environment]::Exit($returnStateOK)
+        $sQLquery = "INSERT INTO tbComputerTarget ( ComputerTargetId, Name, LastReportedInventoryTime ) VALUES ( '$ComputerUUID', '$myFQDN', '$LastReportedInventoryTime' )"
+        $rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
+
+    }
+    ##########################################################################
+
+
+    #Выбираем только включенные классы
+    $sQLquery = "SELECT ClassID, Name, Namespace, Enabled FROM tbInventoryClass WHERE Enabled = 1"
+    $rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
+
+    $recordCount = 0
+
+    foreach ($row in $rQLquery) {
+
+
+
+        [string]$Win32ClassName = $row.Name
+        $Win32ClassID = $row.ClassID
+        
+        #Удаляем старые записи этого класса
+        $sQLqueryDel = "DELETE FROM tbComputerInventory WHERE (ComputerTargetId='$ComputerUUID' AND ClassID = $Win32ClassID)"
+        $rQLqueryDel = run-MySQLQuery -connectionString $connString -query $sQLqueryDel
+        
+        
+        ##Отладочный вывод названия обрабатываемого класса ###############################################################
+        #Write-Host $Win32ClassName
+
+        [string]$Win32Namespace = $row.Namespace
+        $computerClassI = Get-WMIObject -Namespace $Win32Namespace -Class $Win32ClassName -Computer $ComputerName
+
+        $InstanceId = 0
+
+        
+        foreach ($computerClass in $computerClassI) {
+            $InstanceId = $InstanceId + 1
+        
+            $sQLqueryProp = "SELECT PropertyID, ClassID, Name FROM tbInventoryProperty WHERE ClassID='$Win32ClassID'"
+            $rQLqueryProp = run-MySQLQuery -connectionString $connString -query $sQLqueryProp
+                
+            foreach ($rowProp in $rQLqueryProp) {
+                $PropertyID = $rowProp.PropertyID
+                $PropertyName = $rowProp.Name
+                $Value = $computerClass.$PropertyName
+        
+                $sQLDings = "INSERT INTO tbComputerInventory ( ComputerTargetId, ClassID, PropertyID, Value, InstanceId )
+                        VALUES ( '$ComputerUUID', '$Win32ClassID', '$PropertyID', '$Value', '$InstanceId' )"
+                    
+                run-MySQLQuery -connectionString $connString -query $sQLDings
+                $recordCount ++
+
+            }
+        }
+
+
+    }
+
+
+    Write-Host "Inserted $recordCount entries in the database"
+
+    $watch.Stop() #Остановка таймера
+    Write-Host $watch.Elapsed #Время выполнения
+    Write-Host (Get-Date)
+    [System.Environment]::Exit($returnStateOK)
 
 } #End if test-connection result
 else {
-    	Write-Host "Host $ComputerName is not available."
-		[System.Environment]::Exit($returnStateUnknown)
+    Write-Host "Host $ComputerName is not available."
+	[System.Environment]::Exit($returnStateUnknown)
 }

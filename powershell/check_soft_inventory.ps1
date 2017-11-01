@@ -15,7 +15,7 @@ $returnStateUnknown = 3
 
 #$ErrorActionPreference = "SilentlyContinue"
 
-$connString = "Server=mysql.server.com;Uid=db_user;Pwd=password;database=inventory;charset=utf8"
+$connString = "Server=192.168.0.209;Uid=inventory_user;Pwd=password;database=inventory;charset=utf8"
 
 if ((Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain) {
     $myFQDN = (Get-WmiObject win32_computersystem).DNSHostName+"."+(Get-WmiObject win32_computersystem).Domain
@@ -126,13 +126,26 @@ if ($result) {
     $rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
     [string]$LastReportedInventoryTime = get-date -Format "yyyy-MM-dd HH:mm:ss"
 
+    
+    $sQLqueryS = "SELECT ClassID, Name, Namespace, Enabled FROM tbInventoryClass WHERE Name = 'Win32_Product'"
+    $rQLqueryS = run-MySQLQuery -connectionString $connString -query $sQLqueryS
+    
+    foreach ($row in $rQLqueryS) {
+        $ClassID = $row.ClassID
+        [string]$Win32ClassName = $row.Name
+
+    }
+    
+
+
     if ($rQLquery.ComputerTargetId -ne $Null) {
 
         $sQLquery = "UPDATE tbComputerTarget SET Name='$myFQDN', LastReportedSoftInventoryTime='$LastReportedInventoryTime' WHERE ComputerTargetId='$ComputerUUID'"
         $rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
 
-        $sQLquery = "DELETE FROM tbComputerSoftInventory WHERE ComputerTargetId='$ComputerUUID'"
-        $rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
+    
+        $sQLqueryDel = "DELETE FROM tbComputerSoftInventory WHERE ComputerTargetId='$ComputerUUID'"
+        $rQLqueryDel = run-MySQLQuery -connectionString $connString -query $sQLqueryDel
 
     } else {
 
@@ -145,81 +158,94 @@ if ($result) {
 
 
 
-$recordCount = 0
+    $recordCount = 0
 
 
-[string]$Win32ClassName = "Win32_Product"
+    $computerClassI = Get-WMIObject -Class $Win32ClassName -Computer $ComputerName | Sort-Object InstallDate –Descending
+    $InstanceId = 0
+    #$SnapshotId = 0
 
-
-$computerClassI = Get-WMIObject -Class $Win32ClassName -Computer $ComputerName | Sort-Object InstallDate –Descending
-$InstanceId = 0
-$SnapshotId = 0
+    $sQLqueryProp = "SELECT PropertyID, ClassID, Name FROM tbInventoryProperty WHERE ClassID='$ClassID'"
+    $rQLqueryProp = run-MySQLQuery -connectionString $connString -query $sQLqueryProp
 
     foreach ($computerClass in $computerClassI) {
+
+
         $InstanceId = $InstanceId + 1
 
-            $PropertyName = 901
-            $Value = $computerClass.Name
+        foreach ($rowProp in $rQLqueryProp) {
+            if ($rowProp.Name -eq "Name") {
+                $PropertyName = $rowProp.PropertyID
+                $Value = $computerClass.Name
+                $Value = $Value -replace "[']",""
 
-            $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
-                VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
-            
-            run-MySQLQuery -connectionString $connString -query $sQLDings
-            $recordCount ++
+                $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
+                    VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
+                
+                run-MySQLQuery -connectionString $connString -query $sQLDings
+                $recordCount ++
 
-            $PropertyName = 902
-            $Value = $computerClass.Version
+            } elseif ($rowProp.Name -eq "Version") {
+                $PropertyName = $rowProp.PropertyID
+                $Value = $computerClass.Version
 
-            $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
-                VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
-            
-            run-MySQLQuery -connectionString $connString -query $sQLDings
-            $recordCount ++
+                $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
+                    VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
+                
+                run-MySQLQuery -connectionString $connString -query $sQLDings
+                $recordCount ++
 
-            $PropertyName = 903
-            $Value = $computerClass.Vendor
+            } elseif ($rowProp.Name -eq "Vendor") {
+                $PropertyName = $rowProp.PropertyID
+                $Value = $computerClass.Vendor
+    
+                $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
+                    VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
+                
+                run-MySQLQuery -connectionString $connString -query $sQLDings
+                $recordCount ++
+                
+            } elseif ($rowProp.Name -eq "InstallDate") {
+                $PropertyName = $rowProp.PropertyID
+                $Value = $computerClass.InstallDate
+    
+                $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
+                    VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
+                
+                run-MySQLQuery -connectionString $connString -query $sQLDings
+                $recordCount ++
+                
+            } elseif ($rowProp.Name -eq "IdentifyingNumber") {
+                $PropertyName = $rowProp.PropertyID
+                $Value = $computerClass.IdentifyingNumber
+    
+                $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
+                    VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
+                
+                run-MySQLQuery -connectionString $connString -query $sQLDings
+                $recordCount ++
+    
+                
+            }
 
-            $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
-                VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
-            
-            run-MySQLQuery -connectionString $connString -query $sQLDings
-            $recordCount ++
-
-            $PropertyName = 904
-            $Value = $computerClass.InstallDate
-
-            $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
-                VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
-            
-            run-MySQLQuery -connectionString $connString -query $sQLDings
-            $recordCount ++
-
-            $PropertyName = 905
-            $Value = $computerClass.IdentifyingNumber
-
-            $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
-                VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
-            
-            run-MySQLQuery -connectionString $connString -query $sQLDings
-            $recordCount ++
-
+        }
 
     }
 
 
 
 
-Write-Host "Inserted $recordCount entries in the database"
+    Write-Host "Inserted $recordCount entries in the database"
 
-$watch.Stop() #Остановка таймера
-Write-Host $watch.Elapsed #Время выполнения
-Write-Host (Get-Date)
+    $watch.Stop() #Остановка таймера
+    Write-Host $watch.Elapsed #Время выполнения
+    Write-Host (Get-Date)
 
-[System.Environment]::Exit($returnStateOK)
+    [System.Environment]::Exit($returnStateOK)
 
 } #End if test-connection result
 else {
-    	Write-Host "Host $ComputerName is not available."
+    Write-Host "Host $ComputerName is not available."
+    [System.Environment]::Exit($returnStateUnknown)
 
-        [System.Environment]::Exit($returnStateUnknown)
 }
