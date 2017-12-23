@@ -28,9 +28,9 @@ CREATE TABLE `tbComputerSoftInventory` (
   `ComputerTargetId` varchar(255) NOT NULL,
   `PropertyID` int(5) NOT NULL,
   `Value` varchar(256) NOT NULL,
-  `InstanceId` int(5) NOT NULL DEFAULT '1',
-  `SnapshotId` int(5) NOT NULL,
-  `SnapshotDate` datetime NOT NULL,
+  `InstanceId` int(5) NOT NULL,
+  `SnapshotId` int(5) DEFAULT NULL,
+  `SnapshotDate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ComputerTargetId` (`ComputerTargetId`),
   KEY `PropertyID` (`PropertyID`)
@@ -42,8 +42,8 @@ CREATE TABLE `tbComputerTarget` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `ComputerTargetId` varchar(255) NOT NULL,
   `Name` varchar(256) NOT NULL,
-  `LastReportedInventoryTime` datetime NOT NULL,
-  `LastReportedSoftInventoryTime` datetime NOT NULL,
+  `LastReportedInventoryTime` datetime DEFAULT NULL,
+  `LastReportedSoftInventoryTime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ComputerTargetId` (`ComputerTargetId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -82,8 +82,12 @@ INSERT INTO `tbInventoryClass` (`ClassID`, `Name`, `Namespace`, `Enabled`) VALUE
 (23,	'Win32_SerialPort',	'root\\cimv2',	1),
 (24,	'Win32_ParallelPort',	'root\\cimv2',	1),
 (25,	'Win32_ComputerSystemProduct',	'root\\cimv2',	1),
+(26,	'Win32_DiskDriveToDiskPartition',	'root\\cimv2',	1),
+(27,	'Win32_LogicalDiskToPartition',	'root\\cimv2',	1),
+(28,	'Win32_PhysicalMemoryArray',	'root\\cimv2',	1),
 (90,	'Win32_Product',	'root\\cimv2',	0),
-(91,	'SoftwareLicensingProduct',	'root\\cimv2',	0);
+(91,	'SoftwareLicensingProduct',	'root\\cimv2',	0),
+(92,	'MSStorageDriver_FailurePredictStatus ',	'root\\wmi',	1);
 
 DROP TABLE IF EXISTS `tbInventoryProperty`;
 CREATE TABLE `tbInventoryProperty` (
@@ -275,6 +279,16 @@ INSERT INTO `tbInventoryProperty` (`PropertyID`, `ClassID`, `Name`, `Type`) VALU
 (193,	8,	'Description',	'String'),
 (194,	25,	'UUID',	'String'),
 (195,	6,	'GUID',	'String'),
+(196,	2,	'PCSystemType',	'UInt16'),
+(197,	4,	'PNPDeviceID',	'String'),
+(198,	26,	'Antecedent',	'String'),
+(199,	26,	'Dependent',	'String'),
+(200,	27,	'Antecedent',	'String'),
+(201,	27,	'Dependent',	'String'),
+(202,	28,	'Name',	'String'),
+(203,	28,	'MaxCapacity',	'UInt32'),
+(204,	28,	'MemoryDevices',	'UInt16'),
+(205,	15,	'BankLabel',	'String'),
 (901,	90,	'Name',	'String'),
 (902,	90,	'Version',	'String'),
 (903,	90,	'Vendor',	'String'),
@@ -283,6 +297,23 @@ INSERT INTO `tbInventoryProperty` (`PropertyID`, `ClassID`, `Name`, `Type`) VALU
 (910,	91,	'Name',	'String'),
 (911,	91,	'ApplicationId',	'String'),
 (912,	91,	'LicenseStatus',	'UInt16'),
-(913,	91,	'ProductKeyChannel',	'String');
+(913,	91,	'ProductKeyChannel',	'String'),
+(920,	92,	'InstanceName',	'String'),
+(921,	92,	'PredictFailure',	'Boolean'),
+(922,	92,	'Reason',	'UInt32');
 
--- 2017-11-01 17:17:50
+DROP VIEW IF EXISTS `vwComputerInventory`;
+CREATE TABLE `vwComputerInventory` (`Name` varchar(256), `PropertyID` int(5), `Value` varchar(256), `InstanceId` int(5));
+
+
+DROP VIEW IF EXISTS `vwComputerSoftInventory`;
+CREATE TABLE `vwComputerSoftInventory` (`Name` varchar(256), `PropertyID` int(5), `Value` varchar(256), `InstanceId` int(5));
+
+
+DROP TABLE IF EXISTS `vwComputerInventory`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwComputerInventory` AS select `tbComputerTarget`.`Name` AS `Name`,`tbComputerInventory`.`PropertyID` AS `PropertyID`,`tbComputerInventory`.`Value` AS `Value`,`tbComputerInventory`.`InstanceId` AS `InstanceId` from (`tbComputerInventory` join `tbComputerTarget` on((`tbComputerInventory`.`ComputerTargetId` = `tbComputerTarget`.`ComputerTargetId`)));
+
+DROP TABLE IF EXISTS `vwComputerSoftInventory`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwComputerSoftInventory` AS select `tbComputerTarget`.`Name` AS `Name`,`tbComputerSoftInventory`.`PropertyID` AS `PropertyID`,`tbComputerSoftInventory`.`Value` AS `Value`,`tbComputerSoftInventory`.`InstanceId` AS `InstanceId` from (`tbComputerSoftInventory` join `tbComputerTarget` on((`tbComputerSoftInventory`.`ComputerTargetId` = `tbComputerTarget`.`ComputerTargetId`)));
+
+-- 2017-12-23 14:52:48

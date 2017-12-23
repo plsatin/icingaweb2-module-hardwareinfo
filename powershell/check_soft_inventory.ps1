@@ -17,6 +17,7 @@ $returnStateUnknown = 3
 
 $connString = "Server=192.168.0.209;Uid=inventory_user;Pwd=password;database=inventory;charset=utf8"
 
+
 if ((Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain) {
     $myFQDN = (Get-WmiObject win32_computersystem).DNSHostName+"."+(Get-WmiObject win32_computersystem).Domain
 
@@ -170,7 +171,6 @@ if ($result) {
 
     foreach ($computerClass in $computerClassI) {
 
-
         $InstanceId = $InstanceId + 1
 
         foreach ($rowProp in $rQLqueryProp) {
@@ -224,7 +224,6 @@ if ($result) {
                 
                 run-MySQLQuery -connectionString $connString -query $sQLDings
                 $recordCount ++
-    
                 
             }
 

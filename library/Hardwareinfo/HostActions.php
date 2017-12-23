@@ -7,12 +7,35 @@ class HostActions extends HostActionsHook
 {
     public function getActionsForHost(Host $host)
     {
+/*
         return $this->createNavigation(array(
             mt('hardwareinfo', 'Hardware Information') => array(
-                'url'  => Url::fromPath('hardwareinfo/index/tree', array('q' => $host->getName())),
+                'url'  => Url::fromPath('hardwareinfo/index/tree', array('host' => $host->getName())),
                 'icon' => 'host',
                 
             )
         ));
+*/
+
+        
+        $elements = array();
+        $elements[mt('hardwareinfo', 'Hardware Information')] = array('url'  => Url::fromPath('hardwareinfo/index/tree',
+            array('host' => $host->getName())),
+            'icon' => 'host',
+        
+        );
+        $elements[mt('softwareinfo', 'Software Report')] = array('url'  => Url::fromPath('/icingaweb2/iframe?url=/reports/SoftwareByHost.php?host='.$host->getName()),
+            'icon' => 'doc-text',
+    
+        );
+   
+
+
+
+        return $this->createNavigation($elements);
+
+
     }
+   
+
 }

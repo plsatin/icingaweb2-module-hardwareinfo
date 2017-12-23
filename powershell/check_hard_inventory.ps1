@@ -13,9 +13,10 @@ $returnStateWarning = 1
 $returnStateCritical = 2
 $returnStateUnknown = 3
 
-#$ErrorActionPreference = "SilentlyContinue"
+$ErrorActionPreference = "SilentlyContinue"
 
 $connString = "Server=192.168.0.209;Uid=inventory_user;Pwd=password;database=inventory;charset=utf8"
+
 
 if ((Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain) {
     $myFQDN = (Get-WmiObject win32_computersystem).DNSHostName+"."+(Get-WmiObject win32_computersystem).Domain
@@ -142,6 +143,9 @@ if ($result) {
     }
     ##########################################################################
 
+    ##Отладочный вывод ###############################################################
+    #Write-Host "Inventory of hardware ..."
+
 
     #Выбираем только включенные классы
     $sQLquery = "SELECT ClassID, Name, Namespace, Enabled FROM tbInventoryClass WHERE Enabled = 1"
@@ -193,7 +197,7 @@ if ($result) {
 
     }
 
-
+    #Write-Host "---------------------------------------------"
     Write-Host "Inserted $recordCount entries in the database"
 
     $watch.Stop() #Остановка таймера

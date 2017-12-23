@@ -22,9 +22,9 @@ $errors = array();
 
 
 
-if (!empty($_GET["q"])) {
+if (!empty($_GET["host"])) {
 
-	$str_q = $_GET["q"];
+	$str_q = $_GET["host"];
 
 
 
@@ -124,6 +124,9 @@ while($row = mysqli_fetch_array($r_Win32_Processor)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
+  if ($adapters[$i]["Name"]["Value"] == NULL) {
+    $adapters[$i]["Name"]["Value"] = "";
+  }
   echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/cpu.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
@@ -144,6 +147,9 @@ while($row = mysqli_fetch_array($r_Win32_PhysicalMemory)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
+  if ($adapters[$i]["Name"]["Value"] == NULL) {
+    $adapters[$i]["Name"]["Value"] = "";
+  }
   echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/ram.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
@@ -164,6 +170,9 @@ while($row = mysqli_fetch_array($r_Win32_DiskDrive)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
+  if ($adapters[$i]["Name"]["Value"] == NULL) {
+    $adapters[$i]["Name"]["Value"] = "";
+  }
   echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/disk.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
@@ -184,6 +193,9 @@ while($row = mysqli_fetch_array($r_Win32_LogicalDisk)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
+  if ($adapters[$i]["Name"]["Value"] == NULL) {
+    $adapters[$i]["Name"]["Value"] = "";
+  }
   if ($adapters[$i]["DriveType"]["Value"] == 5) {
       echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/cdrom.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   } else if ($adapters[$i]["DriveType"]["Value"] == 2) {
@@ -209,6 +221,9 @@ while($row = mysqli_fetch_array($r_Win32_IDEController)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
+  if ($adapters[$i]["Name"]["Value"] == NULL) {
+    $adapters[$i]["Name"]["Value"] = "";
+  }
   echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/ide-controller.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
@@ -229,6 +244,9 @@ while($row = mysqli_fetch_array($r_Win32_SCSIController)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
+  if ($adapters[$i]["Name"]["Value"] == NULL) {
+    $adapters[$i]["Name"]["Value"] = "";
+  }
   echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/scsi-controller.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
@@ -249,6 +267,9 @@ while($row = mysqli_fetch_array($r_Win32_USBController)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
+  if ($adapters[$i]["Name"]["Value"] == NULL) {
+    $adapters[$i]["Name"]["Value"] = "";
+  }
   echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/usb-controller.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
@@ -269,6 +290,9 @@ while($row = mysqli_fetch_array($r_Win32_USBHub)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
+  if ($adapters[$i]["Name"]["Value"] == NULL) {
+    $adapters[$i]["Name"]["Value"] = "";
+  }
   echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/usb.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
@@ -289,6 +313,9 @@ while($row = mysqli_fetch_array($r_Win32_PointingDevice)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
+  if ($adapters[$i]["Name"]["Value"] == NULL) {
+    $adapters[$i]["Name"]["Value"] = "";
+  }
   echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/mouse.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
@@ -309,7 +336,13 @@ while($row = mysqli_fetch_array($r_Win32_Keyboard)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
-  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/keyboard.ico\" }'>".$adapters[$i]["Caption"]["Value"]."<ul>";
+  if ($adapters[$i]["Name"]["Value"] == NULL) {
+    $adapters[$i]["Name"]["Value"] = "";
+  }
+  if ($adapters[$i]["Name"]["Value"] == NULL) {
+    $adapters[$i]["Name"]["Value"] = "";
+  }
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/keyboard.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
   }
@@ -328,7 +361,10 @@ while($row = mysqli_fetch_array($r_Win32_SerialPort)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
-  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/com.ico\" }'>".$adapters[$i]["Caption"]["Value"]."<ul>";
+  if ($adapters[$i]["Name"]["Value"] == NULL) {
+    $adapters[$i]["Name"]["Value"] = "";
+  }
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/com.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
   }
@@ -347,7 +383,10 @@ while($row = mysqli_fetch_array($r_Win32_ParallelPort)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
-  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/lpt.ico\" }'>".$adapters[$i]["Caption"]["Value"]."<ul>";
+  if ($adapters[$i]["Name"]["Value"] == NULL) {
+    $adapters[$i]["Name"]["Value"] = "";
+  }
+  echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/lpt.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
   }
@@ -366,6 +405,9 @@ while($row = mysqli_fetch_array($r_Win32_NetworkAdapter)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
+  if ($adapters[$i]["Name"]["Value"] == NULL) {
+    $adapters[$i]["Name"]["Value"] = "";
+  }
   echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/network.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
@@ -386,6 +428,9 @@ while($row = mysqli_fetch_array($r_Win32_NetworkAdapterConfiguration)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
+  if ($adapters[$i]["Caption"]["Value"] == NULL) {
+    $adapters[$i]["Caption"]["Value"] = "";
+  }
   echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/network.ico\" }'>".$adapters[$i]["Caption"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
@@ -406,6 +451,9 @@ while($row = mysqli_fetch_array($r_Win32_VideoController)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
+  if ($adapters[$i]["Description"]["Value"] == NULL) {
+    $adapters[$i]["Description"]["Value"] = "";
+  }
   echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/video.ico\" }'>".$adapters[$i]["Description"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
@@ -426,6 +474,9 @@ while($row = mysqli_fetch_array($r_Win32_DesktopMonitor)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
+  if ($adapters[$i]["Name"]["Value"] == NULL) {
+    $adapters[$i]["Name"]["Value"] = "";
+  }
   echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/monitor.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
@@ -446,6 +497,9 @@ while($row = mysqli_fetch_array($r_Win32_SoundDevice)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
+  if ($adapters[$i]["Name"]["Value"] == NULL) {
+    $adapters[$i]["Name"]["Value"] = "";
+  }
   echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/audio.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
@@ -466,6 +520,9 @@ while($row = mysqli_fetch_array($r_Win32_Printer)) {
 }
 $i = 1;
 foreach ( $adapters as $adapter ) {
+  if ($adapters[$i]["Name"]["Value"] == NULL) {
+    $adapters[$i]["Name"]["Value"] = "";
+  }
   echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/printer.ico\" }'>".$adapters[$i]["Name"]["Value"]."<ul>";
   foreach ( $adapter as $key => $value ) {
     echo "<li>".$key.": ".$value["Value"]."</li>";
@@ -501,11 +558,13 @@ echo "</ul></li>";
 
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-
-  <script src="<?= $this->baseUrl('plsatin/js/jstree.min.js');?>"></script>
+  <script src="/icingaweb2/js/jstree/jstree.min.js"></script>
 
   <script>
     $('#jstreehtml').jstree();
   </script>
+
+
+
 
 </div>
