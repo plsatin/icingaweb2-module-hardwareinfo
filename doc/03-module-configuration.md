@@ -1,6 +1,6 @@
 # Module configuration
 
-## Global Configuration
+## Global configuration
 
 You can edit global configuration settings in Icinga Web 2 in `Configuration -> Modules -> hardwareinfo -> Configuration`.
 
@@ -11,3 +11,20 @@ Host               | **Required.** MySQL server host name.
 Database           | **Required.** Database name. 
 User               | **Required.** Database user name.
 Password           | **Required.** Database user password.
+
+
+## Host configuration
+
+In order for the host to appear in the main module list, it is necessary to set the variable `vars.os_family` in the host configuration.
+
+
+```
+object Host "server1" {
+  import "generic-host"
+  check_command = "cluster-zone"
+
+  vars.os_family = "Windows"
+
+}
+
+```
