@@ -60,7 +60,7 @@ class TreeController extends MonitoringAwareController
 
 
         } else {
-            echo 'Не задан параметр ?host';
+            echo 'The parameter is not set ?host';
         }
 
 

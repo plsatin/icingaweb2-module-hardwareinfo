@@ -18,7 +18,7 @@ $this->providePermission(
 if ($auth->hasPermission('hardwareinfo/hosts'))
 {
 
-    $section = $this->menuSection('Hardware Info', array(
+    $section = $this->menuSection('Hardware', array(
         'url' => 'hardwareinfo',
         'title' => 'Hardware Information',
         'icon' => 'host'

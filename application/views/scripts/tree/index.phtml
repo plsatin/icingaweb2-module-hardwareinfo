@@ -20,10 +20,10 @@ $icon_path = "/icingaweb2/img/hardwareinfo/icons/";
 <div class="content">
 
 <div style="width: 100%;">
-	<h1>Hardware Information</h1>
+	<h1><?php echo $this->translate('Hardware Information') ?></h1>
 	<div id="jstreehtml" class="demo">
 		<ul>
-			<li data-jstree='{ "opened" : "true", "icon" : "/icingaweb2/img/hardwareinfo/icons/hardware.ico" }'>Computer: <?php echo $treehost; ?>
+			<li data-jstree='{ "opened" : "true", "icon" : "/icingaweb2/img/hardwareinfo/icons/hardware.ico" }'><?php echo $this->translate('Computer').': '.$treehost; ?>
                 <ul>
 <?php
 
@@ -490,18 +490,3 @@ echo "</ul></li>";
 
 </div>
 
-<!-- Debug div
-<div>
-    <br>
-    <hr>
-    <blockquote>
-        <?php
-            echo 'hostBaseUrl: '.$hostBaseUrl.'<br>';
-            echo 'baseUrl: '.$baseUrl.'<br>';
-            echo 'paramsUrl: '.$paramUrl.'<br>';
-            echo 'paramUrlHost: '.$treehost.'<br>';
-            echo 'Текущая версия PHP: ' . phpversion().'<br>';
-        ?>
-    </blockquote>
-</div>
-End Debug div -->

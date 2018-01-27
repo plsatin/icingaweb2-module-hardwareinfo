@@ -35,11 +35,11 @@ if ($hosts->hasResult()) {
     echo '<table data-base-target="_next" class="hardwareinfo-state-table state-table table-row-selectable" >';
 
     echo '<thead><tr>
-        <th>State</th>
-        <th>Host Name</th>
-        <th>Host OS</th>
-        <th>Host CPU</th>
-        <th>Host RAM</th>
+        <th>'.$this->translate('State').'</th>
+        <th>'.$this->translate('Host Name').'</th>
+        <th>'.$this->translate('Host OS').'</th>
+        <th>'.$this->translate('Host CPU').'</th>
+        <th>'.$this->translate('Host RAM').'</th>
         </tr></thead>
         <tbody>';
 
@@ -49,23 +49,23 @@ if ($hosts->hasResult()) {
         if ($host->host_state == 0) {
             $class_state = "state-up";
             $label_state = "UP";
-            $plugin_output = "Zone is connected.";
+            $plugin_output = $this->translate('Zone is connected.');
 
         } elseif ($host->host_state == 1) {
             $class_state = "state-down";
             $label_state = "DOWN";
-            $plugin_output = "Zone is not connected.";
+            $plugin_output = $this->translate('Zone is not connected.');
 
         } else {
             $class_state = "state-unreachable";
             $label_state = "UNREACHABLE";
-            $plugin_output = "Unknown.";
+            $plugin_output = $this->translate('Unknown');
 
 
         }
 
-        $titleHostLink = "Show detailed information for host ".$host->host_name;
-        $titleHWLink = "Show hardware information for host ".$host->host_name;
+        $titleHostLink = $this->translate('Show detailed information for host ').$host->host_name;
+        $titleHWLink = $this->translate('Show hardware information for host ').$host->host_name;
 
         
 
@@ -114,15 +114,6 @@ echo '<tr>
 } else {
     echo '<p>' . $this->escape(mt('monitoring', 'No hosts found matching the filter.')) . '</p>';
 }
-
-/*
-$this->img($host->host_icon_image, null, Array (
-    'title'                 =>  $host->host_name,
-    'class'                 => 'host-icon-image icon',
-    'data-tooltip-delay'    => '0'
-))
-*/
-
 
 
 ?>

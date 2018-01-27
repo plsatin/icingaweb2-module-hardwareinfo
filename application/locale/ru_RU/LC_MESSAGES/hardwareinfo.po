@@ -1,0 +1,161 @@
+# Icinga Web 2 - Head for multiple monitoring backends.
+# Copyright (C) 2018 Icinga Development Team
+# This file is distributed under the same license as Hardwareinfo Module.
+# Pavel Satin <pslater.ru@gmail.com>, 2018.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Hardwareinfo Module (0.3.0)\n"
+"Report-Msgid-Bugs-To: dev@icinga.com\n"
+"POT-Creation-Date: 2018-01-27 21:41+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ru_RU\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: ../../../../modules/hardwareinfo/configuration.php:32
+msgid "Adjust the general configuration of the hardwareinfo module"
+msgstr "Настроить основную конфигурацию модуля Hardware Information"
+
+#: ../../../../modules/hardwareinfo/configuration.php:13
+msgid "Allow unrestricted access to query data in Hardware Information"
+msgstr "Разрешить неограниченный доступ к данным запроса в Hardware Information"
+
+#: ../../../../modules/hardwareinfo/application/views/scripts/tree/index.phtml:26
+msgid "Computer"
+msgstr "Компьютер"
+
+#: ../../../../modules/hardwareinfo/configuration.php:33
+msgid "Configuration"
+msgstr "Конфигурация"
+
+#: ../../../../modules/hardwareinfo/application/controllers/IndexController.php:50
+msgid "Current State"
+msgstr "Текущее состояние"
+
+#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:48
+msgid "Database"
+msgstr "База данных"
+
+#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:25
+msgid "Database type"
+msgstr "Тип базы данных"
+
+#: ../../../../modules/hardwareinfo/library/Hardwareinfo/HostActions.php:12
+#: ../../../../modules/hardwareinfo/library/Hardwareinfo/ServiceActions.php:16
+#: ../../../../modules/hardwareinfo/application/controllers/IndexController.php:87
+#: ../../../../modules/hardwareinfo/application/controllers/TreeController.php:90
+#: ../../../../modules/hardwareinfo/application/controllers/TreeController.php:102
+#: ../../../../modules/hardwareinfo/application/views/scripts/tree/index.phtml:23
+msgid "Hardware Information"
+msgstr "Информация об оборудовании"
+
+#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:38
+msgid "Host"
+msgstr "Узел"
+
+#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:41
+msgid "Host CPU"
+msgstr "ЦПУ узла"
+
+#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:39
+msgid "Host Name"
+msgstr "Имя узла"
+
+#: ../../../../modules/hardwareinfo/application/controllers/IndexController.php:49
+#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:40
+msgid "Host OS"
+msgstr "ОС узла"
+
+#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:42
+msgid "Host RAM"
+msgstr "ОЗУ узла"
+
+#: ../../../../modules/hardwareinfo/application/controllers/IndexController.php:48
+msgid "Hostname"
+msgstr "Имя узла"
+
+#: ../../../../modules/hardwareinfo/application/controllers/IndexController.php:76
+#: ../../../../modules/hardwareinfo/application/controllers/TreeController.php:83
+msgid "Hosts"
+msgstr "Узлы"
+
+#: ../../../../modules/hardwareinfo/application/controllers/IndexController.php:86
+#: ../../../../modules/hardwareinfo/application/controllers/TreeController.php:89
+#: ../../../../modules/hardwareinfo/application/controllers/TreeController.php:101
+msgid "Information"
+msgstr "Информация"
+
+#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:115
+msgid "No hosts found matching the filter."
+msgstr "Не найдено узлов, соответствующих фильтру."
+
+#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:27
+msgid "PDO_MYSQL"
+msgstr "PDO_MYSQL"
+
+#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:69
+msgid "Password"
+msgstr "Пароль"
+
+#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:14
+msgid "Save Changes"
+msgstr "Сохранить изменения"
+
+#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:67
+msgid "Show detailed information for host "
+msgstr "Детальная информация о хосте "
+
+#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:68
+msgid "Show hardware information for host "
+msgstr "Информация об оборудовании"
+
+#: ../../../../modules/hardwareinfo/library/Hardwareinfo/HostActions.php:17
+msgid "Software Report"
+msgstr "Отчет по ПО"
+
+#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:38
+msgid "State"
+msgstr "Состояние"
+
+#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:39
+msgid "The hostname of the database."
+msgstr "Узел базы данных"
+
+#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:49
+msgid "The name of the database."
+msgstr "Имя базы данных"
+
+#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:29
+msgid "The type of the database."
+msgstr "Тип базы данных"
+
+#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:59
+msgid "The user of the database."
+msgstr "Пользователь базы данных"
+
+#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:70
+msgid "The user passsword of the database."
+msgstr "Пароль пользователя базы данных"
+
+#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:62
+msgid "Unknown"
+msgstr "Неизвестно"
+
+#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:58
+msgid "User"
+msgstr "Пользователь"
+
+#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:52
+msgid "Zone is connected."
+msgstr "Зона подключена."
+
+#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:57
+msgid "Zone is not connected."
+msgstr "Зона не подключена."

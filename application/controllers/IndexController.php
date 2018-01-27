@@ -76,16 +76,8 @@ class IndexController extends MonitoringAwareController
                     'label' => $this->translate('Hosts'),
                     'url'   => 'hardwareinfo'
                 )
-            )->add(
-                'tree',
-                array(
-                    'label' => $this->translate('Information'),
-                    'title' => $this->translate('Hardware Information'),
-                    'url'   => 'hardwareinfo/tree'
-                )
             );
-
-
+            
         } else {
 
             return Widget::create('tabs')->add(
