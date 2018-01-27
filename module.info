@@ -1,6 +1,6 @@
 Module: hardwareinfo
-Version: 0.2.1
-Description: Module View Hardware Inventory
+Version: 0.3.0
+Description: Hardwareinfo - Module for viewing information about software.
   The module is designed to display information (so far only for Windows systems) about the hardware from the MySQL database.
 
   For Linux systems, information can be collected using OMI. The module used the jsTree library.

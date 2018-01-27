@@ -1,0 +1,507 @@
+<?php
+
+use Icinga\Web\Url;
+
+/** @var \Icinga\Web\View $this */
+/** @var \Icinga\Web\Widget\FilterEditor $filterEditor */
+/** @var \Icinga\Module\Monitoring\DataView\DataView $services */
+/** @var \Icinga\Web\Url $hostBaseUrl */
+/** @var \Icinga\Web\Url $serviceBaseUrl */
+
+$icon_path = "/icingaweb2/img/hardwareinfo/icons/";
+
+?>
+
+
+<div class="controls">
+<?= $this->tabs ?>
+</div>
+
+<div class="content">
+
+<div style="width: 100%;">
+	<h1>Hardware Information</h1>
+	<div id="jstreehtml" class="demo">
+		<ul>
+			<li data-jstree='{ "opened" : "true", "icon" : "/icingaweb2/img/hardwareinfo/icons/hardware.ico" }'>Computer: <?php echo $treehost; ?>
+                <ul>
+<?php
+
+$class_name = "Win32_OperatingSystem";
+$class_icon = "non-pnp.ico";
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/".$class_icon."\" }'>".$class_name."<ul>";
+foreach ($r_Win32_OperatingSystem as $rclass) {
+    echo "<li>".$rclass->PropertyName.": ".$rclass->Value."</li>";
+}
+echo "</ul></li>";
+$class_name = "Win32_ComputerSystem";
+$class_icon = "computer.ico";
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/".$class_icon."\" }'>".$class_name."<ul>";
+foreach ($r_Win32_ComputerSystem as $rclass) {
+    echo "<li>".$rclass->PropertyName.": ".$rclass->Value."</li>";
+}
+echo "</ul></li>";
+$class_name = "Win32_BaseBoard";
+$class_icon = "system.ico";
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/".$class_icon."\" }'>".$class_name."<ul>";
+foreach ($r_Win32_BaseBoard as $rclass) {
+    echo "<li>".$rclass->PropertyName.": ".$rclass->Value."</li>";
+}
+echo "</ul></li>";
+$class_name = "Win32_BIOS";
+$class_icon = "bios.ico";
+echo "<li data-jstree='{ \"icon\" : \"/icingaweb2/img/hardwareinfo/icons/".$class_icon."\" }'>".$class_name."<ul>";
+foreach ($r_Win32_BIOS as $rclass) {
+    echo "<li>".$rclass->PropertyName.": ".$rclass->Value."</li>";
+}
+echo "</ul></li>";
+
+////Win32_Processor
+$class_name = "Win32_Processor";
+$class_icon = "cpu.ico";
+$class_array = $r_Win32_Processor;
+echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$class_name."<ul>";
+$i = 1;
+$obj_array = array();
+foreach ($class_array as $rclass) {
+    $InstId = $rclass->InstanceId;
+    $PropName = $rclass->PropertyName;
+    $PropValue = $rclass->Value;
+    $obj_array[$InstId][$PropName]["Value"] = $PropValue;
+}
+foreach ( $obj_array as $orow ) {
+    echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    foreach ( $orow as $key => $value ) {
+      echo "<li>".$key.": ".$value["Value"]."</li>";
+    }
+    echo '</ul></li>';
+    $i ++;
+}
+echo "</ul></li>";
+////Win32_PhysicalMemory
+$class_name = "Win32_PhysicalMemory";
+$class_icon = "ram.ico";
+$class_array = $r_Win32_PhysicalMemory;
+echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$class_name."<ul>";
+foreach ($r_Win32_PhysicalMemoryArray as $rclass) {
+    echo "<li>".$rclass->PropertyName.": ".$rclass->Value."</li>";
+}
+$i = 1;
+$obj_array = array();
+foreach ($class_array as $rclass) {
+    $InstId = $rclass->InstanceId;
+    $PropName = $rclass->PropertyName;
+    $PropValue = $rclass->Value;
+    $obj_array[$InstId][$PropName]["Value"] = $PropValue;
+}
+foreach ( $obj_array as $orow ) {
+    echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    foreach ( $orow as $key => $value ) {
+      echo "<li>".$key.": ".$value["Value"]."</li>";
+    }
+    echo '</ul></li>';
+    $i ++;
+}
+echo "</ul></li>";
+////Win32_DiskDrive
+$class_name = "Win32_DiskDrive";
+$class_icon = "disk.ico";
+$class_array = $r_Win32_DiskDrive;
+echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$class_name."<ul>";
+$i = 1;
+$obj_array = array();
+foreach ($class_array as $rclass) {
+    $InstId = $rclass->InstanceId;
+    $PropName = $rclass->PropertyName;
+    $PropValue = $rclass->Value;
+    $obj_array[$InstId][$PropName]["Value"] = $PropValue;
+}
+foreach ( $obj_array as $orow ) {
+    echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    foreach ( $orow as $key => $value ) {
+      echo "<li>".$key.": ".$value["Value"]."</li>";
+    }
+    echo '</ul></li>';
+    $i ++;
+}
+echo "</ul></li>";
+////Win32_LogicalDisk
+$class_name = "Win32_LogicalDisk";
+$class_icon = "disk.ico";
+$class_array = $r_Win32_LogicalDisk;
+echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$class_name."<ul>";
+$i = 1;
+$obj_array = array();
+foreach ($class_array as $rclass) {
+    $InstId = $rclass->InstanceId;
+    $PropName = $rclass->PropertyName;
+    $PropValue = $rclass->Value;
+    $obj_array[$InstId][$PropName]["Value"] = $PropValue;
+}
+foreach ( $obj_array as $orow ) {
+    if ($obj_array[$i]["DriveType"]["Value"] == 5) {
+        echo "<li data-jstree='{ \"icon\" : \"".$icon_path."cdrom.ico\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    } elseif ($obj_array[$i]["DriveType"]["Value"] == 2) {
+        echo "<li data-jstree='{ \"icon\" : \"".$icon_path."disk.ico\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    } else {
+        echo "<li data-jstree='{ \"icon\" : \"".$icon_path."disk.ico\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    }
+    foreach ( $orow as $key => $value ) {
+      echo "<li>".$key.": ".$value["Value"]."</li>";
+    }
+    echo '</ul></li>';
+    $i ++;
+}
+echo "</ul></li>";
+////Win32_IDEController
+$class_name = "Win32_IDEController";
+$class_icon = "ide-controller.ico";
+$class_array = $r_Win32_IDEController;
+echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$class_name."<ul>";
+$i = 1;
+$obj_array = array();
+foreach ($class_array as $rclass) {
+    $InstId = $rclass->InstanceId;
+    $PropName = $rclass->PropertyName;
+    $PropValue = $rclass->Value;
+    $obj_array[$InstId][$PropName]["Value"] = $PropValue;
+}
+foreach ( $obj_array as $orow ) {
+    echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    foreach ( $orow as $key => $value ) {
+      echo "<li>".$key.": ".$value["Value"]."</li>";
+    }
+    echo '</ul></li>';
+    $i ++;
+}
+echo "</ul></li>";
+////Win32_SCSIController
+$class_name = "Win32_SCSIController";
+$class_icon = "scsi-controller.ico";
+$class_array = $r_Win32_SCSIController;
+echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$class_name."<ul>";
+$i = 1;
+$obj_array = array();
+foreach ($class_array as $rclass) {
+    $InstId = $rclass->InstanceId;
+    $PropName = $rclass->PropertyName;
+    $PropValue = $rclass->Value;
+    $obj_array[$InstId][$PropName]["Value"] = $PropValue;
+}
+foreach ( $obj_array as $orow ) {
+    echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    foreach ( $orow as $key => $value ) {
+      echo "<li>".$key.": ".$value["Value"]."</li>";
+    }
+    echo '</ul></li>';
+    $i ++;
+}
+echo "</ul></li>";
+////Win32_USBController
+$class_name = "Win32_USBController";
+$class_icon = "usb-controller.ico";
+$class_array = $r_Win32_USBController;
+echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$class_name."<ul>";
+$i = 1;
+$obj_array = array();
+foreach ($class_array as $rclass) {
+    $InstId = $rclass->InstanceId;
+    $PropName = $rclass->PropertyName;
+    $PropValue = $rclass->Value;
+    $obj_array[$InstId][$PropName]["Value"] = $PropValue;
+}
+foreach ( $obj_array as $orow ) {
+    echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    foreach ( $orow as $key => $value ) {
+      echo "<li>".$key.": ".$value["Value"]."</li>";
+    }
+    echo '</ul></li>';
+    $i ++;
+}
+echo "</ul></li>";
+////Win32_USBHub
+$class_name = "Win32_USBHub";
+$class_icon = "usb.ico";
+$class_array = $r_Win32_USBHub;
+echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$class_name."<ul>";
+$i = 1;
+$obj_array = array();
+foreach ($class_array as $rclass) {
+    $InstId = $rclass->InstanceId;
+    $PropName = $rclass->PropertyName;
+    $PropValue = $rclass->Value;
+    $obj_array[$InstId][$PropName]["Value"] = $PropValue;
+}
+foreach ( $obj_array as $orow ) {
+    echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    foreach ( $orow as $key => $value ) {
+      echo "<li>".$key.": ".$value["Value"]."</li>";
+    }
+    echo '</ul></li>';
+    $i ++;
+}
+echo "</ul></li>";
+////Win32_PointingDevice
+$class_name = "Win32_PointingDevice";
+$class_icon = "mouse.ico";
+$class_array = $r_Win32_PointingDevice;
+echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$class_name."<ul>";
+$i = 1;
+$obj_array = array();
+foreach ($class_array as $rclass) {
+    $InstId = $rclass->InstanceId;
+    $PropName = $rclass->PropertyName;
+    $PropValue = $rclass->Value;
+    $obj_array[$InstId][$PropName]["Value"] = $PropValue;
+}
+foreach ( $obj_array as $orow ) {
+    echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    foreach ( $orow as $key => $value ) {
+      echo "<li>".$key.": ".$value["Value"]."</li>";
+    }
+    echo '</ul></li>';
+    $i ++;
+}
+echo "</ul></li>";
+////Win32_Keyboard
+$class_name = "Win32_Keyboard";
+$class_icon = "keyboard.ico";
+$class_array = $r_Win32_Keyboard;
+echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$class_name."<ul>";
+$i = 1;
+$obj_array = array();
+foreach ($class_array as $rclass) {
+    $InstId = $rclass->InstanceId;
+    $PropName = $rclass->PropertyName;
+    $PropValue = $rclass->Value;
+    $obj_array[$InstId][$PropName]["Value"] = $PropValue;
+}
+foreach ( $obj_array as $orow ) {
+    echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    foreach ( $orow as $key => $value ) {
+      echo "<li>".$key.": ".$value["Value"]."</li>";
+    }
+    echo '</ul></li>';
+    $i ++;
+}
+echo "</ul></li>";
+////Win32_SerialPort
+$class_name = "Win32_SerialPort";
+$class_icon = "com.ico";
+$class_array = $r_Win32_SerialPort;
+echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$class_name."<ul>";
+$i = 1;
+$obj_array = array();
+foreach ($class_array as $rclass) {
+    $InstId = $rclass->InstanceId;
+    $PropName = $rclass->PropertyName;
+    $PropValue = $rclass->Value;
+    $obj_array[$InstId][$PropName]["Value"] = $PropValue;
+}
+foreach ( $obj_array as $orow ) {
+    echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    foreach ( $orow as $key => $value ) {
+      echo "<li>".$key.": ".$value["Value"]."</li>";
+    }
+    echo '</ul></li>';
+    $i ++;
+}
+echo "</ul></li>";
+////Win32_ParallelPort
+$class_name = "Win32_ParallelPort";
+$class_icon = "lpt.ico";
+$class_array = $r_Win32_ParallelPort;
+echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$class_name."<ul>";
+$i = 1;
+$obj_array = array();
+foreach ($class_array as $rclass) {
+    $InstId = $rclass->InstanceId;
+    $PropName = $rclass->PropertyName;
+    $PropValue = $rclass->Value;
+    $obj_array[$InstId][$PropName]["Value"] = $PropValue;
+}
+foreach ( $obj_array as $orow ) {
+    echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    foreach ( $orow as $key => $value ) {
+      echo "<li>".$key.": ".$value["Value"]."</li>";
+    }
+    echo '</ul></li>';
+    $i ++;
+}
+echo "</ul></li>";
+////Win32_NetworkAdapter
+$class_name = "Win32_NetworkAdapter";
+$class_icon = "network.ico";
+$class_array = $r_Win32_NetworkAdapter;
+echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$class_name."<ul>";
+$i = 1;
+$obj_array = array();
+foreach ($class_array as $rclass) {
+    $InstId = $rclass->InstanceId;
+    $PropName = $rclass->PropertyName;
+    $PropValue = $rclass->Value;
+    $obj_array[$InstId][$PropName]["Value"] = $PropValue;
+}
+foreach ( $obj_array as $orow ) {
+    echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    foreach ( $orow as $key => $value ) {
+      echo "<li>".$key.": ".$value["Value"]."</li>";
+    }
+    echo '</ul></li>';
+    $i ++;
+}
+echo "</ul></li>";
+////Win32_NetworkAdapterConfiguration
+$class_name = "Win32_NetworkAdapterConfiguration";
+$class_icon = "network.ico";
+$class_array = $r_Win32_NetworkAdapterConfiguration;
+echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$class_name."<ul>";
+$i = 1;
+$obj_array = array();
+foreach ($class_array as $rclass) {
+    $InstId = $rclass->InstanceId;
+    $PropName = $rclass->PropertyName;
+    $PropValue = $rclass->Value;
+    $obj_array[$InstId][$PropName]["Value"] = $PropValue;
+}
+foreach ( $obj_array as $orow ) {
+    $obj_array[$i]["Name"]["Value"] = $obj_array[$i]["Caption"]["Value"];
+
+    echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    foreach ( $orow as $key => $value ) {
+      echo "<li>".$key.": ".$value["Value"]."</li>";
+    }
+    echo '</ul></li>';
+    $i ++;
+}
+echo "</ul></li>";
+////Win32_VideoController
+$class_name = "Win32_VideoController";
+$class_icon = "video.ico";
+$class_array = $r_Win32_VideoController;
+echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$class_name."<ul>";
+$i = 1;
+$obj_array = array();
+foreach ($class_array as $rclass) {
+    $InstId = $rclass->InstanceId;
+    $PropName = $rclass->PropertyName;
+    $PropValue = $rclass->Value;
+    $obj_array[$InstId][$PropName]["Value"] = $PropValue;
+}
+foreach ( $obj_array as $orow ) {
+    $obj_array[$i]["Name"]["Value"] = $obj_array[$i]["Description"]["Value"];
+
+    echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    foreach ( $orow as $key => $value ) {
+      echo "<li>".$key.": ".$value["Value"]."</li>";
+    }
+    echo '</ul></li>';
+    $i ++;
+}
+echo "</ul></li>";
+////Win32_DesktopMonitor
+$class_name = "Win32_DesktopMonitor";
+$class_icon = "monitor.ico";
+$class_array = $r_Win32_DesktopMonitor;
+echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$class_name."<ul>";
+$i = 1;
+$obj_array = array();
+foreach ($class_array as $rclass) {
+    $InstId = $rclass->InstanceId;
+    $PropName = $rclass->PropertyName;
+    $PropValue = $rclass->Value;
+    $obj_array[$InstId][$PropName]["Value"] = $PropValue;
+}
+foreach ( $obj_array as $orow ) {
+    echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    foreach ( $orow as $key => $value ) {
+      echo "<li>".$key.": ".$value["Value"]."</li>";
+    }
+    echo '</ul></li>';
+    $i ++;
+}
+echo "</ul></li>";
+////Win32_SoundDevice
+$class_name = "Win32_SoundDevice";
+$class_icon = "audio.ico";
+$class_array = $r_Win32_SoundDevice;
+echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$class_name."<ul>";
+$i = 1;
+$obj_array = array();
+foreach ($class_array as $rclass) {
+    $InstId = $rclass->InstanceId;
+    $PropName = $rclass->PropertyName;
+    $PropValue = $rclass->Value;
+    $obj_array[$InstId][$PropName]["Value"] = $PropValue;
+}
+foreach ( $obj_array as $orow ) {
+    echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    foreach ( $orow as $key => $value ) {
+      echo "<li>".$key.": ".$value["Value"]."</li>";
+    }
+    echo '</ul></li>';
+    $i ++;
+}
+echo "</ul></li>";
+////Win32_Printer
+$class_name = "Win32_Printer";
+$class_icon = "printer.ico";
+$class_array = $r_Win32_Printer;
+echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$class_name."<ul>";
+$i = 1;
+$obj_array = array();
+foreach ($class_array as $rclass) {
+    $InstId = $rclass->InstanceId;
+    $PropName = $rclass->PropertyName;
+    $PropValue = $rclass->Value;
+    $obj_array[$InstId][$PropName]["Value"] = $PropValue;
+}
+foreach ( $obj_array as $orow ) {
+    echo "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$obj_array[$i]["Name"]["Value"]."<ul>";
+    foreach ( $orow as $key => $value ) {
+      echo "<li>".$key.": ".$value["Value"]."</li>";
+    }
+    echo '</ul></li>';
+    $i ++;
+}
+echo "</ul></li>";
+
+
+?>
+
+
+                </ul>
+			</li>
+		</ul>
+	</div>
+</div>
+
+
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="/icingaweb2/js/jstree/jstree.min.js"></script>
+
+    <script>
+        $('#jstreehtml').jstree();
+    </script>
+
+
+
+</div>
+
+<!-- Debug div
+<div>
+    <br>
+    <hr>
+    <blockquote>
+        <?php
+            echo 'hostBaseUrl: '.$hostBaseUrl.'<br>';
+            echo 'baseUrl: '.$baseUrl.'<br>';
+            echo 'paramsUrl: '.$paramUrl.'<br>';
+            echo 'paramUrlHost: '.$treehost.'<br>';
+            echo 'Текущая версия PHP: ' . phpversion().'<br>';
+        ?>
+    </blockquote>
+</div>
+End Debug div -->

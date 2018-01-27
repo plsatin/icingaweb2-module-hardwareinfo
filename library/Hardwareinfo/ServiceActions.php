@@ -13,7 +13,7 @@ class ServiceActions extends ServiceActionsHook
         
         if ($service->getName() == "hardware-inventory") {
             $elements = array();
-            $elements[mt('hardwareinfo', 'Hardware Information')] = array('url'  => Url::fromPath('hardwareinfo/index/tree', array('host' => $service->getHost()->getName())),
+            $elements[mt('hardwareinfo', 'Hardware Information')] = array('url'  => Url::fromPath('hardwareinfo/tree', array('host' => $service->getHost()->getName())),
             'icon' => 'host',
             
             );

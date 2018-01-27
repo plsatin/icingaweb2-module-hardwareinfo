@@ -106,8 +106,8 @@ object CheckCommand "powershell" {
 apply Service "hardware-inventory" {
     enable_active_checks = false
     max_check_attempts = 2
-    check_interval = 1440m
-    retry_interval = 30m
+    check_interval = 420h
+    retry_interval = 10m
     enable_perfdata = false
 
     check_command = "powershell"

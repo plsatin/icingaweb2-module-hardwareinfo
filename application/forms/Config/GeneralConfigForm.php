@@ -18,6 +18,19 @@ class GeneralConfigForm extends ConfigForm
     {
 
         $this->addElement(
+            'select',
+            'db_adapter',
+            array(
+                'value'         => 'PDO_MYSQL',
+                'label'         => $this->translate('Database type'),
+                'multiOptions'  => array (
+                    'PDO_MYSQL'     => $this->translate('PDO_MYSQL'),
+                    ),
+                'description'   => $this->translate('The type of the database.')
+            )
+        );
+
+        $this->addElement(
             'text',
             'db_host',
             array(

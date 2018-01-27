@@ -1,196 +1,133 @@
 <?php
 
-use Icinga\Application\Config;
+use Icinga\Web\Url;
 
-if (!empty($_GET["host"])) {
-    $hostsearch = $_GET["host"];
-} else {
-    if (!empty($_POST["host"])) {
-        $hostsearch = $_POST["host"];
-    } else {
-        $hostsearch = "";
-    }
-}
+/** @var \Icinga\Web\View $this */
+/** @var \Icinga\Web\Widget\FilterEditor $filterEditor */
+/** @var \Icinga\Module\Monitoring\DataView\DataView $services */
+/** @var \Icinga\Web\Url $hostBaseUrl */
+/** @var \Icinga\Web\Url $serviceBaseUrl */
 
 
 
-$per_page = 25;
-
-//получаем номер страницы и значение для лимита 
-$cur_page = 1;
-if (isset($_GET['page']) && $_GET['page'] > 0) 
-{
-    $cur_page = $_GET['page'];
-}
-$start = ($cur_page - 1) * $per_page;
-
-
-global $config;
-
-$config = Config::module('hardwareinfo');
-
-$errors = array();
-
-error_reporting(E_ALL ^ E_DEPRECATED);
-
-$host = $config->get('db', 'host');
-$database = $config->get('db', 'name');
-$user = $config->get('db', 'user');
-$pswd = $config->get('db', 'password');
-
-$dbh = mysqli_connect($host, $user, $pswd, $database);
-
-mysqli_query($dbh, "SET names UTF8");
-
-########################################
-$q_report = "SELECT tbComputerTarget.Name AS Host,
-MAX(IF(PropertyID=23,Value, NULL)) AS OSVer,
-MAX(IF(PropertyID=4,Value, NULL)) AS CPU,
-MAX(IF(PropertyID=3,Value, NULL)) AS CPUSpeed,
-MAX(IF(PropertyID=106,Value, NULL)) AS RAMCapacity,
-MAX(IF(PropertyID=107,Value, NULL)) AS RAMSpeed,
-MAX(IF((PropertyID=26 AND Value NOT Like '%USB%'),Value, NULL)) AS HDD,
-MAX(IF((PropertyID=31 AND Value > 33000000000),Value, NULL)) AS HDDSize,
-MAX(IF((PropertyID=62 AND (Value Like '%Realtek%' OR Value Like '%Atheros%' OR Value Like '%Marvell%' OR Value Like '%NVIDIA%' OR Value Like '%Broadcom%' OR Value Like '%Intel%' OR Value Like '%HP Ethernet%')),Value, NULL)) AS Net,
-MAX(IF(PropertyID=74,Value, NULL)) AS Video,
-MAX(IF(PropertyID=75,Value, NULL)) AS VideoRAM,
-MAX(IF(PropertyID=71,Value, NULL)) AS Sound
-FROM tbComputerInventory INNER JOIN
-tbComputerTarget ON tbComputerInventory.ComputerTargetId = tbComputerTarget.ComputerTargetId
-WHERE tbComputerTarget.Name LIKE '%".$hostsearch."%' GROUP BY tbComputerTarget.Name LIMIT ".$start.", ".$per_page.";";
-
-$q_report_sum = "SELECT Name FROM tbComputerTarget WHERE Name LIKE '%".$hostsearch."%';";
-
-
-$r_report_sum = mysqli_query($dbh, $q_report_sum) or die(mysqli_error());
-
-
-$num_rows = $r_report_sum->num_rows;
-
-$num_pages = ceil($num_rows / $per_page);
-
-$page = 0;
-
-$r_report = mysqli_query($dbh, $q_report) or die(mysqli_error());
-
-?>
-
+if (! $compact): ?>
 <div class="controls">
-<?= $this->tabs ?>
-</div>
-<div class="content">
-
-
-<h1>Hosts</h1>
-
-<div class="pagination-control" role="navigation">
-
-<!--
-    <h2 id="pagination-zsylqfnevpbt" class="sr-only" tabindex="-1">Pagination</h2>
--->
-
-    <ul class="nav tab-nav">
-
-<? if ($cur_page == 1): ?>
-        <li class="nav-item disabled" aria-hidden="true">
-            <span class="previous-page">
-                <span class="sr-only">Previous page</span>
-                <i aria-hidden="true" class="icon-angle-double-left"></i></span>
-        </li>
-<? else: ?>
-        <li class="nav-item">
-            <a href="/icingaweb2/hardwareinfo?page=<?=$cur_page - 1?>&host=<?=$hostsearch?>" title="Show previous page" aria-label="Show previous page" class="previous-page">
-                <i aria-hidden="true" class="icon-angle-double-left"></i></a>
-        </li>
-<? endif ?>
-
-<? while ($page++ < $num_pages): ?>
-<? $rend = $page * $per_page; ?>
-<? $rstart = $rend - $per_page + 1; ?>
-<? if ($page == $num_pages): ?>
-<? $rend = $num_rows; ?>
-<? endif ?>
-<? if ($page == $cur_page): ?>
-    <li class="active nav-item">
-        <a href="/icingaweb2/hardwareinfo?page=<?=$page?>&host=<?=$hostsearch?>" title="Show rows <?=$rstart?> to <?=$rend?> of <?php echo $num_rows; ?>" aria-label="Show rows <?=$rstart?> to <?=$rend?> of <?=$num_rows?>"><?=$page?></a>
-    </li>
-<? else: ?> 
-    <li class="nav-item">
-        <a href="/icingaweb2/hardwareinfo?page=<?=$page?>&host=<?=$hostsearch?>" title="Show rows <?=$rstart?> to <?=$rend?> of <?php echo $num_rows; ?>" aria-label="Show rows <?=$rstart?> to <?=$rend?> of <?=$num_rows?>"><?=$page?></a>
-    </li>
-<? endif ?> 
-<? endwhile ?>
-
-<? if ($cur_page == $num_pages): ?>
-        <li class="nav-item disabled" aria-hidden="true">
-            <span class="next-page">
-                <span class="sr-only">Previous page</span>
-                <i aria-hidden="true" class="icon-angle-double-right"></i></span>
-        </li>
-<? else: ?>
-        <li class="nav-item">
-            <a href="/icingaweb2/hardwareinfo?page=<?=$cur_page + 1?>&host=<?=$hostsearch?>" title="Show next page" aria-label="Show next page" class="next-page">
-                <i aria-hidden="true" class="icon-angle-double-right"></i></a>
-        </li>
-<? endif ?>
-
-
-    </ul>
-
-</div>
-
-<br>
-<br>
-
-<div class="pagination-control">
-<form action="/icingaweb2/hardwareinfo" metod="post" id="HostSearchForm">
-    <div class="control-group">
-        <input type="text" name="host" size="20" value="<?php echo $hostsearch; ?>" style="width: 8em" class="search" placeholder="Search...">
-        <!-- <input type="submit" value="Search"> -->
-        <a href="#" aria-label="Query: host = %<?=$hostsearch?>%" title="Query: host = %<?=$hostsearch?>%"><i aria-hidden="true" class="icon-filter" disabled></i></a>
-        host = %<?=$hostsearch?>% 
+    <?= $tabs ?>
+    <?= $paginator ?>
+    <div class="sort-controls-container">
+        <?= $limiter ?>
+        <?= $sortBox ?>
     </div>
+    <?= $filterEditor ?>
 
-</form>
 </div>
-<br>
+<?php endif ?>
+
+
+
+
+<div class="content">
 
 <?php
 
-echo '<table data-base-target="_next" class="common-table" style="font-size: 0.75em;">';
+if ($hosts->hasResult()) {
 
-echo '<tr><th>Host</th><th>CPU</th><th>CPU Speed</th><th>RAM Capacity</th><th>RAM Speed</th><th>HDD</th><th>HDD Size</th><th>Net</th><th>Video</th><th>Video RAM</th><th>Sound</th></tr>';
+    echo '<table data-base-target="_next" class="hardwareinfo-state-table state-table table-row-selectable" >';
 
-while($row = mysqli_fetch_array($r_report)) {
+    echo '<thead><tr>
+        <th>State</th>
+        <th>Host Name</th>
+        <th>Host OS</th>
+        <th>Host CPU</th>
+        <th>Host RAM</th>
+        </tr></thead>
+        <tbody>';
 
 
-    echo "<tr style='cursor: pointer;' onclick=\"location='/icingaweb2/hardwareinfo/index/tree?host=".$row['Host']."'\">";
-        echo "<td>".$row['Host']."</td>";
-    
-    //echo "<tr>";
-    //    echo "<td><a href='/icingaweb2/hardwareinfo/index/tree?host=".$row['Host']."' >".$row['Host']."</a></td>";
+    foreach ($hosts->peekAhead($compact) as $host) {
+
+        if ($host->host_state == 0) {
+            $class_state = "state-up";
+            $label_state = "UP";
+            $plugin_output = "Zone is connected.";
+
+        } elseif ($host->host_state == 1) {
+            $class_state = "state-down";
+            $label_state = "DOWN";
+            $plugin_output = "Zone is not connected.";
+
+        } else {
+            $class_state = "state-unreachable";
+            $label_state = "UNREACHABLE";
+            $plugin_output = "Unknown.";
 
 
-        echo "<td>".$row['CPU']."</td>";
-        echo "<td>".$row['CPUSpeed']."</td>";
-        echo "<td>".$row['RAMCapacity']."</td>";
-        echo "<td>".$row['RAMSpeed']."</td>";
-        echo "<td>".$row['HDD']."</td>";
-        echo "<td>".$row['HDDSize']."</td>";
-        echo "<td>".$row['Net']."</td>";
-        echo "<td>".$row['Video']."</td>";
-        echo "<td>".$row['VideoRAM']."</td>";
-        echo "<td>".$row['Sound']."</td>";
-    echo "</tr>";
+        }
 
+        $titleHostLink = "Show detailed information for host ".$host->host_name;
+        $titleHWLink = "Show hardware information for host ".$host->host_name;
+
+        
+
+    $hostLink = $this->qlink($host->host_name, $hostBaseUrl."/monitoring/host/show?host=".$host->host_name, null, [
+        'class'             => '',
+        'title'  => $titleHostLink,
+        'data-base-target'  => '_next'
+    ]);
+    $hardwareInfoLink = $this->qlink("Hardware Information", $hostBaseUrl."/hardwareinfo/tree?host=".$host->host_name, null, [
+        'class'             => 'rowaction', //action-link
+        'title'        => $titleHWLink,
+        'data-base-target'  => '_next'
+    ]);
+
+echo '<tr>
+    <td class="state-col '.$class_state.'">
+        <div class="state-label">'.$label_state.'</div>
+        <div class="state-meta">
+            <span class="relative-time time-since" title=""></span>
+        </div>
+    </td>
+    <td>
+        <div class="state-header">'
+    .$this->img($host->host_icon_image, null, []).$hostLink.': '.$hardwareInfoLink.'</div>
+        <p class="overview-plugin-output">'.$plugin_output.'</p>
+    </td>
+    <td>
+        <p class="vars-os">'
+        .$host->os
+        .'</p>
+    </td>
+    <td>
+        '.$host->cpu.'
+    </td>
+    <td>
+        '.$host->ram.'
+    </td>
+</tr>';
+
+    }
+
+
+    echo '</tbody></table>';
+
+
+} else {
+    echo '<p>' . $this->escape(mt('monitoring', 'No hosts found matching the filter.')) . '</p>';
 }
-echo '</table>';
+
+/*
+$this->img($host->host_icon_image, null, Array (
+    'title'                 =>  $host->host_name,
+    'class'                 => 'host-icon-image icon',
+    'data-tooltip-delay'    => '0'
+))
+*/
+
+
 
 ?>
 
 
+
+
 </div>
-
-
-
-    

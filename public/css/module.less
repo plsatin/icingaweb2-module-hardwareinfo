@@ -60,3 +60,74 @@
             /* [---XsltValidateInternal-Base64EncodedImage:IconError#Begin#background-image: url(data:image/png;base64,#Separator#);#End#] */
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABP0lEQVR4XqWTvUoDQRSFr4NBWRAD+gA+gMXmDWJlFbC3iCBY2Qm2YmttKyhYaaFtGiPY2CWFD2BjEwiugkv8XecbcmHmEgTJgUs2371ndmY4OyNGZVluedD21TStW19nWZadKrDGFV+915tONdhsVU/LkhSMHjPMqi/sYAx6b3s79Y/Lc/lLc9u7kh0cFR40/G4e3ZhflYf7wVxbzUNZKX8/ORZm8cAdZ/66v8tpYFy67lLJIpYziwev48JGHsRyi3UdVnNgsfDg5fzpZTXz6rt4rhC/0TO9ZBbvrBh9PvRluLGWvPXnpYCFnpWTKWUXiM/Mm6n4TiYGqKvBMefn/0SmwcLriOe8D4fKnlnvBBYLD15NIinMNUjIXFjMNY19n8RGEmUSRkj+HWUeAKy6cNGR2npLrGD0mFEzfOrP+Rf4+xT8EskwMAAAAABJRU5ErkJggg==);
 }
+
+
+
+
+
+.state-table {
+    /* border-collapse: separate; */
+    border-spacing: 0 1px;
+    width: 100%;
+}
+
+/*
+.icinga-module.module-hardwareinfo .state-col.state-down {
+    background-color: #e00;
+    color: #fff;
+}
+*/
+
+.state-col.state-down {
+    border-left:6px solid #e00;
+}
+
+.state-col.state-up {
+    border-left:6px solid #006400;
+}
+
+.state-col.state-unreachable {
+    border-left:6px solid #800080;
+}
+
+/*
+.icinga-module.module-hardwareinfo .state-col.state-unreachable {
+    background-color: #800080;
+    color: #fff;
+}
+*/
+
+.state-icons {
+    float: right;
+}
+
+.state-col.state-col {
+    text-align: center;
+    width: 8em;
+}
+
+.state-table tr[href]:hover {
+    background-color: #f5fdff;
+    cursor: pointer;
+}
+
+.overview-plugin-output {
+    color: #555;
+    font-family: "Liberation Mono", "Lucida Console", Courier, monospace;
+    font-size: 0.917em;
+    margin: 0;
+    white-space: pre-wrap;
+    /*min-width: 100%;
+    width: 1em;*/
+}
+
+.vars-os {
+    /*width: 100%;
+    white-space: nowrap;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.hardwareinfo-state-table thead {
+    border-bottom: 1px solid #c9c9c9
+}
