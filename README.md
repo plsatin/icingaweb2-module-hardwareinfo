@@ -21,7 +21,9 @@ The module is designed to display information (so far only for Windows systems) 
 
 ![Pic1](images/icingaweb2_module_hardwareinfo_pic1.png)
 
-![Pic2](images/icingaweb2_module_hardwareinfo_pic2.png)
+![Pic3](images/icingaweb2_module_hardwareinfo_pic3.png)
+
+![Pic4](images/icingaweb2_module_hardwareinfo_pic4.png)
 
 ## License
 
