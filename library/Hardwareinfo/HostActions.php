@@ -3,6 +3,7 @@ namespace Icinga\Module\Hardwareinfo;
 use Icinga\Module\Monitoring\Web\Hook\HostActionsHook;
 use Icinga\Module\Monitoring\Object\Host;
 use Icinga\Web\Url;
+
 class HostActions extends HostActionsHook
 {
     public function getActionsForHost(Host $host)

@@ -18,8 +18,6 @@ class IndexController extends MonitoringAwareController
     public function init()
     {
         $this->view->hostBaseUrl = $hostBaseUrl = $this->_request->getBaseUrl();
-        //$this->view->baseUrl = $baseUrl = Url::fromPath('monitoring/host/show');
-        //$this->view->paramUrl = $paramUrl = $this->getRequest()->getUrl()->getParams();
         
     }
 
@@ -57,10 +55,6 @@ class IndexController extends MonitoringAwareController
 
     }
 
-    // public function treeAction()
-    // {
-    //     $this->view->tabs = $this->tabs()->activate('tree');
-    // }
 
     protected function tabs()
     {

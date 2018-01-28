@@ -1,3 +1,4 @@
 ^.hgignore
 Thumbs.db
 ^.git
+.vscode
