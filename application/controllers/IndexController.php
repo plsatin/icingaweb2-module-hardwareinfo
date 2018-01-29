@@ -36,7 +36,7 @@ class IndexController extends MonitoringAwareController
                 'ram' => '_host_ram',
 
             ])
-            ->applyFilter(Filter::fromQueryString('_host_os_family >'))
+            ->applyFilter(Filter::fromQueryString('_host_os_type >'))
         );
 
         $this->filterQuery($hosts);
