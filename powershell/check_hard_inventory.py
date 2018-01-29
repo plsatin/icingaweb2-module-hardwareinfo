@@ -9,11 +9,13 @@ import MySQLdb
 from datetime import date, datetime, timedelta
 import string
 import json
+import subprocess
 
+
+
+subprocess.call('lshw -json > /tmp/hw.info.json', shell=True)
 #Загружаем файл в формате json сформированный утилитой lshw
-data = json.load(open('hw.info.json'))
-
-
+data = json.load(open('/tmp/hw.info.json'))
 
 computerUUID = data["configuration"]["uuid"] + "-" + data["serial"]
 fqdn = "icinga" #data["id"]
@@ -24,14 +26,8 @@ db = MySQLdb.connect(host="192.168.0.209", user="inventory_user", passwd="Z12345
 # формируем курсор, с помощью которого можно исполнять SQL-запросы
 cursor = db.cursor()
 
-
-#$sQLquery = "INSERT INTO tbComputerTarget ( ComputerTargetId, Name, LastReportedInventoryTime ) VALUES ( '$ComputerUUID', '$myFQDN', '$LastReportedInventoryTime' )"
-#$sQLquery = "UPDATE tbComputerTarget SET Name='$myFQDN', LastReportedInventoryTime='$LastReportedInventoryTime' WHERE ComputerTargetId='$ComputerUUID'"
-
-#$sQLqueryDel = "DELETE FROM tbComputerInventory WHERE (ComputerTargetId='$ComputerUUID' AND ClassID = $Win32ClassID)"
-
-#$sQLDings = "INSERT INTO tbComputerInventory ( ComputerTargetId, ClassID, PropertyID, Value, InstanceId ) VALUES ( '$ComputerUUID', '$Win32ClassID', '$PropertyID', '$Value', '$InstanceId' )"
-
+############################################################################
+#Заполняем таблицу tbComputerTarget
 
 sql_query = ("INSERT INTO tbComputerTarget "
                "(ComputerTargetId, Name, LastReportedInventoryTime) "
@@ -41,6 +37,8 @@ cursor.execute(sql_query, sql_data)
 db.commit()
 
 ###################################
+#Отправляем сведения о железе
+
 
 cpu_product = data["children"][0]["children"][1]["product"]
 cpu_size = data["children"][0]["children"][1]["size"] / 1000000
