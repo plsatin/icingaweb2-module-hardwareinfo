@@ -211,6 +211,19 @@ class TreeRender
             $i = 0;
             foreach ($itemIarr as $itemIa) {
                 if ($itemIa != "") {
+                    if (!isset($itemName[$i])) {
+                        $itemName[$i] = "";
+                    }
+                    if (!isset($itemCaption[$i])) {
+                        $itemCaption[$i] = "";
+                    }
+                    if (!isset($itemDescription[$i])) {
+                        $itemDescription[$i] = "";
+                    }
+                    if (!isset($itemIcon[$i])) {
+                        $itemIcon[$i] = $class_icon;
+                    }
+
                     if ($itemName[$i] == "") {
                         if ($itemCaption[$i] == "") {
                             $itemName[$i] = $itemDescription[$i];
