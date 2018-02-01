@@ -49,10 +49,10 @@ class DetailviewExtension extends DetailviewExtensionHook
             </script>
             ';
             
-            //return $hardinfo_out;
+            return $hardinfo_out;
 
 
-            return '<h2>Detail View</h2><br><img src="/icingaweb2/img/hardwareinfo/logo-icinga.png"><br>';
+            //return '<h2>Detail View</h2><br><img src="/icingaweb2/img/hardwareinfo/logo-icinga.png"><br>';
         
         }
 
