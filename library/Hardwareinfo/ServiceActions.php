@@ -1,5 +1,6 @@
 <?php
 namespace Icinga\Module\Hardwareinfo;
+
 use Icinga\Module\Monitoring\Object\Host;
 use Icinga\Module\Monitoring\Object\Service;
 use Icinga\Module\Monitoring\Web\Hook\ServiceActionsHook;

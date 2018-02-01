@@ -37,5 +37,5 @@ $this->provideConfigTab('Configuration', array(
 $this->provideCssFile('jstree/style.css');
 
 $this->provideJsFile('jstree/jstree.min.js');
-$this->provideJsFile('jstree/jstree.init.js');
+//$this->provideJsFile('jstree/jstree.init.js');
 

@@ -2,18 +2,11 @@
 
 namespace Icinga\Module\Hardwareinfo\Controllers;
 
-use Icinga\Module\Hardwareinfo\Data\Db\DbObject;
 use Icinga\Module\Hardwareinfo\Web\Tree\TreeRender;
 
 use Icinga\Module\Hardwareinfo\Web\Controller\MonitoringAwareController;
 use Icinga\Module\Monitoring\DataView\DataView;
-use Icinga\Data\Filter\Filter;
 use Icinga\Web\Url;
-use Icinga\Web\Controller\ModuleActionController;
-use Icinga\Application\Icinga;
-use Icinga\Web\Controller;
-use Icinga\Web\Widget;
-use Icinga\Authentication\Auth;
 
 
 class TreeController extends MonitoringAwareController

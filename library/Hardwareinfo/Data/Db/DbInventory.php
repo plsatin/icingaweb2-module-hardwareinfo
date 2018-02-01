@@ -13,7 +13,7 @@ use Zend_Db_Adapter_Pdo_Mysql;
 
 
 use Icinga\Application\Config;
-
+use Icinga\Data\Db\DbConnection;
 
 
 
@@ -51,7 +51,11 @@ class DbInventory
       'dbname'   => $database,
       'charset'  => 'utf8'
     ));
+
+
   }
+
+
 
   /* Вспомогательный метод, который заменяет "символ значения в запросе" на конкретное значение, которое проходит через "функции безопасности" */
   private function getQuery($query, $params) {

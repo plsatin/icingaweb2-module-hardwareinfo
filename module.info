@@ -1,5 +1,5 @@
 Module: hardwareinfo
-Version: 0.3.2
+Version: 0.3.2.2
 Description: Hardwareinfo - Module for viewing information about software.
   The module is designed to display information (so far only for Windows systems) about the hardware from the MySQL database.
 

@@ -56,6 +56,7 @@ class IndexController extends MonitoringAwareController
     }
 
 
+    
     protected function tabs()
     {
         $auth = Auth::getInstance();
