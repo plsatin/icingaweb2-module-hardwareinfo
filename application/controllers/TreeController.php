@@ -13,9 +13,9 @@ class TreeController extends MonitoringAwareController
 {
     public function init()
     {
-        $this->view->hostBaseUrl = $hostBaseUrl = $this->_request->getBaseUrl();
-        $this->view->baseUrl = $baseUrl = Url::fromPath('hatdwareinfo/tree');
-        $this->view->paramUrl = $paramUrl = $this->getRequest()->getUrl()->getParams();
+        // $this->view->hostBaseUrl = $hostBaseUrl = $this->_request->getBaseUrl();
+        // $this->view->baseUrl = $baseUrl = Url::fromPath('hatdwareinfo/tree');
+        // $this->view->paramUrl = $paramUrl = $this->getRequest()->getUrl()->getParams();
         
     }
 
@@ -73,20 +73,20 @@ class TreeController extends MonitoringAwareController
 
 
 
-    /**
-     * Apply filters on a DataView
-     *
-     * @param DataView  $dataView       The DataView to apply filters on
-     */
-    protected function filterQuery(DataView $dataView)
-    {
-        $this->setupFilterControl(
-            $dataView,
-            null,
-            null,
-            array_merge(['format', 'stateType', 'addColumns', 'problems']
-        ));
-        $this->handleFormatRequest($dataView);
-    }
+    // /**
+    //  * Apply filters on a DataView
+    //  *
+    //  * @param DataView  $dataView       The DataView to apply filters on
+    //  */
+    // protected function filterQuery(DataView $dataView)
+    // {
+    //     $this->setupFilterControl(
+    //         $dataView,
+    //         null,
+    //         null,
+    //         array_merge(['format', 'stateType', 'addColumns', 'problems']
+    //     ));
+    //     $this->handleFormatRequest($dataView);
+    // }
 
 }

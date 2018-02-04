@@ -15,44 +15,46 @@ class DetailviewExtension extends DetailviewExtensionHook
     {
         if ($object->getName() == "hardware-inventory") {
 
-            $r_AllClass =  "";
-            //$r_AllClass = TreeRender::renderTree($object->host_name);
+            // $r_AllClass =  "";
+            // $r_AllClass = TreeRender::renderTree($object->host_name);
             
-            $hardinfo_out = '
-            <br>
-            <div class="treesearch">
-                <input type="text" id="jstreehtml_q" name="q" style="width: 8em" class="search" value="" placeholder="Search...">
-            </div>
-            <br>
-            <div id="jstreehtml" class="">
-            '.$r_AllClass
-            .'</div>
-            <script type="text/javascript">
-            $(function () {
-              $("#jstreehtml").jstree({
-                "types" : {
-                        "default" : {
-                        "icon" : "jstree-file"
-                    }
-                },
-                "plugins" : [ "types", "search" ]
-              });
-              var to = false;
-              $("#jstreehtml_q").keyup(function () {
-                if(to) { clearTimeout(to); }
-                to = setTimeout(function () {
-                  var v = $("#jstreehtml_q").val();
-                  $("#jstreehtml").jstree(true).search(v);
-                }, 250);
-              });
-            });
-            </script>
-            ';
+            // $hardinfo_out = '
+            // <br>
+            // <div class="treesearch">
+            //     <input type="text" id="jstreehtml_q" name="q" style="width: 8em" class="search" value="" placeholder="Search...">
+            // </div>
+            // <br>
+            // <div id="jstreehtml" class="">
+            // '.$r_AllClass
+            // .'</div>
+            // <script type="text/javascript">
+            // $(function () {
+            //   $("#jstreehtml").jstree({
+            //     "types" : {
+            //             "default" : {
+            //             "icon" : "jstree-file"
+            //         }
+            //     },
+            //     "plugins" : [ "types", "search" ]
+            //   });
+            //   var to = false;
+            //   $("#jstreehtml_q").keyup(function () {
+            //     if(to) { clearTimeout(to); }
+            //     to = setTimeout(function () {
+            //       var v = $("#jstreehtml_q").val();
+            //       $("#jstreehtml").jstree(true).search(v);
+            //     }, 250);
+            //   });
+            // });
+            // </script>
+            // ';
             
+
+            $hardinfo_out = '<h2>Detail View</h2><br><img src="/icingaweb2/img/hardwareinfo/logo-icinga.png"><br>';
+
+            $hardinfo_out = '';
+
             return $hardinfo_out;
-
-
-            //return '<h2>Detail View</h2><br><img src="/icingaweb2/img/hardwareinfo/logo-icinga.png"><br>';
         
         }
 

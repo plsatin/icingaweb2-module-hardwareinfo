@@ -1,0 +1,41 @@
+<?php
+
+use Icinga\Web\Url;
+
+/** @var \Icinga\Web\View $this */
+/** @var \Icinga\Web\Widget\FilterEditor $filterEditor */
+/** @var \Icinga\Module\Monitoring\DataView\DataView $services */
+/** @var \Icinga\Web\Url $hostBaseUrl */
+/** @var \Icinga\Web\Url $serviceBaseUrl */
+
+
+?>
+
+
+<div class="content">
+
+<?php
+
+echo "<h1>Работаем с базой данных</h1>";
+echo "<br>";
+//echo "<hr>";
+
+// print_r($win32classes);
+// echo "<br>";
+// echo "<hr>";
+// print_r($win32properties);
+
+
+echo "<ul>";
+foreach ($win32classes as $win32class) {
+    echo "<li>".$win32class->classid." : ".$win32class->name."</li>";
+
+}
+echo "</ul>";
+
+?>
+
+
+
+
+</div>
