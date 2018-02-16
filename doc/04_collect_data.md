@@ -53,6 +53,13 @@ apply Service "hardware-inventory" {
 
 ## Collect data on Linux systems
 
-A script is being developed to collect information about the hardware for Linux hosts. The Python script [check_hard_inventory.py](https://github.com/plsatin/icingaweb2-module-hardwareinfo/blob/master/powershell/check_hard_inventory.py) uses the `lshw` utility. 
+A script is being developed to collect information about the hardware for Linux hosts. The Python script [check_hard_inventory.py](https://github.com/plsatin/icingaweb2-module-hardwareinfo/blob/master/powershell/check_hard_inventory.py) uses the `python-dmidecode` and `python-mysqldb` modules.
 
 
+You may need to install the following packages:
+
+```bash
+apt-get install python-mysqldb
+apt-get install python-dmidecode
+
+```
