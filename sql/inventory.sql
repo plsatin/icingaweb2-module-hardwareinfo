@@ -22,8 +22,21 @@ CREATE TABLE `tbComputerInventory` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `tbComputerSoftInventory`;
-CREATE TABLE `tbComputerSoftInventory` (
+DROP TABLE IF EXISTS `tbComputerTarget`;
+CREATE TABLE `tbComputerTarget` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `ComputerTargetId` varchar(255) NOT NULL,
+  `Name` varchar(256) NOT NULL,
+  `LastReportedInventoryTime` datetime DEFAULT NULL,
+  `LastReportedSoftInventoryTime` datetime DEFAULT NULL,
+  `LastReportedUpdatesInventoryTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ComputerTargetId` (`ComputerTargetId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `tbComputerUpdatesInventory`;
+CREATE TABLE `tbComputerUpdatesInventory` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
   `ComputerTargetId` varchar(255) NOT NULL,
   `PropertyID` int(5) NOT NULL,
@@ -34,18 +47,6 @@ CREATE TABLE `tbComputerSoftInventory` (
   PRIMARY KEY (`id`),
   KEY `ComputerTargetId` (`ComputerTargetId`),
   KEY `PropertyID` (`PropertyID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-DROP TABLE IF EXISTS `tbComputerTarget`;
-CREATE TABLE `tbComputerTarget` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
-  `ComputerTargetId` varchar(255) NOT NULL,
-  `Name` varchar(256) NOT NULL,
-  `LastReportedInventoryTime` datetime DEFAULT NULL,
-  `LastReportedSoftInventoryTime` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `ComputerTargetId` (`ComputerTargetId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -87,7 +88,8 @@ INSERT INTO `tbInventoryClass` (`ClassID`, `Name`, `Namespace`, `Enabled`) VALUE
 (28,	'Win32_PhysicalMemoryArray',	'root\\cimv2',	1),
 (90,	'Win32_Product',	'root\\cimv2',	0),
 (91,	'SoftwareLicensingProduct',	'root\\cimv2',	0),
-(92,	'MSStorageDriver_FailurePredictStatus ',	'root\\wmi',	1);
+(92,	'MSStorageDriver_FailurePredictStatus ',	'root\\wmi',	1),
+(93,	'Win32_QuickFixEngineering',	'root\\cimv2',	0);
 
 DROP TABLE IF EXISTS `tbInventoryProperty`;
 CREATE TABLE `tbInventoryProperty` (
@@ -300,20 +302,30 @@ INSERT INTO `tbInventoryProperty` (`PropertyID`, `ClassID`, `Name`, `Type`) VALU
 (913,	91,	'ProductKeyChannel',	'String'),
 (920,	92,	'InstanceName',	'String'),
 (921,	92,	'PredictFailure',	'Boolean'),
-(922,	92,	'Reason',	'UInt32');
+(922,	92,	'Reason',	'UInt32'),
+(930,	93,	'Description',	'String'),
+(931,	93,	'HotFixID',	'String'),
+(932,	93,	'InstalledOn',	'DateTime');
 
 DROP VIEW IF EXISTS `vwComputerInventory`;
-CREATE TABLE `vwComputerInventory` (`Name` varchar(256), `PropertyID` int(5), `Value` varchar(256), `InstanceId` int(5));
+CREATE TABLE `vwComputerInventory` (`Name` varchar(256), `ClassName` varchar(256), `PropertyName` varchar(256), `Value` varchar(256), `InstanceId` int(5));
 
 
 DROP VIEW IF EXISTS `vwComputerSoftInventory`;
-CREATE TABLE `vwComputerSoftInventory` (`Name` varchar(256), `PropertyID` int(5), `Value` varchar(256), `InstanceId` int(5));
+CREATE TABLE `vwComputerSoftInventory` (`Name` varchar(256), `PropertyName` varchar(256), `Value` varchar(256), `InstanceId` int(5));
+
+
+DROP VIEW IF EXISTS `vwComputerUpdatesInventory`;
+CREATE TABLE `vwComputerUpdatesInventory` (`Name` varchar(256), `PropertyName` varchar(256), `Value` varchar(256), `InstanceId` int(5));
 
 
 DROP TABLE IF EXISTS `vwComputerInventory`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwComputerInventory` AS select `tbComputerTarget`.`Name` AS `Name`,`tbComputerInventory`.`PropertyID` AS `PropertyID`,`tbComputerInventory`.`Value` AS `Value`,`tbComputerInventory`.`InstanceId` AS `InstanceId` from (`tbComputerInventory` join `tbComputerTarget` on((`tbComputerInventory`.`ComputerTargetId` = `tbComputerTarget`.`ComputerTargetId`)));
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwComputerInventory` AS select `tbComputerTarget`.`Name` AS `Name`,`tbInventoryClass`.`Name` AS `ClassName`,`tbInventoryProperty`.`Name` AS `PropertyName`,`tbComputerInventory`.`Value` AS `Value`,`tbComputerInventory`.`InstanceId` AS `InstanceId` from (((`tbComputerInventory` join `tbInventoryClass` on((`tbComputerInventory`.`ClassID` = `tbInventoryClass`.`ClassID`))) join `tbInventoryProperty` on((`tbComputerInventory`.`PropertyID` = `tbInventoryProperty`.`PropertyID`))) join `tbComputerTarget` on((`tbComputerInventory`.`ComputerTargetId` = `tbComputerTarget`.`ComputerTargetId`))) order by `tbComputerTarget`.`Name`;
 
 DROP TABLE IF EXISTS `vwComputerSoftInventory`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwComputerSoftInventory` AS select `tbComputerTarget`.`Name` AS `Name`,`tbComputerSoftInventory`.`PropertyID` AS `PropertyID`,`tbComputerSoftInventory`.`Value` AS `Value`,`tbComputerSoftInventory`.`InstanceId` AS `InstanceId` from (`tbComputerSoftInventory` join `tbComputerTarget` on((`tbComputerSoftInventory`.`ComputerTargetId` = `tbComputerTarget`.`ComputerTargetId`)));
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwComputerSoftInventory` AS select `tbComputerTarget`.`Name` AS `Name`,`tbInventoryProperty`.`Name` AS `PropertyName`,`tbComputerSoftInventory`.`Value` AS `Value`,`tbComputerSoftInventory`.`InstanceId` AS `InstanceId` from ((`tbComputerSoftInventory` join `tbInventoryProperty` on((`tbComputerSoftInventory`.`PropertyID` = `tbInventoryProperty`.`PropertyID`))) join `tbComputerTarget` on((`tbComputerSoftInventory`.`ComputerTargetId` = `tbComputerTarget`.`ComputerTargetId`))) order by `tbComputerTarget`.`Name`;
 
--- 2017-12-23 14:52:48
+DROP TABLE IF EXISTS `vwComputerUpdatesInventory`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwComputerUpdatesInventory` AS select `tbComputerTarget`.`Name` AS `Name`,`tbInventoryProperty`.`Name` AS `PropertyName`,`tbComputerUpdatesInventory`.`Value` AS `Value`,`tbComputerUpdatesInventory`.`InstanceId` AS `InstanceId` from ((`tbComputerUpdatesInventory` join `tbInventoryProperty` on((`tbComputerUpdatesInventory`.`PropertyID` = `tbInventoryProperty`.`PropertyID`))) join `tbComputerTarget` on((`tbComputerUpdatesInventory`.`ComputerTargetId` = `tbComputerTarget`.`ComputerTargetId`))) order by `tbComputerTarget`.`Name`;
+
+-- 2018-02-16 14:54:19
