@@ -1,12 +1,42 @@
 ﻿<#
-icinga2scripts
-Version 1.0
-Description: Скрипт для Icinga 2 - Информация о софте рабочей станции
+ .SYNOPSIS
+  Сбор информации об установленном программном обеспечении через WMI (класс: Win32_Product). 
 
-Pavel Satin (c) 2017
-pslater.ru@gmail.com
+
+ .DESCRIPTION
+
+
+ .PARAMETER ComputerName
+  Имя компьютера
+
+ .PARAMETER myFQDN
+  Полное доменное имя (указанное как host.name в Icinga2)
+
+ .OUTPUTS
+  
+
+ .EXAMPLE
+  
+
+ .LINK 
+  https://webnote.satin-pl.com
+
+ .NOTES
+  Version:        0.1
+  Author:         Pavel Satin
+  Email:          plsatin@yandex.ru
+  Creation Date:  <Date>
+  Purpose/Change: Initial script development
+
 #>
-[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+Param(
+    [Parameter(Mandatory = $false)]
+        [string]$ComputerName = "localhost",   
+    [Parameter(Mandatory = $false)]
+        [string]$myFQDN
+    )
+
+#[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
 $returnStateOK = 0
 $returnStateWarning = 1
@@ -15,8 +45,7 @@ $returnStateUnknown = 3
 
 #$ErrorActionPreference = "SilentlyContinue"
 
-$connString = "Server=192.168.0.209;Uid=inventory_user;Pwd=password;database=inventory;charset=utf8"
-
+$connString = "Server=192.168.0.209;Uid=user;Pwd=password;database=inventory;charset=utf8"
 
 if ((Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain) {
     $myFQDN = (Get-WmiObject win32_computersystem).DNSHostName+"."+(Get-WmiObject win32_computersystem).Domain
@@ -26,21 +55,11 @@ if ((Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain) {
     
 }
 
-#Проверка аргументов
-if ( $args[0] -ne $Null) {
-    $ComputerName = $args[0]
-} else {
-    $ComputerName = "localhost"
-}
-
-if ( $args[1] -ne $Null) {
-     $myFQDN = $args[1]
-}
 
 
 
 #Функция выполнения MySQL запроса
-function run-MySQLQuery {
+function Invoke-MySQLQuery {
 	Param(
         [Parameter(
             Mandatory = $true,
@@ -58,7 +77,7 @@ function run-MySQLQuery {
 			# load MySQL driver and create connection
 			Write-Verbose "Create Database Connection"
 			# You could also could use a direct Link to the DLL File
-			$mySQLDataDLL = "C:\ProgramData\icinga2\Scripts\icinga2\MySQL.Data.dll"
+			$mySQLDataDLL = "C:\ProgramData\icinga2\Scripts\icinga2\bin\MySQL.Data.dll"
 			[void][system.reflection.Assembly]::LoadFrom($mySQLDataDLL)
 			#[void][System.Reflection.Assembly]::LoadWithPartialName("MySql.Data")
 			$connection = New-Object MySql.Data.MySqlClient.MySqlConnection
@@ -82,7 +101,7 @@ function run-MySQLQuery {
 			$connection.Close()
 		}
 
-} #Конец функции Run-MySQLQuery
+} #Конец функции Invoke-MySQLQuery
 
 
 #########################################################################################
@@ -124,12 +143,12 @@ if ($result) {
     ############################################################################
 
     $sQLquery = "SELECT Name, ComputerTargetId FROM tbComputerTarget WHERE ComputerTargetId='$ComputerUUID'"
-    $rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
+    $rQLquery = Invoke-MySQLQuery -connectionString $connString -query $sQLquery
     [string]$LastReportedInventoryTime = get-date -Format "yyyy-MM-dd HH:mm:ss"
 
     
     $sQLqueryS = "SELECT ClassID, Name, Namespace, Enabled FROM tbInventoryClass WHERE Name = 'Win32_Product'"
-    $rQLqueryS = run-MySQLQuery -connectionString $connString -query $sQLqueryS
+    $rQLqueryS = Invoke-MySQLQuery -connectionString $connString -query $sQLqueryS
     
     foreach ($row in $rQLqueryS) {
         $ClassID = $row.ClassID
@@ -142,16 +161,16 @@ if ($result) {
     if ($rQLquery.ComputerTargetId -ne $Null) {
 
         $sQLquery = "UPDATE tbComputerTarget SET Name='$myFQDN', LastReportedSoftInventoryTime='$LastReportedInventoryTime' WHERE ComputerTargetId='$ComputerUUID'"
-        $rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
+        $rQLquery = Invoke-MySQLQuery -connectionString $connString -query $sQLquery
 
     
         $sQLqueryDel = "DELETE FROM tbComputerSoftInventory WHERE ComputerTargetId='$ComputerUUID'"
-        $rQLqueryDel = run-MySQLQuery -connectionString $connString -query $sQLqueryDel
+        $rQLqueryDel = Invoke-MySQLQuery -connectionString $connString -query $sQLqueryDel
 
     } else {
 
         $sQLquery = "INSERT INTO tbComputerTarget ( ComputerTargetId, Name, LastReportedSoftInventoryTime ) VALUES ( '$ComputerUUID', '$myFQDN', '$LastReportedInventoryTime' )"
-        $rQLquery = run-MySQLQuery -connectionString $connString -query $sQLquery
+        $rQLquery = Invoke-MySQLQuery -connectionString $connString -query $sQLquery
 
     }
     ##########################################################################
@@ -167,7 +186,7 @@ if ($result) {
     #$SnapshotId = 0
 
     $sQLqueryProp = "SELECT PropertyID, ClassID, Name FROM tbInventoryProperty WHERE ClassID='$ClassID'"
-    $rQLqueryProp = run-MySQLQuery -connectionString $connString -query $sQLqueryProp
+    $rQLqueryProp = Invoke-MySQLQuery -connectionString $connString -query $sQLqueryProp
 
     foreach ($computerClass in $computerClassI) {
 
@@ -182,7 +201,7 @@ if ($result) {
                 $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
                     VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
                 
-                run-MySQLQuery -connectionString $connString -query $sQLDings
+                Invoke-MySQLQuery -connectionString $connString -query $sQLDings
                 $recordCount ++
 
             } elseif ($rowProp.Name -eq "Version") {
@@ -192,7 +211,7 @@ if ($result) {
                 $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
                     VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
                 
-                run-MySQLQuery -connectionString $connString -query $sQLDings
+                Invoke-MySQLQuery -connectionString $connString -query $sQLDings
                 $recordCount ++
 
             } elseif ($rowProp.Name -eq "Vendor") {
@@ -202,7 +221,7 @@ if ($result) {
                 $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
                     VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
                 
-                run-MySQLQuery -connectionString $connString -query $sQLDings
+                Invoke-MySQLQuery -connectionString $connString -query $sQLDings
                 $recordCount ++
                 
             } elseif ($rowProp.Name -eq "InstallDate") {
@@ -212,7 +231,7 @@ if ($result) {
                 $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
                     VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
                 
-                run-MySQLQuery -connectionString $connString -query $sQLDings
+                Invoke-MySQLQuery -connectionString $connString -query $sQLDings
                 $recordCount ++
                 
             } elseif ($rowProp.Name -eq "IdentifyingNumber") {
@@ -222,7 +241,7 @@ if ($result) {
                 $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
                     VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
                 
-                run-MySQLQuery -connectionString $connString -query $sQLDings
+                Invoke-MySQLQuery -connectionString $connString -query $sQLDings
                 $recordCount ++
                 
             }
