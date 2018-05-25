@@ -22,6 +22,21 @@ CREATE TABLE `tbComputerInventory` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+DROP TABLE IF EXISTS `tbComputerSoftInventory`;
+CREATE TABLE `tbComputerSoftInventory` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `ComputerTargetId` varchar(255) NOT NULL,
+  `PropertyID` int(5) NOT NULL,
+  `Value` varchar(256) NOT NULL,
+  `InstanceId` int(5) NOT NULL,
+  `SnapshotId` int(5) DEFAULT NULL,
+  `SnapshotDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ComputerTargetId` (`ComputerTargetId`),
+  KEY `PropertyID` (`PropertyID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 DROP TABLE IF EXISTS `tbComputerTarget`;
 CREATE TABLE `tbComputerTarget` (
   `id` int(5) NOT NULL AUTO_INCREMENT,
@@ -65,8 +80,8 @@ INSERT INTO `tbInventoryClass` (`ClassID`, `Name`, `Namespace`, `Enabled`) VALUE
 (3,	'Win32_DesktopMonitor',	'root\\cimv2',	1),
 (4,	'Win32_DiskDrive',	'root\\cimv2',	1),
 (5,	'Win32_LogicalDisk',	'root\\cimv2',	1),
-(6,	'Win32_NetworkAdapter',	'root\\cimv2',	0),
-(7,	'Win32_NetworkAdapterConfiguration',	'root\\cimv2',	0),
+(6,	'Win32_NetworkAdapter',	'root\\cimv2',	1),
+(7,	'Win32_NetworkAdapterConfiguration',	'root\\cimv2',	1),
 (8,	'Win32_OperatingSystem',	'root\\cimv2',	1),
 (10,	'Win32_Printer',	'root\\cimv2',	1),
 (11,	'Win32_Processor',	'root\\cimv2',	1),
@@ -291,6 +306,8 @@ INSERT INTO `tbInventoryProperty` (`PropertyID`, `ClassID`, `Name`, `Type`) VALU
 (203,	28,	'MaxCapacity',	'UInt32'),
 (204,	28,	'MemoryDevices',	'UInt16'),
 (205,	15,	'BankLabel',	'String'),
+(206,	11,	'Manufacturer',	'String'),
+(207,	11,	'Description',	'String'),
 (901,	90,	'Name',	'String'),
 (902,	90,	'Version',	'String'),
 (903,	90,	'Vendor',	'String'),
@@ -328,4 +345,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwComputerSoftInventory` A
 DROP TABLE IF EXISTS `vwComputerUpdatesInventory`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwComputerUpdatesInventory` AS select `tbComputerTarget`.`Name` AS `Name`,`tbInventoryProperty`.`Name` AS `PropertyName`,`tbComputerUpdatesInventory`.`Value` AS `Value`,`tbComputerUpdatesInventory`.`InstanceId` AS `InstanceId` from ((`tbComputerUpdatesInventory` join `tbInventoryProperty` on((`tbComputerUpdatesInventory`.`PropertyID` = `tbInventoryProperty`.`PropertyID`))) join `tbComputerTarget` on((`tbComputerUpdatesInventory`.`ComputerTargetId` = `tbComputerTarget`.`ComputerTargetId`))) order by `tbComputerTarget`.`Name`;
 
--- 2018-02-16 14:54:19
+-- 2018-05-25 04:11:36
