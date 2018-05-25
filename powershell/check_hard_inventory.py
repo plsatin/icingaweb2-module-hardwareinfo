@@ -40,7 +40,7 @@ ramDict = {}
 
 
 # подключаемся к базе данных (не забываем указать кодировку, а то в базу запишутся иероглифы)
-db = MySQLdb.connect(host="icinga2.satin-pl.com", user="inventory_user", passwd="Z123456z", db="inventory", charset='utf8')
+db = MySQLdb.connect(host="192.168.0.209", user="user", passwd="password", db="inventory", charset='utf8')
 # формируем курсор, с помощью которого можно исполнять SQL-запросы
 cursor = db.cursor()
 
