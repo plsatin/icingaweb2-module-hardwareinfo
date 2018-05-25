@@ -1,0 +1,781 @@
+﻿<InventoryResult RuleId="{8226C3A1-70D4-4848-B441-1555AC820A23}" RuleVersion="1.0">
+<WmiHandlerResponse RequestId="1">
+<Class Name="Win32_Processor">
+<ClassInstance ChangeType="Added" KeyValue="CPU0">
+<Property Name="DeviceID" Value="CPU0" />
+<Property Name="Architecture" Value="9" />
+<Property Name="MaxClockSpeed" Value="2701" />
+<Property Name="Name" Value="Intel(R) Core(TM) i5-6400 CPU @ 2.70GHz" />
+</ClassInstance>
+</Class>
+</WmiHandlerResponse>
+<WmiHandlerResponse RequestId="2">
+<Class Name="Win32_BIOS">
+<ClassInstance ChangeType="Added" KeyValue="BIOS Date: 03/15/16 17:19:33 Ver: 05.0000B">
+<Property Name="Name" Value="BIOS Date: 03/15/16 17:19:33 Ver: 05.0000B" />
+<Property Name="Version" Value="ALASKA - 1072009" />
+<Property Name="Manufacturer" Value="American Megatrends Inc." />
+<Property Name="ReleaseDate" Value="2016-03-15T00:00:00Z" />
+</ClassInstance>
+</Class>
+</WmiHandlerResponse>
+<WmiHandlerResponse RequestId="4">
+<Class Name="Win32_PCMCIAController">
+</Class>
+</WmiHandlerResponse>
+<WmiHandlerResponse RequestId="5">
+<Class Name="Win32_OperatingSystem">
+<ClassInstance ChangeType="Added" KeyValue="Microsoft Windows 7 &#x041F;&#x0440;&#x043E;&#x0444;&#x0435;&#x0441;&#x0441;&#x0438;&#x043E;&#x043D;&#x0430;&#x043B;&#x044C;&#x043D;&#x0430;&#x044F; |C:\Windows|\Device\Harddisk0\Partition2">
+<Property Name="Name" Value="Microsoft Windows 7 &#x041F;&#x0440;&#x043E;&#x0444;&#x0435;&#x0441;&#x0441;&#x0438;&#x043E;&#x043D;&#x0430;&#x043B;&#x044C;&#x043D;&#x0430;&#x044F; |C:\Windows|\Device\Harddisk0\Partition2" />
+<Property Name="BuildNumber" Value="7601" />
+<Property Name="Caption" Value="Microsoft Windows 7 &#x041F;&#x0440;&#x043E;&#x0444;&#x0435;&#x0441;&#x0441;&#x0438;&#x043E;&#x043D;&#x0430;&#x043B;&#x044C;&#x043D;&#x0430;&#x044F; " />
+<Property Name="OSProductSuite" Value="256" />
+<Property Name="OSLanguage" Value="1049" />
+<Property Name="OtherTypeDescription" Value="" />
+<Property Name="ProductType" Value="1" />
+<Property Name="SerialNumber" Value="00371-868-0000007-85921" />
+<Property Name="ServicePackMajorVersion" Value="1" />
+<Property Name="ServicePackMinorVersion" Value="0" />
+<Property Name="Version" Value="6.1.7601" />
+</ClassInstance>
+</Class>
+</WmiHandlerResponse>
+<WmiHandlerResponse RequestId="6">
+<Class Name="Win32_DiskDrive">
+<ClassInstance ChangeType="Added" KeyValue="\\.\PHYSICALDRIVE0">
+<Property Name="DeviceID" Value="\\.\PHYSICALDRIVE0" />
+<Property Name="Name" Value="\\.\PHYSICALDRIVE0" />
+<Property Name="Caption" Value="TOSHIBA HDWD105 ATA Device" />
+<Property Name="Manufacturer" Value="(&#x0421;&#x0442;&#x0430;&#x043D;&#x0434;&#x0430;&#x0440;&#x0442;&#x043D;&#x044B;&#x0435; &#x0434;&#x0438;&#x0441;&#x043A;&#x043E;&#x0432;&#x044B;&#x0435; &#x043D;&#x0430;&#x043A;&#x043E;&#x043F;&#x0438;&#x0442;&#x0435;&#x043B;&#x0438;)" />
+<Property Name="Model" Value="TOSHIBA HDWD105 ATA Device" />
+<Property Name="InterfaceType" Value="IDE" />
+<Property Name="Partitions" Value="2" />
+<Property Name="size" Value="500105249280" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="\\.\PHYSICALDRIVE1">
+<Property Name="DeviceID" Value="\\.\PHYSICALDRIVE1" />
+<Property Name="Name" Value="\\.\PHYSICALDRIVE1" />
+<Property Name="Caption" Value="USB DISK 2.0 USB Device" />
+<Property Name="Manufacturer" Value="(&#x0421;&#x0442;&#x0430;&#x043D;&#x0434;&#x0430;&#x0440;&#x0442;&#x043D;&#x044B;&#x0435; &#x0434;&#x0438;&#x0441;&#x043A;&#x043E;&#x0432;&#x044B;&#x0435; &#x043D;&#x0430;&#x043A;&#x043E;&#x043F;&#x0438;&#x0442;&#x0435;&#x043B;&#x0438;)" />
+<Property Name="Model" Value="USB DISK 2.0 USB Device" />
+<Property Name="InterfaceType" Value="USB" />
+<Property Name="Partitions" Value="1" />
+<Property Name="size" Value="4005711360" />
+</ClassInstance>
+</Class>
+</WmiHandlerResponse>
+<WmiHandlerResponse RequestId="7">
+<Class Name="Win32_LogicalDisk">
+<ClassInstance ChangeType="Added" KeyValue="C:">
+<Property Name="DeviceID" Value="C:" />
+<Property Name="Name" Value="C:" />
+<Property Name="DriveType" Value="3" />
+<Property Name="VolumeName" Value="" />
+<Property Name="FileSystem" Value="NTFS" />
+<Property Name="Size" Value="499738734592" />
+<Property Name="FreeSpace" Value="436168658944" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="E:">
+<Property Name="DeviceID" Value="E:" />
+<Property Name="Name" Value="E:" />
+<Property Name="DriveType" Value="2" />
+<Property Name="VolumeName" Value="MIREX" />
+<Property Name="FileSystem" Value="FAT32" />
+<Property Name="Size" Value="4001382400" />
+<Property Name="FreeSpace" Value="3996401664" />
+</ClassInstance>
+</Class>
+</WmiHandlerResponse>
+<WmiHandlerResponse RequestId="8">
+<Class Name="Win32_NetworkAdapterConfiguration">
+<ClassInstance ChangeType="Added" KeyValue="0">
+<Property Name="Index" Value="0" />
+<Property Name="Caption" Value="[00000000] WAN Miniport (SSTP)" />
+<Property Name="Description" Value="WAN Miniport (SSTP)" />
+<Property Name="DHCPEnabled" Value="FALSE" />
+<Property Name="DHCPLeaseExpires" Value="" />
+<Property Name="DHCPLeaseObtained" Value="" />
+<Property Name="DHCPServer" Value="" />
+<Property Name="DNSDomain" Value="" />
+<Property Name="DNSEnabledForWINSResolution" Value="" />
+<Property Name="DNSHostName" Value="" />
+<Property Name="DomainDNSRegistrationEnabled" Value="" />
+<Property Name="IPAddress" Value="" />
+<Property Name="IPFilterSecurityEnabled" Value="" />
+<Property Name="IPPortSecurityEnabled" Value="" />
+<Property Name="WINSEnableLMHostsLookup" Value="" />
+<Property Name="WINSHostLookupFile" Value="" />
+<Property Name="WINSPrimaryServer" Value="" />
+<Property Name="WINSScopeID" Value="" />
+<Property Name="WINSSecondaryServer" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="1">
+<Property Name="Index" Value="1" />
+<Property Name="Caption" Value="[00000001] WAN Miniport (IKEv2)" />
+<Property Name="Description" Value="WAN Miniport (IKEv2)" />
+<Property Name="DHCPEnabled" Value="FALSE" />
+<Property Name="DHCPLeaseExpires" Value="" />
+<Property Name="DHCPLeaseObtained" Value="" />
+<Property Name="DHCPServer" Value="" />
+<Property Name="DNSDomain" Value="" />
+<Property Name="DNSEnabledForWINSResolution" Value="" />
+<Property Name="DNSHostName" Value="" />
+<Property Name="DomainDNSRegistrationEnabled" Value="" />
+<Property Name="IPAddress" Value="" />
+<Property Name="IPFilterSecurityEnabled" Value="" />
+<Property Name="IPPortSecurityEnabled" Value="" />
+<Property Name="WINSEnableLMHostsLookup" Value="" />
+<Property Name="WINSHostLookupFile" Value="" />
+<Property Name="WINSPrimaryServer" Value="" />
+<Property Name="WINSScopeID" Value="" />
+<Property Name="WINSSecondaryServer" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="2">
+<Property Name="Index" Value="2" />
+<Property Name="Caption" Value="[00000002] WAN Miniport (L2TP)" />
+<Property Name="Description" Value="WAN Miniport (L2TP)" />
+<Property Name="DHCPEnabled" Value="FALSE" />
+<Property Name="DHCPLeaseExpires" Value="" />
+<Property Name="DHCPLeaseObtained" Value="" />
+<Property Name="DHCPServer" Value="" />
+<Property Name="DNSDomain" Value="" />
+<Property Name="DNSEnabledForWINSResolution" Value="" />
+<Property Name="DNSHostName" Value="" />
+<Property Name="DomainDNSRegistrationEnabled" Value="" />
+<Property Name="IPAddress" Value="" />
+<Property Name="IPFilterSecurityEnabled" Value="" />
+<Property Name="IPPortSecurityEnabled" Value="" />
+<Property Name="WINSEnableLMHostsLookup" Value="" />
+<Property Name="WINSHostLookupFile" Value="" />
+<Property Name="WINSPrimaryServer" Value="" />
+<Property Name="WINSScopeID" Value="" />
+<Property Name="WINSSecondaryServer" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="3">
+<Property Name="Index" Value="3" />
+<Property Name="Caption" Value="[00000003] WAN Miniport (PPTP)" />
+<Property Name="Description" Value="WAN Miniport (PPTP)" />
+<Property Name="DHCPEnabled" Value="FALSE" />
+<Property Name="DHCPLeaseExpires" Value="" />
+<Property Name="DHCPLeaseObtained" Value="" />
+<Property Name="DHCPServer" Value="" />
+<Property Name="DNSDomain" Value="" />
+<Property Name="DNSEnabledForWINSResolution" Value="" />
+<Property Name="DNSHostName" Value="" />
+<Property Name="DomainDNSRegistrationEnabled" Value="" />
+<Property Name="IPAddress" Value="" />
+<Property Name="IPFilterSecurityEnabled" Value="" />
+<Property Name="IPPortSecurityEnabled" Value="" />
+<Property Name="WINSEnableLMHostsLookup" Value="" />
+<Property Name="WINSHostLookupFile" Value="" />
+<Property Name="WINSPrimaryServer" Value="" />
+<Property Name="WINSScopeID" Value="" />
+<Property Name="WINSSecondaryServer" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="4">
+<Property Name="Index" Value="4" />
+<Property Name="Caption" Value="[00000004] WAN Miniport (PPPOE)" />
+<Property Name="Description" Value="WAN Miniport (PPPOE)" />
+<Property Name="DHCPEnabled" Value="FALSE" />
+<Property Name="DHCPLeaseExpires" Value="" />
+<Property Name="DHCPLeaseObtained" Value="" />
+<Property Name="DHCPServer" Value="" />
+<Property Name="DNSDomain" Value="" />
+<Property Name="DNSEnabledForWINSResolution" Value="" />
+<Property Name="DNSHostName" Value="" />
+<Property Name="DomainDNSRegistrationEnabled" Value="" />
+<Property Name="IPAddress" Value="" />
+<Property Name="IPFilterSecurityEnabled" Value="" />
+<Property Name="IPPortSecurityEnabled" Value="" />
+<Property Name="WINSEnableLMHostsLookup" Value="" />
+<Property Name="WINSHostLookupFile" Value="" />
+<Property Name="WINSPrimaryServer" Value="" />
+<Property Name="WINSScopeID" Value="" />
+<Property Name="WINSSecondaryServer" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="5">
+<Property Name="Index" Value="5" />
+<Property Name="Caption" Value="[00000005] WAN Miniport (IPv6)" />
+<Property Name="Description" Value="WAN Miniport (IPv6)" />
+<Property Name="DHCPEnabled" Value="FALSE" />
+<Property Name="DHCPLeaseExpires" Value="" />
+<Property Name="DHCPLeaseObtained" Value="" />
+<Property Name="DHCPServer" Value="" />
+<Property Name="DNSDomain" Value="" />
+<Property Name="DNSEnabledForWINSResolution" Value="" />
+<Property Name="DNSHostName" Value="" />
+<Property Name="DomainDNSRegistrationEnabled" Value="" />
+<Property Name="IPAddress" Value="" />
+<Property Name="IPFilterSecurityEnabled" Value="" />
+<Property Name="IPPortSecurityEnabled" Value="" />
+<Property Name="WINSEnableLMHostsLookup" Value="" />
+<Property Name="WINSHostLookupFile" Value="" />
+<Property Name="WINSPrimaryServer" Value="" />
+<Property Name="WINSScopeID" Value="" />
+<Property Name="WINSSecondaryServer" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="6">
+<Property Name="Index" Value="6" />
+<Property Name="Caption" Value="[00000006] WAN Miniport (Network Monitor)" />
+<Property Name="Description" Value="WAN Miniport (Network Monitor)" />
+<Property Name="DHCPEnabled" Value="FALSE" />
+<Property Name="DHCPLeaseExpires" Value="" />
+<Property Name="DHCPLeaseObtained" Value="" />
+<Property Name="DHCPServer" Value="" />
+<Property Name="DNSDomain" Value="" />
+<Property Name="DNSEnabledForWINSResolution" Value="" />
+<Property Name="DNSHostName" Value="" />
+<Property Name="DomainDNSRegistrationEnabled" Value="" />
+<Property Name="IPAddress" Value="" />
+<Property Name="IPFilterSecurityEnabled" Value="" />
+<Property Name="IPPortSecurityEnabled" Value="" />
+<Property Name="WINSEnableLMHostsLookup" Value="" />
+<Property Name="WINSHostLookupFile" Value="" />
+<Property Name="WINSPrimaryServer" Value="" />
+<Property Name="WINSScopeID" Value="" />
+<Property Name="WINSSecondaryServer" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="7">
+<Property Name="Index" Value="7" />
+<Property Name="Caption" Value="[00000007] Realtek PCIe GBE Family Controller" />
+<Property Name="Description" Value="Realtek PCIe GBE Family Controller" />
+<Property Name="DHCPEnabled" Value="TRUE" />
+<Property Name="DHCPLeaseExpires" Value="2018-04-03T07:41:30+05:00" />
+<Property Name="DHCPLeaseObtained" Value="2018-03-26T07:41:30+05:00" />
+<Property Name="DHCPServer" Value="192.168.223.202" />
+<Property Name="DNSDomain" Value="mkucou.local" />
+<Property Name="DNSEnabledForWINSResolution" Value="FALSE" />
+<Property Name="DNSHostName" Value="C0005" />
+<Property Name="DomainDNSRegistrationEnabled" Value="FALSE" />
+<Property Name="IPAddress" Value="192.168.223.62" />
+<Property Name="IPFilterSecurityEnabled" Value="FALSE" />
+<Property Name="IPPortSecurityEnabled" Value="" />
+<Property Name="WINSEnableLMHostsLookup" Value="TRUE" />
+<Property Name="WINSHostLookupFile" Value="" />
+<Property Name="WINSPrimaryServer" Value="192.168.223.202" />
+<Property Name="WINSScopeID" Value="" />
+<Property Name="WINSSecondaryServer" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="8">
+<Property Name="Index" Value="8" />
+<Property Name="Caption" Value="[00000008] WAN Miniport (IP)" />
+<Property Name="Description" Value="WAN Miniport (IP)" />
+<Property Name="DHCPEnabled" Value="FALSE" />
+<Property Name="DHCPLeaseExpires" Value="" />
+<Property Name="DHCPLeaseObtained" Value="" />
+<Property Name="DHCPServer" Value="" />
+<Property Name="DNSDomain" Value="" />
+<Property Name="DNSEnabledForWINSResolution" Value="" />
+<Property Name="DNSHostName" Value="" />
+<Property Name="DomainDNSRegistrationEnabled" Value="" />
+<Property Name="IPAddress" Value="" />
+<Property Name="IPFilterSecurityEnabled" Value="" />
+<Property Name="IPPortSecurityEnabled" Value="" />
+<Property Name="WINSEnableLMHostsLookup" Value="" />
+<Property Name="WINSHostLookupFile" Value="" />
+<Property Name="WINSPrimaryServer" Value="" />
+<Property Name="WINSScopeID" Value="" />
+<Property Name="WINSSecondaryServer" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="9">
+<Property Name="Index" Value="9" />
+<Property Name="Caption" Value="[00000009] &#x0410;&#x0434;&#x0430;&#x043F;&#x0442;&#x0435;&#x0440; Microsoft ISATAP" />
+<Property Name="Description" Value="&#x0410;&#x0434;&#x0430;&#x043F;&#x0442;&#x0435;&#x0440; Microsoft ISATAP" />
+<Property Name="DHCPEnabled" Value="FALSE" />
+<Property Name="DHCPLeaseExpires" Value="" />
+<Property Name="DHCPLeaseObtained" Value="" />
+<Property Name="DHCPServer" Value="" />
+<Property Name="DNSDomain" Value="" />
+<Property Name="DNSEnabledForWINSResolution" Value="" />
+<Property Name="DNSHostName" Value="" />
+<Property Name="DomainDNSRegistrationEnabled" Value="" />
+<Property Name="IPAddress" Value="" />
+<Property Name="IPFilterSecurityEnabled" Value="" />
+<Property Name="IPPortSecurityEnabled" Value="" />
+<Property Name="WINSEnableLMHostsLookup" Value="" />
+<Property Name="WINSHostLookupFile" Value="" />
+<Property Name="WINSPrimaryServer" Value="" />
+<Property Name="WINSScopeID" Value="" />
+<Property Name="WINSSecondaryServer" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="10">
+<Property Name="Index" Value="10" />
+<Property Name="Caption" Value="[00000010] RAS Async Adapter" />
+<Property Name="Description" Value="RAS Async Adapter" />
+<Property Name="DHCPEnabled" Value="FALSE" />
+<Property Name="DHCPLeaseExpires" Value="" />
+<Property Name="DHCPLeaseObtained" Value="" />
+<Property Name="DHCPServer" Value="" />
+<Property Name="DNSDomain" Value="" />
+<Property Name="DNSEnabledForWINSResolution" Value="" />
+<Property Name="DNSHostName" Value="" />
+<Property Name="DomainDNSRegistrationEnabled" Value="" />
+<Property Name="IPAddress" Value="" />
+<Property Name="IPFilterSecurityEnabled" Value="" />
+<Property Name="IPPortSecurityEnabled" Value="" />
+<Property Name="WINSEnableLMHostsLookup" Value="" />
+<Property Name="WINSHostLookupFile" Value="" />
+<Property Name="WINSPrimaryServer" Value="" />
+<Property Name="WINSScopeID" Value="" />
+<Property Name="WINSSecondaryServer" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="11">
+<Property Name="Index" Value="11" />
+<Property Name="Caption" Value="[00000011] &#x0410;&#x0434;&#x0430;&#x043F;&#x0442;&#x0435;&#x0440; Microsoft ISATAP" />
+<Property Name="Description" Value="&#x0410;&#x0434;&#x0430;&#x043F;&#x0442;&#x0435;&#x0440; Microsoft ISATAP" />
+<Property Name="DHCPEnabled" Value="FALSE" />
+<Property Name="DHCPLeaseExpires" Value="" />
+<Property Name="DHCPLeaseObtained" Value="" />
+<Property Name="DHCPServer" Value="" />
+<Property Name="DNSDomain" Value="" />
+<Property Name="DNSEnabledForWINSResolution" Value="" />
+<Property Name="DNSHostName" Value="" />
+<Property Name="DomainDNSRegistrationEnabled" Value="" />
+<Property Name="IPAddress" Value="" />
+<Property Name="IPFilterSecurityEnabled" Value="" />
+<Property Name="IPPortSecurityEnabled" Value="" />
+<Property Name="WINSEnableLMHostsLookup" Value="" />
+<Property Name="WINSHostLookupFile" Value="" />
+<Property Name="WINSPrimaryServer" Value="" />
+<Property Name="WINSScopeID" Value="" />
+<Property Name="WINSSecondaryServer" Value="" />
+</ClassInstance>
+</Class>
+</WmiHandlerResponse>
+<WmiHandlerResponse RequestId="9">
+<Class Name="Win32_NetworkAdapter">
+<ClassInstance ChangeType="Added" KeyValue="0">
+<Property Name="DeviceID" Value="0" />
+<Property Name="Index" Value="0" />
+<Property Name="Name" Value="WAN Miniport (SSTP)" />
+<Property Name="Caption" Value="[00000000] WAN Miniport (SSTP)" />
+<Property Name="Description" Value="WAN Miniport (SSTP)" />
+<Property Name="Manufacturer" Value="Microsoft" />
+<Property Name="ProductName" Value="WAN Miniport (SSTP)" />
+<Property Name="MACAddress" Value="" />
+<Property Name="Speed" Value="" />
+<Property Name="MaxSpeed" Value="" />
+<Property Name="NetConnectionStatus" Value="" />
+<Property Name="NetConnectionID" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="1">
+<Property Name="DeviceID" Value="1" />
+<Property Name="Index" Value="1" />
+<Property Name="Name" Value="WAN Miniport (IKEv2)" />
+<Property Name="Caption" Value="[00000001] WAN Miniport (IKEv2)" />
+<Property Name="Description" Value="WAN Miniport (IKEv2)" />
+<Property Name="Manufacturer" Value="Microsoft" />
+<Property Name="ProductName" Value="WAN Miniport (IKEv2)" />
+<Property Name="MACAddress" Value="" />
+<Property Name="Speed" Value="" />
+<Property Name="MaxSpeed" Value="" />
+<Property Name="NetConnectionStatus" Value="" />
+<Property Name="NetConnectionID" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="2">
+<Property Name="DeviceID" Value="2" />
+<Property Name="Index" Value="2" />
+<Property Name="Name" Value="WAN Miniport (L2TP)" />
+<Property Name="Caption" Value="[00000002] WAN Miniport (L2TP)" />
+<Property Name="Description" Value="WAN Miniport (L2TP)" />
+<Property Name="Manufacturer" Value="Microsoft" />
+<Property Name="ProductName" Value="WAN Miniport (L2TP)" />
+<Property Name="MACAddress" Value="" />
+<Property Name="Speed" Value="" />
+<Property Name="MaxSpeed" Value="" />
+<Property Name="NetConnectionStatus" Value="" />
+<Property Name="NetConnectionID" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="3">
+<Property Name="DeviceID" Value="3" />
+<Property Name="Index" Value="3" />
+<Property Name="Name" Value="WAN Miniport (PPTP)" />
+<Property Name="Caption" Value="[00000003] WAN Miniport (PPTP)" />
+<Property Name="Description" Value="WAN Miniport (PPTP)" />
+<Property Name="Manufacturer" Value="Microsoft" />
+<Property Name="ProductName" Value="WAN Miniport (PPTP)" />
+<Property Name="MACAddress" Value="" />
+<Property Name="Speed" Value="" />
+<Property Name="MaxSpeed" Value="" />
+<Property Name="NetConnectionStatus" Value="" />
+<Property Name="NetConnectionID" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="4">
+<Property Name="DeviceID" Value="4" />
+<Property Name="Index" Value="4" />
+<Property Name="Name" Value="WAN Miniport (PPPOE)" />
+<Property Name="Caption" Value="[00000004] WAN Miniport (PPPOE)" />
+<Property Name="Description" Value="WAN Miniport (PPPOE)" />
+<Property Name="Manufacturer" Value="Microsoft" />
+<Property Name="ProductName" Value="WAN Miniport (PPPOE)" />
+<Property Name="MACAddress" Value="" />
+<Property Name="Speed" Value="" />
+<Property Name="MaxSpeed" Value="" />
+<Property Name="NetConnectionStatus" Value="" />
+<Property Name="NetConnectionID" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="5">
+<Property Name="DeviceID" Value="5" />
+<Property Name="Index" Value="5" />
+<Property Name="Name" Value="WAN Miniport (IPv6)" />
+<Property Name="Caption" Value="[00000005] WAN Miniport (IPv6)" />
+<Property Name="Description" Value="WAN Miniport (IPv6)" />
+<Property Name="Manufacturer" Value="Microsoft" />
+<Property Name="ProductName" Value="WAN Miniport (IPv6)" />
+<Property Name="MACAddress" Value="" />
+<Property Name="Speed" Value="" />
+<Property Name="MaxSpeed" Value="" />
+<Property Name="NetConnectionStatus" Value="" />
+<Property Name="NetConnectionID" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="6">
+<Property Name="DeviceID" Value="6" />
+<Property Name="Index" Value="6" />
+<Property Name="Name" Value="WAN Miniport (Network Monitor)" />
+<Property Name="Caption" Value="[00000006] WAN Miniport (Network Monitor)" />
+<Property Name="Description" Value="WAN Miniport (Network Monitor)" />
+<Property Name="Manufacturer" Value="Microsoft" />
+<Property Name="ProductName" Value="WAN Miniport (Network Monitor)" />
+<Property Name="MACAddress" Value="" />
+<Property Name="Speed" Value="" />
+<Property Name="MaxSpeed" Value="" />
+<Property Name="NetConnectionStatus" Value="" />
+<Property Name="NetConnectionID" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="7">
+<Property Name="DeviceID" Value="7" />
+<Property Name="Index" Value="7" />
+<Property Name="Name" Value="Realtek PCIe GBE Family Controller" />
+<Property Name="Caption" Value="[00000007] Realtek PCIe GBE Family Controller" />
+<Property Name="Description" Value="Realtek PCIe GBE Family Controller" />
+<Property Name="Manufacturer" Value="Realtek" />
+<Property Name="ProductName" Value="Realtek PCIe GBE Family Controller" />
+<Property Name="MACAddress" Value="1C:1B:0D:33:C1:3F" />
+<Property Name="Speed" Value="100000000" />
+<Property Name="MaxSpeed" Value="" />
+<Property Name="NetConnectionStatus" Value="2" />
+<Property Name="NetConnectionID" Value="&#x041F;&#x043E;&#x0434;&#x043A;&#x043B;&#x044E;&#x0447;&#x0435;&#x043D;&#x0438;&#x0435; &#x043F;&#x043E; &#x043B;&#x043E;&#x043A;&#x0430;&#x043B;&#x044C;&#x043D;&#x043E;&#x0439; &#x0441;&#x0435;&#x0442;&#x0438;" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="8">
+<Property Name="DeviceID" Value="8" />
+<Property Name="Index" Value="8" />
+<Property Name="Name" Value="WAN Miniport (IP)" />
+<Property Name="Caption" Value="[00000008] WAN Miniport (IP)" />
+<Property Name="Description" Value="WAN Miniport (IP)" />
+<Property Name="Manufacturer" Value="Microsoft" />
+<Property Name="ProductName" Value="WAN Miniport (IP)" />
+<Property Name="MACAddress" Value="" />
+<Property Name="Speed" Value="" />
+<Property Name="MaxSpeed" Value="" />
+<Property Name="NetConnectionStatus" Value="" />
+<Property Name="NetConnectionID" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="9">
+<Property Name="DeviceID" Value="9" />
+<Property Name="Index" Value="9" />
+<Property Name="Name" Value="&#x0410;&#x0434;&#x0430;&#x043F;&#x0442;&#x0435;&#x0440; Microsoft ISATAP" />
+<Property Name="Caption" Value="[00000009] &#x0410;&#x0434;&#x0430;&#x043F;&#x0442;&#x0435;&#x0440; Microsoft ISATAP" />
+<Property Name="Description" Value="&#x0410;&#x0434;&#x0430;&#x043F;&#x0442;&#x0435;&#x0440; Microsoft ISATAP" />
+<Property Name="Manufacturer" Value="Microsoft" />
+<Property Name="ProductName" Value="&#x0410;&#x0434;&#x0430;&#x043F;&#x0442;&#x0435;&#x0440; Microsoft ISATAP" />
+<Property Name="MACAddress" Value="" />
+<Property Name="Speed" Value="100000" />
+<Property Name="MaxSpeed" Value="" />
+<Property Name="NetConnectionStatus" Value="" />
+<Property Name="NetConnectionID" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="10">
+<Property Name="DeviceID" Value="10" />
+<Property Name="Index" Value="10" />
+<Property Name="Name" Value="RAS Async Adapter" />
+<Property Name="Caption" Value="[00000010] RAS Async Adapter" />
+<Property Name="Description" Value="RAS Async Adapter" />
+<Property Name="Manufacturer" Value="Microsoft" />
+<Property Name="ProductName" Value="RAS Async Adapter" />
+<Property Name="MACAddress" Value="20:41:53:59:4E:FF" />
+<Property Name="Speed" Value="" />
+<Property Name="MaxSpeed" Value="" />
+<Property Name="NetConnectionStatus" Value="" />
+<Property Name="NetConnectionID" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="11">
+<Property Name="DeviceID" Value="11" />
+<Property Name="Index" Value="11" />
+<Property Name="Name" Value="&#x0410;&#x0434;&#x0430;&#x043F;&#x0442;&#x0435;&#x0440; Microsoft ISATAP" />
+<Property Name="Caption" Value="[00000011] &#x0410;&#x0434;&#x0430;&#x043F;&#x0442;&#x0435;&#x0440; Microsoft ISATAP" />
+<Property Name="Description" Value="&#x0410;&#x0434;&#x0430;&#x043F;&#x0442;&#x0435;&#x0440; Microsoft ISATAP" />
+<Property Name="Manufacturer" Value="Microsoft" />
+<Property Name="ProductName" Value="&#x0410;&#x0434;&#x0430;&#x043F;&#x0442;&#x0435;&#x0440; Microsoft ISATAP" />
+<Property Name="MACAddress" Value="" />
+<Property Name="Speed" Value="" />
+<Property Name="MaxSpeed" Value="" />
+<Property Name="NetConnectionStatus" Value="" />
+<Property Name="NetConnectionID" Value="" />
+</ClassInstance>
+</Class>
+</WmiHandlerResponse>
+<WmiHandlerResponse RequestId="10">
+<Class Name="Win32_SoundDevice">
+<ClassInstance ChangeType="Added" KeyValue="HDAUDIO\FUNC_01&amp;VEN_10EC&amp;DEV_0887&amp;SUBSYS_1458A182&amp;REV_1003\4&amp;11D6FE01&amp;0&amp;0001">
+<Property Name="DeviceID" Value="HDAUDIO\FUNC_01&amp;VEN_10EC&amp;DEV_0887&amp;SUBSYS_1458A182&amp;REV_1003\4&amp;11D6FE01&amp;0&amp;0001" />
+<Property Name="Name" Value="Realtek High Definition Audio" />
+<Property Name="Manufacturer" Value="Realtek" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="HDAUDIO\FUNC_01&amp;VEN_8086&amp;DEV_2809&amp;SUBSYS_80860101&amp;REV_1000\4&amp;11D6FE01&amp;0&amp;0201">
+<Property Name="DeviceID" Value="HDAUDIO\FUNC_01&amp;VEN_8086&amp;DEV_2809&amp;SUBSYS_80860101&amp;REV_1000\4&amp;11D6FE01&amp;0&amp;0201" />
+<Property Name="Name" Value="&#x0410;&#x0443;&#x0434;&#x0438;&#x043E; Intel(R) &#x0434;&#x043B;&#x044F; &#x0434;&#x0438;&#x0441;&#x043F;&#x043B;&#x0435;&#x0435;&#x0432;" />
+<Property Name="Manufacturer" Value="Intel(R) Corporation" />
+</ClassInstance>
+</Class>
+</WmiHandlerResponse>
+<WmiHandlerResponse RequestId="11">
+<Class Name="Win32_VideoController">
+<ClassInstance ChangeType="Added" KeyValue="VideoController1">
+<Property Name="DeviceID" Value="VideoController1" />
+<Property Name="Description" Value="Intel(R) HD Graphics 530" />
+<Property Name="AdapterRAM" Value="1073741824" />
+<Property Name="DriverDate" Value="2016-01-06T00:00:00Z" />
+<Property Name="VideoModeDescription" Value="1366 x 768 x 4294967296 colors" />
+</ClassInstance>
+</Class>
+</WmiHandlerResponse>
+<WmiHandlerResponse RequestId="12">
+<Class Name="Win32_DesktopMonitor">
+<ClassInstance ChangeType="Added" KeyValue="DesktopMonitor1">
+<Property Name="DeviceID" Value="DesktopMonitor1" />
+<Property Name="Name" Value="&#x0423;&#x043D;&#x0438;&#x0432;&#x0435;&#x0440;&#x0441;&#x0430;&#x043B;&#x044C;&#x043D;&#x044B;&#x0439; &#x043C;&#x043E;&#x043D;&#x0438;&#x0442;&#x043E;&#x0440; PnP" />
+<Property Name="MonitorManufacturer" Value="(&#x0421;&#x0442;&#x0430;&#x043D;&#x0434;&#x0430;&#x0440;&#x0442;&#x043D;&#x044B;&#x0435; &#x043C;&#x043E;&#x043D;&#x0438;&#x0442;&#x043E;&#x0440;&#x044B;)" />
+<Property Name="PixelsPerXLogicalInch" Value="96" />
+<Property Name="PixelsPerYLogicalInch" Value="96" />
+<Property Name="ScreenHeight" Value="768" />
+<Property Name="ScreenWidth" Value="1366" />
+</ClassInstance>
+</Class>
+</WmiHandlerResponse>
+<WmiHandlerResponse RequestId="13">
+<Class Name="Win32_ComputerSystem">
+<ClassInstance ChangeType="Added" KeyValue="C0005">
+<Property Name="Name" Value="C0005" />
+<Property Name="Manufacturer" Value="Gigabyte Technology Co., Ltd." />
+<Property Name="Model" Value="To be filled by O.E.M." />
+<Property Name="TotalPhysicalMemory" Value="4169220096" />
+</ClassInstance>
+</Class>
+</WmiHandlerResponse>
+<WmiHandlerResponse RequestId="14">
+<Class Name="Win32_Printer">
+<ClassInstance ChangeType="Added" KeyValue="&#x041E;&#x0442;&#x043F;&#x0440;&#x0430;&#x0432;&#x0438;&#x0442;&#x044C; &#x0432; OneNote 2010">
+<Property Name="DeviceID" Value="&#x041E;&#x0442;&#x043F;&#x0440;&#x0430;&#x0432;&#x0438;&#x0442;&#x044C; &#x0432; OneNote 2010" />
+<Property Name="Name" Value="&#x041E;&#x0442;&#x043F;&#x0440;&#x0430;&#x0432;&#x0438;&#x0442;&#x044C; &#x0432; OneNote 2010" />
+<Property Name="Local" Value="TRUE" />
+<Property Name="Network" Value="FALSE" />
+<Property Name="Location" Value="" />
+<Property Name="Comment" Value="" />
+<Property Name="DriverName" Value="Send To Microsoft OneNote 2010 Driver" />
+<Property Name="Shared" Value="FALSE" />
+<Property Name="ShareName" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="Microsoft XPS Document Writer">
+<Property Name="DeviceID" Value="Microsoft XPS Document Writer" />
+<Property Name="Name" Value="Microsoft XPS Document Writer" />
+<Property Name="Local" Value="TRUE" />
+<Property Name="Network" Value="FALSE" />
+<Property Name="Location" Value="" />
+<Property Name="Comment" Value="" />
+<Property Name="DriverName" Value="Microsoft XPS Document Writer" />
+<Property Name="Shared" Value="FALSE" />
+<Property Name="ShareName" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="Fax">
+<Property Name="DeviceID" Value="Fax" />
+<Property Name="Name" Value="Fax" />
+<Property Name="Local" Value="TRUE" />
+<Property Name="Network" Value="FALSE" />
+<Property Name="Location" Value="" />
+<Property Name="Comment" Value="" />
+<Property Name="DriverName" Value="Microsoft Shared Fax Driver" />
+<Property Name="Shared" Value="FALSE" />
+<Property Name="ShareName" Value="" />
+</ClassInstance>
+</Class>
+</WmiHandlerResponse>
+<WsusInternalHandlerResponse RequestId="15">
+<Class Name="WsusInternal_ARP">
+<ClassInstance ChangeType="Added" KeyValue="{92FB6C44-E685-45AD-9B20-CADF4CABA132} - 1033">
+<Property Name="DisplayName" Value="Microsoft .NET Framework 4.5.2" />
+<Property Name="DisplayVersion" Value="4.5.51209" />
+<Property Name="ProductID" Value="{92FB6C44-E685-45AD-9B20-CADF4CABA132} - 1033" />
+<Property Name="Publisher" Value="Microsoft Corporation" />
+<Property Name="Language" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="1C &#x041F;&#x0440;&#x0435;&#x0434;&#x043F;&#x0440;&#x0438;&#x044F;&#x0442;&#x0438;&#x0435; 7.7.27">
+<Property Name="DisplayName" Value="1C &#x041F;&#x0440;&#x0435;&#x0434;&#x043F;&#x0440;&#x0438;&#x044F;&#x0442;&#x0438;&#x0435; 7.7" />
+<Property Name="DisplayVersion" Value="77.27" />
+<Property Name="ProductID" Value="1C &#x041F;&#x0440;&#x0435;&#x0434;&#x043F;&#x0440;&#x0438;&#x044F;&#x0442;&#x0438;&#x0435; 7.7.27" />
+<Property Name="Publisher" Value="" />
+<Property Name="Language" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="Avast Antivirus">
+<Property Name="DisplayName" Value="Avast Business Security" />
+<Property Name="DisplayVersion" Value="18.2.2530" />
+<Property Name="ProductID" Value="Avast Antivirus" />
+<Property Name="Publisher" Value="AVAST Software" />
+<Property Name="Language" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="CAPICOM">
+<Property Name="DisplayName" Value="CAPICOM 2.1.0.2" />
+<Property Name="DisplayVersion" Value="2.1.0.2" />
+<Property Name="ProductID" Value="CAPICOM" />
+<Property Name="Publisher" Value="&#x0417;&#x0410;&#x041E; &#x00AB;&#x041F;&#x0424; &#x00AB;&#x0421;&#x041A;&#x0411; &#x041A;&#x043E;&#x043D;&#x0442;&#x0443;&#x0440;&#x00BB;" />
+<Property Name="Language" Value="1033" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="Google Chrome">
+<Property Name="DisplayName" Value="Google Chrome" />
+<Property Name="DisplayVersion" Value="65.0.3325.181" />
+<Property Name="ProductID" Value="Google Chrome" />
+<Property Name="Publisher" Value="Google Inc." />
+<Property Name="Language" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="KonturDiag">
+<Property Name="DisplayName" Value="Kontur.Diag (Administrator) 2.14.26.54" />
+<Property Name="DisplayVersion" Value="2.14.26.54" />
+<Property Name="ProductID" Value="KonturDiag" />
+<Property Name="Publisher" Value="&#x0410;&#x041E; &#x00AB;&#x041F;&#x0424; &#x00AB;&#x0421;&#x041A;&#x0411; &#x041A;&#x043E;&#x043D;&#x0442;&#x0443;&#x0440;&#x00BB;" />
+<Property Name="Language" Value="1033" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="Mozilla Firefox 51.0.1 (x86 ru)">
+<Property Name="DisplayName" Value="Mozilla Firefox 51.0.1 (x86 ru)" />
+<Property Name="DisplayVersion" Value="51.0.1" />
+<Property Name="ProductID" Value="Mozilla Firefox 51.0.1 (x86 ru)" />
+<Property Name="Publisher" Value="Mozilla" />
+<Property Name="Language" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="MozillaMaintenanceService">
+<Property Name="DisplayName" Value="Mozilla Maintenance Service" />
+<Property Name="DisplayVersion" Value="51.0.1" />
+<Property Name="ProductID" Value="MozillaMaintenanceService" />
+<Property Name="Publisher" Value="Mozilla" />
+<Property Name="Language" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="Office14.PROPLUS">
+<Property Name="DisplayName" Value="Microsoft Office &#x043F;&#x0440;&#x043E;&#x0444;&#x0435;&#x0441;&#x0441;&#x0438;&#x043E;&#x043D;&#x0430;&#x043B;&#x044C;&#x043D;&#x044B;&#x0439; &#x043F;&#x043B;&#x044E;&#x0441; 2010" />
+<Property Name="DisplayVersion" Value="14.0.4763.1000" />
+<Property Name="ProductID" Value="Office14.PROPLUS" />
+<Property Name="Publisher" Value="Microsoft Corporation" />
+<Property Name="Language" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="rtCOMLite">
+<Property Name="DisplayName" Value="rtCOMLite 1.0.3.1" />
+<Property Name="DisplayVersion" Value="1.0.3.1" />
+<Property Name="ProductID" Value="rtCOMLite" />
+<Property Name="Publisher" Value="&#x041A;&#x043E;&#x043C;&#x043F;&#x0430;&#x043D;&#x0438;&#x044F; &quot;&#x0410;&#x043A;&#x0442;&#x0438;&#x0432;&quot;, &#x0417;&#x0410;&#x041E; &#x00AB;&#x041F;&#x0424; &#x00AB;&#x0421;&#x041A;&#x0411; &#x041A;&#x043E;&#x043D;&#x0442;&#x0443;&#x0440;&#x00BB;" />
+<Property Name="Language" Value="1033" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="{0ac52d76-b131-410e-8576-9eae15328a4a}">
+<Property Name="DisplayName" Value="&#x0414;&#x0440;&#x0430;&#x0439;&#x0432;&#x0435;&#x0440;&#x044B; &#x0420;&#x0443;&#x0442;&#x043E;&#x043A;&#x0435;&#x043D;" />
+<Property Name="DisplayVersion" Value="4.3.0.0" />
+<Property Name="ProductID" Value="{0ac52d76-b131-410e-8576-9eae15328a4a}" />
+<Property Name="Publisher" Value="&#x041A;&#x043E;&#x043C;&#x043F;&#x0430;&#x043D;&#x0438;&#x044F; &quot;&#x0410;&#x043A;&#x0442;&#x0438;&#x0432;&quot;" />
+<Property Name="Language" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="{240C3DDD-C5E9-4029-9DF7-95650D040CF2}">
+<Property Name="DisplayName" Value="Intel(R) USB 3.0 eXtensible Host Controller Driver" />
+<Property Name="DisplayVersion" Value="4.0.1.40" />
+<Property Name="ProductID" Value="{240C3DDD-C5E9-4029-9DF7-95650D040CF2}" />
+<Property Name="Publisher" Value="Intel Corporation" />
+<Property Name="Language" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="{F0E3AD40-2BBD-4360-9C76-B9AC9A5886EA}">
+<Property Name="DisplayName" Value="Intel(R) Processor Graphics" />
+<Property Name="DisplayVersion" Value="20.19.15.4364" />
+<Property Name="ProductID" Value="{F0E3AD40-2BBD-4360-9C76-B9AC9A5886EA}" />
+<Property Name="Publisher" Value="Intel Corporation" />
+<Property Name="Language" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="{F132AF7F-7BCA-4EDE-8A7C-958108FE7DBC}">
+<Property Name="DisplayName" Value="Realtek High Definition Audio Driver" />
+<Property Name="DisplayVersion" Value="6.0.1.7727" />
+<Property Name="ProductID" Value="{F132AF7F-7BCA-4EDE-8A7C-958108FE7DBC}" />
+<Property Name="Publisher" Value="Realtek Semiconductor Corp." />
+<Property Name="Language" Value="1049" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="&#x0410;&#x0420;&#x041C; &#x0413;&#x041A;">
+<Property Name="DisplayName" Value="&#x0410;&#x0420;&#x041C; &#x0413;&#x041A;" />
+<Property Name="DisplayVersion" Value="" />
+<Property Name="ProductID" Value="&#x0410;&#x0420;&#x041C; &#x0413;&#x041A;" />
+<Property Name="Publisher" Value="" />
+<Property Name="Language" Value="" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="{630E0300-5DB3-4C2D-A87F-AEDD265D8B80}">
+<Property Name="DisplayName" Value="1C:&#x041F;&#x0440;&#x0435;&#x0434;&#x043F;&#x0440;&#x0438;&#x044F;&#x0442;&#x0438;&#x0435; 8 (8.3.5.1517)" />
+<Property Name="DisplayVersion" Value="8.3.5.1517" />
+<Property Name="ProductID" Value="{630E0300-5DB3-4C2D-A87F-AEDD265D8B80}" />
+<Property Name="Publisher" Value="1C" />
+<Property Name="Language" Value="0" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="{AAEFB975-CF4F-430D-A977-4D6088A16EDD}">
+<Property Name="DisplayName" Value="&#x041B;&#x043E;&#x043A;&#x0430;&#x043B;&#x044C;&#x043D;&#x043E;&#x0435; &#x0445;&#x0440;&#x0430;&#x043D;&#x0438;&#x043B;&#x0438;&#x0449;&#x0435; &#x0434;&#x0430;&#x043D;&#x043D;&#x044B;&#x0445; &#x00AB;&#x041A;&#x043E;&#x043D;&#x0442;&#x0443;&#x0440;-&#x042D;&#x043A;&#x0441;&#x0442;&#x0435;&#x0440;&#x043D;&#x00BB; (&#x0410;&#x0434;&#x043C;&#x0438;&#x043D;&#x0438;&#x0441;&#x0442;&#x0440;&#x0430;&#x0442;&#x043E;&#x0440;) 1.0.1" />
+<Property Name="DisplayVersion" Value="1.0.1" />
+<Property Name="ProductID" Value="{AAEFB975-CF4F-430D-A977-4D6088A16EDD}" />
+<Property Name="Publisher" Value="&#x0417;&#x0410;&#x041E; &#x00AB;&#x041F;&#x0424; &#x00AB;&#x0421;&#x041A;&#x0411; &#x041A;&#x043E;&#x043D;&#x0442;&#x0443;&#x0440;&#x00BB;" />
+<Property Name="Language" Value="1049" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="{AC76BA86-7AD7-1049-7B44-AC0F074E4100}">
+<Property Name="DisplayName" Value="Adobe Acrobat Reader DC - Russian" />
+<Property Name="DisplayVersion" Value="18.011.20038" />
+<Property Name="ProductID" Value="{AC76BA86-7AD7-1049-7B44-AC0F074E4100}" />
+<Property Name="Publisher" Value="Adobe Systems Incorporated" />
+<Property Name="Language" Value="1049" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="{F662A8E6-F4DC-41A2-901E-8C11F044BDEC}">
+<Property Name="DisplayName" Value="MSXML 4.0 SP2 (KB973688)" />
+<Property Name="DisplayVersion" Value="4.20.9876.0" />
+<Property Name="ProductID" Value="{F662A8E6-F4DC-41A2-901E-8C11F044BDEC}" />
+<Property Name="Publisher" Value="Microsoft Corporation" />
+<Property Name="Language" Value="1033" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="{5767AC47-6B5D-4349-992F-F5D293607A9C}">
+<Property Name="DisplayName" Value="1C:&#x041F;&#x0440;&#x0435;&#x0434;&#x043F;&#x0440;&#x0438;&#x044F;&#x0442;&#x0438;&#x0435; 8 (8.3.10.2505)" />
+<Property Name="DisplayVersion" Value="8.3.10.2505" />
+<Property Name="ProductID" Value="{5767AC47-6B5D-4349-992F-F5D293607A9C}" />
+<Property Name="Publisher" Value="1&#x0421;-&#x0421;&#x043E;&#x0444;&#x0442;" />
+<Property Name="Language" Value="0" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="{407E5BA7-6406-40BF-A4DC-3654B8F584C1}">
+<Property Name="DisplayName" Value="&#x041A;&#x0440;&#x0438;&#x043F;&#x0442;&#x043E;&#x041F;&#x0440;&#x043E; CSP" />
+<Property Name="DisplayVersion" Value="4.0.9708" />
+<Property Name="ProductID" Value="{407E5BA7-6406-40BF-A4DC-3654B8F584C1}" />
+<Property Name="Publisher" Value="&#x041A;&#x043E;&#x043C;&#x043F;&#x0430;&#x043D;&#x0438;&#x044F; &#x041A;&#x0420;&#x0418;&#x041F;&#x0422;&#x041E;-&#x041F;&#x0420;&#x041E;" />
+<Property Name="Language" Value="0" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="{9B048D58-7546-4765-A120-019FF068D994}">
+<Property Name="DisplayName" Value="&#x041F;&#x0440;&#x043E;&#x0433;&#x0440;&#x0430;&#x043C;&#x043C;&#x0430; &#x043F;&#x043E;&#x0434;&#x0433;&#x043E;&#x0442;&#x043E;&#x0432;&#x043A;&#x0438; &#x0434;&#x043E;&#x043A;&#x0443;&#x043C;&#x0435;&#x043D;&#x0442;&#x043E;&#x0432; &#x0434;&#x043B;&#x044F; &#x0433;&#x043E;&#x0441;&#x0443;&#x0434;&#x0430;&#x0440;&#x0441;&#x0442;&#x0432;&#x0435;&#x043D;&#x043D;&#x043E;&#x0439; &#x0440;&#x0435;&#x0433;&#x0438;&#x0441;&#x0442;&#x0440;&#x0430;&#x0446;&#x0438;&#x0438;" />
+<Property Name="DisplayVersion" Value="1.4.3" />
+<Property Name="ProductID" Value="{9B048D58-7546-4765-A120-019FF068D994}" />
+<Property Name="Publisher" Value="&#x0410;&#x041E; &#x0413;&#x041D;&#x0418;&#x0412;&#x0426;" />
+<Property Name="Language" Value="1049" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="{23170F69-40C1-2702-0920-000001000000}">
+<Property Name="DisplayName" Value="7-Zip 9.20 (x64 edition)" />
+<Property Name="DisplayVersion" Value="9.20.00.0" />
+<Property Name="ProductID" Value="{23170F69-40C1-2702-0920-000001000000}" />
+<Property Name="Publisher" Value="Igor Pavlov" />
+<Property Name="Language" Value="1033" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="{86493ADD-824D-4B8E-BD72-8C5DCDC52A71}">
+<Property Name="DisplayName" Value="MSXML 4.0 SP2 (KB954430)" />
+<Property Name="DisplayVersion" Value="4.20.9870.0" />
+<Property Name="ProductID" Value="{86493ADD-824D-4B8E-BD72-8C5DCDC52A71}" />
+<Property Name="Publisher" Value="Microsoft Corporation" />
+<Property Name="Language" Value="1033" />
+</ClassInstance>
+<ClassInstance ChangeType="Added" KeyValue="{D9D0E5CE-F386-4A74-B974-BF29485856C1}">
+<Property Name="DisplayName" Value="&#x041F;&#x0435;&#x0447;&#x0430;&#x0442;&#x044C; &#x041D;&#x0414; &#x0441; PDF417 3.2.4 (&#x043F;&#x0430;&#x043A;&#x0435;&#x0442;)" />
+<Property Name="DisplayVersion" Value="3.2.4" />
+<Property Name="ProductID" Value="{D9D0E5CE-F386-4A74-B974-BF29485856C1}" />
+<Property Name="Publisher" Value="&#x0424;&#x0413;&#x0423;&#x041F; &#x0413;&#x041D;&#x0418;&#x0412;&#x0426; &#x0424;&#x041D;&#x0421; &#x0420;&#x0424; &#x0432; &#x041F;&#x0424;&#x041E;" />
+<Property Name="Language" Value="1049" />
+</ClassInstance>
+</Class>
+</WsusInternalHandlerResponse>
+</InventoryResult>

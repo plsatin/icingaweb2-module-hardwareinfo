@@ -106,25 +106,6 @@ function Get-ServiceFromIcinga {
 
 
 
-<#
-#Для Ubuntu
-lsb_release -a
-
-#Для CentOS
-cat /etc/redhat-release
-
-cat /etc/centos-release
-
-
-#Для всех
-uname -a
-
-#Для уточнения технологии виртуализации
-apt-get install virt-what
-virt-what
-
-#>
-
 
 
 
@@ -134,18 +115,4 @@ Send-ToIcinga -hostname $ComputerName -manufacturer "OpenVZ" -model "Virtual Mac
 
 $ComputerName = "icinga"
 Send-ToIcinga -hostname $ComputerName -manufacturer "Microsoft Corporation" -model "Virtual Machine" -bios_serial "" -board_manufacturer "Microsoft Corporation" -board_product "Virtual Machine" -cpu "Intel(R) Core(TM) i5-3470 CPU @ 3.20GHz" -ram "4GB" -os "Ubuntu 16.04.3 LTS" -osarch "x86_64" -logonuser "" -psver "" -host_uuid "" -dsc_agentid "" -targetid ""
-
-$ComputerName = "logstash.satin-pl.com"
-Send-ToIcinga -hostname $ComputerName -manufacturer "Microsoft Corporation" -model "Virtual Machine" -bios_serial "" -board_manufacturer "Microsoft Corporation" -board_product "Virtual Machine" -cpu "Intel(R) Core(TM) i5-3470 CPU @ 3.20GHz" -ram "3GB" -os "Ubuntu 14.04.5 LTS" -osarch "x86_64" -logonuser "" -psver "" -host_uuid "" -dsc_agentid "" -targetid ""
-
-$ComputerName = "elastix.mkucou.local"
-Send-ToIcinga -hostname $ComputerName -manufacturer "Microsoft Corporation" -model "Virtual Machine" -bios_serial "" -board_manufacturer "Microsoft Corporation" -board_product "Virtual Machine" -cpu "Intel(R) Xeon(R) CPU E5-2609 v4 @ 1.70GHz" -ram "1GB" -os "CentOS release 5.10 (Final)" -osarch "x86_64" -logonuser "" -psver "" -host_uuid "" -dsc_agentid "" -targetid ""
-
-$ComputerName = "unifi.dent.rezh-dent.ru"
-Send-ToIcinga -hostname $ComputerName -manufacturer "Microsoft Corporation" -model "Virtual Machine" -bios_serial "" -board_manufacturer "Microsoft Corporation" -board_product "Virtual Machine" -cpu "Intel(R) Xeon(R) CPU E3-1220 v3 @ 3.10GHz" -ram "1GB" -os "Ubuntu 14.04.5 LTS" -osarch "x86_64" -logonuser "" -psver "" -host_uuid "" -dsc_agentid "" -targetid ""
-
-$ComputerName = "asterisk.dent.rezh-dent.ru"
-Send-ToIcinga -hostname $ComputerName -manufacturer "Microsoft Corporation" -model "Virtual Machine" -bios_serial "" -board_manufacturer "Microsoft Corporation" -board_product "Virtual Machine" -cpu "Intel(R) Xeon(R) CPU E3-1220 v3 @ 3.10GHz" -ram "1GB" -os "CentOS release 5.10 (Final)" -osarch "x86_64" -logonuser "" -psver "" -host_uuid "" -dsc_agentid "" -targetid ""
-
-
 

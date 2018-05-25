@@ -35,10 +35,12 @@ else:
 biosDict = {}
 cpuDict = {}
 systemDict = {}
+ramADict = {}
+ramDict = {}
 
 
 # подключаемся к базе данных (не забываем указать кодировку, а то в базу запишутся иероглифы)
-db = MySQLdb.connect(host="192.168.0.209", user="user", passwd="password", db="inventory", charset='utf8')
+db = MySQLdb.connect(host="icinga2.satin-pl.com", user="inventory_user", passwd="Z123456z", db="inventory", charset='utf8')
 # формируем курсор, с помощью которого можно исполнять SQL-запросы
 cursor = db.cursor()
 
@@ -131,6 +133,18 @@ for v in dmidecode.processor().values():
             cpuDict["Manufacturer"] = str((v['data']['Manufacturer']['Vendor']))
             cpuDict["Version"] = str((v['data']['Version']))
             cpuDict["Current Speed"] = str((v['data']['Current Speed']))
+            cpuDict["Family"] = str((v['data']['Family']))
+            cpuDict["DeviceID"] = str((v['data']['Manufacturer']['ID']))
+            cpuDict["Description"] = str((v['data']['Manufacturer']['Signature']))
+            sql_data = (computerUUID, 11, 206, cpuDict["Manufacturer"], i)
+            cursor.execute(sql_query, sql_data)
+            db.commit()
+            sql_data = (computerUUID, 11, 207, cpuDict["Description"], i)
+            cursor.execute(sql_query, sql_data)
+            db.commit()
+            sql_data = (computerUUID, 11, 1, cpuDict["DeviceID"], i)
+            cursor.execute(sql_query, sql_data)
+            db.commit()
             sql_data = (computerUUID, 11, 4, cpuDict["Version"], i)
             cursor.execute(sql_query, sql_data)
             db.commit()
@@ -144,28 +158,88 @@ for v in dmidecode.processor().values():
 sql_data = (computerUUID, 8)
 cursor.execute(sql_query_del, sql_data)
 db.commit()
-
 sql_data = (computerUUID, 8, 13, platform.platform(), 1)
 cursor.execute(sql_query, sql_data)
 db.commit()
-
 osCaption = ' '.join(platform.dist()).strip().title()
 sql_data = (computerUUID, 8, 15, osCaption, 1)
 cursor.execute(sql_query, sql_data)
 db.commit()
-
 sql_data = (computerUUID, 8, 18, platform.release(), 1)
 cursor.execute(sql_query, sql_data)
 db.commit()
-
 sql_data = (computerUUID, 8, 23, platform.version(), 1)
 cursor.execute(sql_query, sql_data)
 db.commit()
-
 osArchitecture = platform.architecture()
 sql_data = (computerUUID, 8, 117, osArchitecture[0], 1)
 cursor.execute(sql_query, sql_data)
 db.commit()
+
+
+#Memory array
+sql_data = (computerUUID, 28)
+cursor.execute(sql_query_del, sql_data)
+db.commit()
+
+i = 1
+for v in dmidecode.memory().values():
+    if type(v) == dict and v['dmi_type'] == 16:
+        ramADict["MaxCapacity"] = str((v['data']['Maximum Capacity']))
+        ramADict["MemoryDevices"] = str((v['data']['Number Of Devices']))
+        ramADict["Name"] = str((v['data']['Use']))
+        sql_data = (computerUUID, 28, 204, ramADict["MemoryDevices"], i)
+        cursor.execute(sql_query, sql_data)
+        db.commit()
+        sql_data = (computerUUID, 28, 203, ramADict["MaxCapacity"], i)
+        cursor.execute(sql_query, sql_data)
+        db.commit()
+        sql_data = (computerUUID, 28, 202, ramADict["Name"], i)
+        cursor.execute(sql_query, sql_data)
+        db.commit()
+        i += 1
+
+#Memory
+sql_data = (computerUUID, 15)
+cursor.execute(sql_query_del, sql_data)
+db.commit()
+
+i = 1
+for v in dmidecode.memory().values():
+    if type(v) == dict and v['dmi_type'] == 17:
+        ramDict["DeviceLocator"] = str((v['data']['Locator']))
+        ramDict["Speed"] = str((v['data']['Speed']))
+        ramDict["Name"] = 'Physical memory'
+        ramDict["MemoryType"] = str((v['data']['Type']))
+        ramDict["Manufacturer"] = str((v['data']['Manufacturer']))
+        ramDict["Capacity"] = str((v['data']['Size']))
+        sql_data = (computerUUID, 15, 104, ramDict["Name"], i)
+        cursor.execute(sql_query, sql_data)
+        db.commit()
+        sql_data = (computerUUID, 15, 103, ramDict["Name"], i)
+        cursor.execute(sql_query, sql_data)
+        db.commit()
+        sql_data = (computerUUID, 15, 105, ramDict["DeviceLocator"], i)
+        cursor.execute(sql_query, sql_data)
+        db.commit()
+        sql_data = (computerUUID, 15, 106, ramDict["Capacity"], i)
+        cursor.execute(sql_query, sql_data)
+        db.commit()
+        sql_data = (computerUUID, 15, 107, ramDict["Speed"], i)
+        cursor.execute(sql_query, sql_data)
+        db.commit()
+        sql_data = (computerUUID, 15, 109, ramDict["Manufacturer"], i)
+        cursor.execute(sql_query, sql_data)
+        db.commit()
+        i += 1
+
+
+
+
+
+
+
+
 
 
 
@@ -177,70 +251,3 @@ print reportDateTime
 
 
 
-
-
-
-
-
-
-
-
-
-
-'''
-   Type   Information
-       ----------------------------------------
-          0   BIOS
-          1   System
-          2   Base Board
-          3   Chassis
-          4   Processor
-          5   Memory Controller
-          6   Memory Module
-          7   Cache
-          8   Port Connector
-          9   System Slots
-         10   On Board Devices
-         11   OEM Strings
-         12   System Configuration Options
-         13   BIOS Language
-         14   Group Associations
-         15   System Event Log
-         16   Physical Memory Array
-         17   Memory Device
-         18   32-bit Memory Error
-         19   Memory Array Mapped Address
-         20   Memory Device Mapped Address
-         21   Built-in Pointing Device
-         22   Portable Battery
-         23   System Reset
-         24   Hardware Security
-         25   System Power Controls
-         26   Voltage Probe
-         27   Cooling Device
-         28   Temperature Probe
-         29   Electrical Current Probe
-         30   Out-of-band Remote Access
-         31   Boot Integrity Services
-         32   System Boot
-         33   64-bit Memory Error
-         34   Management Device
-         35   Management Device Component
-         36   Management Device Threshold Data
-         37   Memory Channel
-         38   IPMI Device
-         39   Power Supply
-
-
-       Keyword     Types
-       ------------------------------
-       bios        0, 13
-       system      1, 12, 15, 23, 32
-       baseboard   2, 10
-       chassis     3
-       processor   4
-       memory      5, 6, 16, 17
-       cache       7
-       connector   8
-       slot        9
-'''
