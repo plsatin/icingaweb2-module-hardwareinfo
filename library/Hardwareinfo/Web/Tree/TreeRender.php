@@ -35,15 +35,6 @@ class TreeRender
 
         $db = DbInventory::getDB(); // Создаём объект базы данных
 
-
-        // $q_Win32_Class_Items = "SELECT tbInventoryClass.Name AS ClassName, tbInventoryProperty.Name AS PropertyName, tbComputerInventory.Value, tbComputerInventory.InstanceId
-        // FROM tbComputerInventory INNER JOIN
-        // tbInventoryClass ON tbComputerInventory.ClassID = tbInventoryClass.ClassID INNER JOIN
-        // tbInventoryProperty ON tbComputerInventory.PropertyID = tbInventoryProperty.PropertyID INNER JOIN
-        // tbComputerTarget ON tbComputerInventory.ComputerTargetId = tbComputerTarget.ComputerTargetId
-        // WHERE  (tbComputerTarget.Name LIKE '%$qhost%' AND tbInventoryClass.ClassID ='$win32class');";
-
-
         $q_Hardware_Items = "SELECT tbInventoryClass.Name AS ClassName, tbInventoryProperty.Name AS PropertyName, tbComputerInventory.Value, tbComputerInventory.InstanceId
         FROM tbComputerInventory INNER JOIN
         tbInventoryClass ON tbComputerInventory.ClassID = tbInventoryClass.ClassID INNER JOIN
@@ -52,7 +43,7 @@ class TreeRender
         WHERE  (tbComputerTarget.Name LIKE '%$qhost%');";
 
         $q_Hardware_Class = "SELECT * FROM tbInventoryClass ORDER BY Name";
-        //$q_Hardware_Class = "SELECT * FROM tbInventoryClass WHERE ClassID IN (1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 28) ORDER BY Name";
+        // $q_Hardware_Class = "SELECT * FROM tbInventoryClass WHERE ClassID IN (1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 28) ORDER BY Name";
 
 
         $hardwareClass = $db->select($q_Hardware_Class);
@@ -66,6 +57,9 @@ class TreeRender
         $result .= "<ul><li data-jstree='{ \"opened\" : \"true\", \"icon\" : \"".$icon_path."hardware.ico\" }'>Computer: ".$qhost."<ul>";
 
         $class_icon = "non-pnp.ico";
+
+
+////
 
         foreach ($hardwareClass as $itemC) {
             switch ($itemC->Name) {
@@ -162,7 +156,9 @@ class TreeRender
                 default:
                     $class_icon = "non-pnp.ico";
             }
-            
+
+////
+
 
             $result .= "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$itemC->Name."<ul>";
 ////

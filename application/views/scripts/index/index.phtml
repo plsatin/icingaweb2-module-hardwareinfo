@@ -67,18 +67,18 @@ if ($hosts->hasResult()) {
         $titleHostLink = $this->translate('Show detailed information for host ').$host->host_name;
         $titleHWLink = $this->translate('Show hardware information for host ').$host->host_name;
 
-        
 
-    $hostLink = $this->qlink($host->host_name, $hostBaseUrl."/monitoring/host/show?host=".$host->host_name, null, [
-        'class'             => '',
-        'title'  => $titleHostLink,
-        'data-base-target'  => '_next'
-    ]);
-    $hardwareInfoLink = $this->qlink("Hardware Information", $hostBaseUrl."/hardwareinfo/tree?host=".$host->host_name, null, [
-        'class'             => 'rowaction', //action-link
-        'title'        => $titleHWLink,
-        'data-base-target'  => '_next'
-    ]);
+
+        $hostLink = $this->qlink($host->host_name, $hostBaseUrl."/monitoring/host/show?host=".$host->host_name, null, [
+                'class'             => '',
+                'title'  => $titleHostLink,
+                'data-base-target'  => '_next'
+            ]);
+        $hardwareInfoLink = $this->qlink("Hardware Information", $hostBaseUrl."/hardwareinfo/tree?host=".$host->host_name, null, [
+                'class'             => 'rowaction', //action-link
+                'title'        => $titleHWLink,
+                'data-base-target'  => '_next'
+            ]);
 
 echo '<tr>
     <td class="state-col '.$class_state.'">
