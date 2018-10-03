@@ -70,41 +70,44 @@ CREATE TABLE `tbInventoryClass` (
   `ClassID` int(5) NOT NULL,
   `Name` varchar(256) NOT NULL,
   `Namespace` varchar(256) NOT NULL DEFAULT 'root\\cimv2',
+  `Title` varchar(256) NOT NULL,
+  `Description` varchar(256) NOT NULL,
+  `Icon` varchar(256) NOT NULL,
   `Enabled` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`ClassID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `tbInventoryClass` (`ClassID`, `Name`, `Namespace`, `Enabled`) VALUES
-(1,	'Win32_BIOS',	'root\\cimv2',	1),
-(2,	'Win32_ComputerSystem',	'root\\cimv2',	1),
-(3,	'Win32_DesktopMonitor',	'root\\cimv2',	1),
-(4,	'Win32_DiskDrive',	'root\\cimv2',	1),
-(5,	'Win32_LogicalDisk',	'root\\cimv2',	1),
-(6,	'Win32_NetworkAdapter',	'root\\cimv2',	1),
-(7,	'Win32_NetworkAdapterConfiguration',	'root\\cimv2',	1),
-(8,	'Win32_OperatingSystem',	'root\\cimv2',	1),
-(10,	'Win32_Printer',	'root\\cimv2',	1),
-(11,	'Win32_Processor',	'root\\cimv2',	1),
-(12,	'Win32_SoundDevice',	'root\\cimv2',	1),
-(13,	'Win32_VideoController',	'root\\cimv2',	1),
-(15,	'Win32_PhysicalMemory',	'root\\cimv2',	1),
-(16,	'Win32_BaseBoard',	'root\\cimv2',	1),
-(17,	'Win32_IDEController',	'root\\cimv2',	1),
-(18,	'Win32_SCSIController',	'root\\cimv2',	1),
-(19,	'Win32_USBController',	'root\\cimv2',	1),
-(20,	'Win32_USBHub',	'root\\cimv2',	1),
-(21,	'Win32_PointingDevice',	'root\\cimv2',	1),
-(22,	'Win32_Keyboard',	'root\\cimv2',	1),
-(23,	'Win32_SerialPort',	'root\\cimv2',	1),
-(24,	'Win32_ParallelPort',	'root\\cimv2',	1),
-(25,	'Win32_ComputerSystemProduct',	'root\\cimv2',	1),
-(26,	'Win32_DiskDriveToDiskPartition',	'root\\cimv2',	1),
-(27,	'Win32_LogicalDiskToPartition',	'root\\cimv2',	1),
-(28,	'Win32_PhysicalMemoryArray',	'root\\cimv2',	1),
-(90,	'Win32_Product',	'root\\cimv2',	0),
-(91,	'SoftwareLicensingProduct',	'root\\cimv2',	0),
-(92,	'MSStorageDriver_FailurePredictStatus ',	'root\\wmi',	1),
-(93,	'Win32_QuickFixEngineering',	'root\\cimv2',	0);
+INSERT INTO `tbInventoryClass` (`ClassID`, `Name`, `Namespace`, `Title`, `Description`, `Icon`, `Enabled`) VALUES
+(1,	'Win32_BIOS',	'root\\cimv2',	'BIOS',	'',	'bios.ico',	1),
+(2,	'Win32_ComputerSystem',	'root\\cimv2',	'Computer',	'',	'computer.ico',	1),
+(3,	'Win32_DesktopMonitor',	'root\\cimv2',	'Monitors',	'',	'monitor.ico',	1),
+(4,	'Win32_DiskDrive',	'root\\cimv2',	'Disk drives',	'',	'disk.ico',	1),
+(5,	'Win32_LogicalDisk',	'root\\cimv2',	'Logical disks',	'',	'disk.ico',	1),
+(6,	'Win32_NetworkAdapter',	'root\\cimv2',	'Network adapters',	'',	'network.ico',	1),
+(7,	'Win32_NetworkAdapterConfiguration',	'root\\cimv2',	'Network adapters configuration',	'',	'network.ico',	1),
+(8,	'Win32_OperatingSystem',	'root\\cimv2',	'Operating system',	'',	'windows.ico',	1),
+(10,	'Win32_Printer',	'root\\cimv2',	'Printers',	'',	'printer.ico',	1),
+(11,	'Win32_Processor',	'root\\cimv2',	'Processors',	'',	'cpu.ico',	1),
+(12,	'Win32_SoundDevice',	'root\\cimv2',	'Audio inputs and outputs',	'',	'audio.ico',	1),
+(13,	'Win32_VideoController',	'root\\cimv2',	'Display adapters',	'',	'video.ico',	1),
+(15,	'Win32_PhysicalMemory',	'root\\cimv2',	'Memory devices',	'',	'ram.ico',	1),
+(16,	'Win32_BaseBoard',	'root\\cimv2',	'Base board',	'',	'system.ico',	1),
+(17,	'Win32_IDEController',	'root\\cimv2',	'IDE ATA/ATAPI controllers',	'',	'ide-controller.ico',	1),
+(18,	'Win32_SCSIController',	'root\\cimv2',	'Storage controllers',	'',	'scsi-controller.ico',	1),
+(19,	'Win32_USBController',	'root\\cimv2',	'USB controllers',	'',	'usb-controller.ico',	1),
+(20,	'Win32_USBHub',	'root\\cimv2',	'USB devices',	'',	'usb.ico',	1),
+(21,	'Win32_PointingDevice',	'root\\cimv2',	'Mice and other pointing devices',	'',	'mouse.ico',	1),
+(22,	'Win32_Keyboard',	'root\\cimv2',	'Keyboards',	'',	'keyboard.ico',	1),
+(23,	'Win32_SerialPort',	'root\\cimv2',	'Serial ports',	'',	'com.ico',	1),
+(24,	'Win32_ParallelPort',	'root\\cimv2',	'Parallel ports',	'',	'lpt.ico',	1),
+(25,	'Win32_ComputerSystemProduct',	'root\\cimv2',	'Computer system product',	'',	'non-pnp.ico',	1),
+(26,	'Win32_DiskDriveToDiskPartition',	'root\\cimv2',	'Disk drives to disk partitions',	'',	'non-pnp.ico',	1),
+(27,	'Win32_LogicalDiskToPartition',	'root\\cimv2',	'Logical disks to partitions',	'',	'non-pnp.ico',	1),
+(28,	'Win32_PhysicalMemoryArray',	'root\\cimv2',	'Memory arrays',	'',	'ram.ico',	1),
+(90,	'Win32_Product',	'root\\cimv2',	'Software',	'',	'non-pnp.ico',	0),
+(91,	'SoftwareLicensingProduct',	'root\\cimv2',	'Software license',	'',	'non-pnp.ico',	0),
+(92,	'MSStorageDriver_FailurePredictStatus ',	'root\\wmi',	'Storage driver failure predict status',	'',	'non-pnp.ico',	1),
+(93,	'Win32_QuickFixEngineering',	'root\\cimv2',	'Windows updates',	'',	'non-pnp.ico',	0);
 
 DROP TABLE IF EXISTS `tbInventoryProperty`;
 CREATE TABLE `tbInventoryProperty` (
@@ -345,4 +348,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwComputerSoftInventory` A
 DROP TABLE IF EXISTS `vwComputerUpdatesInventory`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwComputerUpdatesInventory` AS select `tbComputerTarget`.`Name` AS `Name`,`tbInventoryProperty`.`Name` AS `PropertyName`,`tbComputerUpdatesInventory`.`Value` AS `Value`,`tbComputerUpdatesInventory`.`InstanceId` AS `InstanceId` from ((`tbComputerUpdatesInventory` join `tbInventoryProperty` on((`tbComputerUpdatesInventory`.`PropertyID` = `tbInventoryProperty`.`PropertyID`))) join `tbComputerTarget` on((`tbComputerUpdatesInventory`.`ComputerTargetId` = `tbComputerTarget`.`ComputerTargetId`))) order by `tbComputerTarget`.`Name`;
 
--- 2018-05-25 04:11:36
+-- 2018-10-03 14:31:34

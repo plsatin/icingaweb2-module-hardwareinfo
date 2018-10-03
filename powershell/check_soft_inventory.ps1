@@ -31,7 +31,7 @@
 #>
 Param(
     [Parameter(Mandatory = $false)]
-        [string]$ComputerName = "localhost",   
+        [string]$ComputerName = "localhost",
     [Parameter(Mandatory = $false)]
         [string]$myFQDN
     )
@@ -52,7 +52,7 @@ if ((Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain) {
 
 } else {
     $myFQDN = (Get-WmiObject win32_computersystem).DNSHostName
-    
+
 }
 
 
@@ -60,46 +60,46 @@ if ((Get-WmiObject -Class Win32_ComputerSystem).PartOfDomain) {
 
 #Функция выполнения MySQL запроса
 function Invoke-MySQLQuery {
-	Param(
+    Param(
         [Parameter(
             Mandatory = $true,
             ParameterSetName = '',
             ValueFromPipeline = $true)]
             [string]$query,   
-		[Parameter(
+        [Parameter(
             Mandatory = $true,
             ParameterSetName = '',
             ValueFromPipeline = $true)]
             [string]$connectionString
         )
 
-		try {
-			# load MySQL driver and create connection
-			Write-Verbose "Create Database Connection"
-			# You could also could use a direct Link to the DLL File
-			$mySQLDataDLL = "C:\ProgramData\icinga2\Scripts\icinga2\bin\MySQL.Data.dll"
-			[void][system.reflection.Assembly]::LoadFrom($mySQLDataDLL)
-			#[void][System.Reflection.Assembly]::LoadWithPartialName("MySql.Data")
-			$connection = New-Object MySql.Data.MySqlClient.MySqlConnection
-			$connection.ConnectionString = $ConnectionString
-			Write-Verbose "Open Database Connection"
-			$connection.Open()
-			
-			# Run MySQL Querys
-			Write-Verbose "Run MySQL Querys"
-			$command = New-Object MySql.Data.MySqlClient.MySqlCommand($query, $connection)
-			$dataAdapter = New-Object MySql.Data.MySqlClient.MySqlDataAdapter($command)
-			$dataSet = New-Object System.Data.DataSet
-			$recordCount = $dataAdapter.Fill($dataSet, "data")
-			$dataSet.Tables["data"] # | Format-Table
-		}		
-		catch {
-			Write-Host "Could not run MySQL Query" $Error[0]	
-		}	
-		Finally {
-			Write-Verbose "Close Connection"
-			$connection.Close()
-		}
+        try {
+            # load MySQL driver and create connection
+            Write-Verbose "Create Database Connection"
+            # You could also could use a direct Link to the DLL File
+            $mySQLDataDLL = "C:\ProgramData\icinga2\Scripts\icinga2\bin\MySQL.Data.dll"
+            [void][system.reflection.Assembly]::LoadFrom($mySQLDataDLL)
+            #[void][System.Reflection.Assembly]::LoadWithPartialName("MySql.Data")
+            $connection = New-Object MySql.Data.MySqlClient.MySqlConnection
+            $connection.ConnectionString = $ConnectionString
+            Write-Verbose "Open Database Connection"
+            $connection.Open()
+
+            # Run MySQL Querys
+            Write-Verbose "Run MySQL Querys"
+            $command = New-Object MySql.Data.MySqlClient.MySqlCommand($query, $connection)
+            $dataAdapter = New-Object MySql.Data.MySqlClient.MySqlDataAdapter($command)
+            $dataSet = New-Object System.Data.DataSet
+            $recordCount = $dataAdapter.Fill($dataSet, "data")
+            $dataSet.Tables["data"] # | Format-Table
+        }
+        catch {
+            Write-Host "Could not run MySQL Query" $Error[0]
+        }
+        Finally {
+            Write-Verbose "Close Connection"
+            $connection.Close()
+        }
 
 } #Конец функции Invoke-MySQLQuery
 
@@ -110,16 +110,16 @@ $watch = [System.Diagnostics.Stopwatch]::StartNew()
 $watch.Start() #Запуск таймера
 
 if ($ComputerName -eq ".") {
-	$result = $true
+    $result = $true
     $addUUID = $myFQDN
 } elseif ( $ComputerName -eq "localhost" ) {
-	$result = $true
+    $result = $true
     $addUUID = $myFQDN
     $ComputerName = $myFQDN
 } else {
     $addUUID = $ComputerName
     $myFQDN = $ComputerName
-	$result = Test-Connection -ComputerName $ComputerName -Count 2 -Quiet
+    $result = Test-Connection -ComputerName $ComputerName -Count 2 -Quiet
 }
 
 
@@ -146,16 +146,16 @@ if ($result) {
     $rQLquery = Invoke-MySQLQuery -connectionString $connString -query $sQLquery
     [string]$LastReportedInventoryTime = get-date -Format "yyyy-MM-dd HH:mm:ss"
 
-    
+
     $sQLqueryS = "SELECT ClassID, Name, Namespace, Enabled FROM tbInventoryClass WHERE Name = 'Win32_Product'"
     $rQLqueryS = Invoke-MySQLQuery -connectionString $connString -query $sQLqueryS
-    
+
     foreach ($row in $rQLqueryS) {
         $ClassID = $row.ClassID
         [string]$Win32ClassName = $row.Name
 
     }
-    
+
 
 
     if ($rQLquery.ComputerTargetId -ne $Null) {
@@ -163,7 +163,7 @@ if ($result) {
         $sQLquery = "UPDATE tbComputerTarget SET Name='$myFQDN', LastReportedSoftInventoryTime='$LastReportedInventoryTime' WHERE ComputerTargetId='$ComputerUUID'"
         $rQLquery = Invoke-MySQLQuery -connectionString $connString -query $sQLquery
 
-    
+
         $sQLqueryDel = "DELETE FROM tbComputerSoftInventory WHERE ComputerTargetId='$ComputerUUID'"
         $rQLqueryDel = Invoke-MySQLQuery -connectionString $connString -query $sQLqueryDel
 
@@ -200,7 +200,7 @@ if ($result) {
 
                 $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
                     VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
-                
+
                 Invoke-MySQLQuery -connectionString $connString -query $sQLDings
                 $recordCount ++
 
@@ -210,40 +210,40 @@ if ($result) {
 
                 $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
                     VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
-                
+
                 Invoke-MySQLQuery -connectionString $connString -query $sQLDings
                 $recordCount ++
 
             } elseif ($rowProp.Name -eq "Vendor") {
                 $PropertyName = $rowProp.PropertyID
                 $Value = $computerClass.Vendor
-    
+
                 $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
                     VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
-                
+
                 Invoke-MySQLQuery -connectionString $connString -query $sQLDings
                 $recordCount ++
-                
+
             } elseif ($rowProp.Name -eq "InstallDate") {
                 $PropertyName = $rowProp.PropertyID
                 $Value = $computerClass.InstallDate
-    
+
                 $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
                     VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
-                
+
                 Invoke-MySQLQuery -connectionString $connString -query $sQLDings
                 $recordCount ++
-                
+
             } elseif ($rowProp.Name -eq "IdentifyingNumber") {
                 $PropertyName = $rowProp.PropertyID
                 $Value = $computerClass.IdentifyingNumber
-    
+
                 $sQLDings = "INSERT INTO tbComputerSoftInventory ( ComputerTargetId, PropertyID, Value, InstanceId )
                     VALUES ( '$ComputerUUID', '$PropertyName', '$Value', '$InstanceId' )"
-                
+
                 Invoke-MySQLQuery -connectionString $connString -query $sQLDings
                 $recordCount ++
-                
+
             }
 
         }

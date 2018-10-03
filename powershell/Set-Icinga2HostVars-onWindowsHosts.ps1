@@ -13,10 +13,10 @@
   Полное доменное имя (указанное как host.name в Icinga2)
 
  .OUTPUTS
-  
+
 
  .EXAMPLE
-  
+
 
  .LINK 
   https://webnote.satin-pl.com
@@ -57,20 +57,20 @@ function Send-Icinga2HostVars {
         [string]    $manufacturer,
         [string]    $model,
         [string]    $bios_serial,
-        [string]	$board_manufacturer,
-        [string]	$board_product,
+        [string]    $board_manufacturer,
+        [string]    $board_product,
         [string]    $cpu,
         [string]    $ram,
         [string]    $os,
         [string]    $osarch,
-        [string]	$logonuser,
+        [string]    $logonuser,
         [string]    $psver,
         [string]    $host_uuid,
         [string]    $dsc_agentid,
         [string]    $targetid
         )
 
-        
+
 #Доверяем всем сертификатам
 add-type -TypeDefinition  @"
         using System.Net;
@@ -114,10 +114,10 @@ function Get-ComputerUUID {
           ValueFromPipeline = $true)]
           [string]$ComputerName
     )
-   
-  
+
+
     try {
-  
+
         $ComputerName = $ComputerName.ToLower()
             
         $computerSystem = Get-WmiObject Win32_ComputerSystem -computer $ComputerName -ErrorAction SilentlyContinue -Errorvariable err
@@ -130,31 +130,31 @@ function Get-ComputerUUID {
         } else {
             $returnState = $returnStateOK
         }
-  
+
         $ComputerUUID = get-wmiobject Win32_ComputerSystemProduct -computername $ComputerName | Select-Object -ExpandProperty UUID -ErrorAction SilentlyContinue
         $OSSerial = get-wmiobject Win32_OperatingSystem -computername $ComputerName | Select-Object -ExpandProperty SerialNumber -ErrorAction SilentlyContinue
-    
+
         Write-Verbose "UUID from WMI: $ComputerUUID"
-    
+
         if ($ComputerUUID -eq "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF") {
             
         } elseif ($ComputerUUID -eq "00000000-0000-0000-0000-000000000000") {
-    
+
         } elseif ( $ComputerUUID -eq $Null ) {
     
         } else {
-    
+
         }
     
         $ComputerUUID = $ComputerUUID + "-" + $OSSerial
         Write-Verbose "ComputerUUID: $ComputerUUID"
         
         return $ComputerUUID
-  
+
     } catch [System.Exception] {
         $errorstr = $_.Exception.toString()
         Write-Verbose $errorstr
-    }	
+    }    
   
 } # Конец функции Get-ComputerUUID
 
@@ -178,9 +178,9 @@ if ($myFQDN -eq "") {
 
 
 if ($ComputerName -eq ".") {
-	$result = $true
+    $result = $true
 } else {
-	$result = Test-Connection -ComputerName $ComputerName -Count 2 -Quiet
+    $result = Test-Connection -ComputerName $ComputerName -Count 2 -Quiet
 }
 
 if ($result) {
@@ -203,7 +203,7 @@ if ($result) {
     $ComputerUUID = Get-ComputerUUID -ComputerName $ComputerName
     Write-Verbose "ComputerUUID: $ComputerUUID"
 
-    
+
     if (!$computerSystem) {
         #Запрос не выполнен завершаем!
         Write-Host $err.Message
@@ -243,7 +243,6 @@ if ($result) {
 
     } else {
 
-        
         Send-Icinga2HostVars -hostname $ComputerName -manufacturer $computerSystem.Manufacturer -model $computerSystem.Model -bios_serial $computerBIOS.SerialNumber -board_manufacturer $computerBoard.Manufacturer -board_product $computerBoard.Product -cpu $cpuName -ram $ram -os $os -osarch $osarch -logonuser $computerSystem.UserName -psver $psver -host_uuid $computerCSProduct.UUID -targetid $ComputerUUID
 
     }
@@ -251,7 +250,7 @@ if ($result) {
 
 
     Write-Host "OK"
-   
+
 
     $watch.Stop() #Остановка таймера
     Write-Host $watch.Elapsed #Время выполнения
@@ -263,5 +262,5 @@ if ($result) {
 } #End if test-connection result
 else {
     Write-Host "Host $ComputerName is not available."
-	[System.Environment]::Exit($returnStateUnknown)
+    [System.Environment]::Exit($returnStateUnknown)
 }

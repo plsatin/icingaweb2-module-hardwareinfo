@@ -38,6 +38,7 @@ if ($hosts->hasResult()) {
         <th>'.$this->translate('State').'</th>
         <th>'.$this->translate('Host Name').'</th>
         <th>'.$this->translate('Host OS').'</th>
+        <th>'.$this->translate('HW Model').'</th>
         <th>'.$this->translate('Host CPU').'</th>
         <th>'.$this->translate('Host RAM').'</th>
         </tr></thead>
@@ -95,6 +96,12 @@ echo '<tr>
     <td>
         <p class="vars-os">'
         .$host->os
+        .'</p>
+    </td>
+    <td>
+        <p class="vars-hw">'
+        .$host->manufacturer.'<br>'
+        .$host->model
         .'</p>
     </td>
     <td>

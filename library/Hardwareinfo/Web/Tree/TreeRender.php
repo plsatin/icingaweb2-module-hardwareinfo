@@ -13,12 +13,17 @@ use Icinga\Web\Url;
 /** @var \Icinga\Web\Url $serviceBaseUrl */
 
 
+define('ICON_DIR', '/icingaweb2/img/hardwareinfo/icons/');
+
+
+
+
 class TreeRender
 {
 
     private $_db = null;
     private $_category_arr = array();
- 
+
     public function __construct() {
         //Подключаемся к базе данных, и записываем подключение в переменную _db
         $this->_db = DbInventory::getDB(); // Создаём объект базы данных
@@ -30,10 +35,8 @@ class TreeRender
 
         $qhost = $host;
         $win32class = 1; //$ClassId;
-        $icon_path = "/icingaweb2/img/hardwareinfo/icons/";
+        $icon_path = ICON_DIR;
         $result = null;
-
-        $db = DbInventory::getDB(); // Создаём объект базы данных
 
         $q_Hardware_Items = "SELECT tbInventoryClass.Name AS ClassName, tbInventoryProperty.Name AS PropertyName, tbComputerInventory.Value, tbComputerInventory.InstanceId
         FROM tbComputerInventory INNER JOIN
@@ -42,12 +45,25 @@ class TreeRender
         tbComputerTarget ON tbComputerInventory.ComputerTargetId = tbComputerTarget.ComputerTargetId
         WHERE  (tbComputerTarget.Name LIKE '%$qhost%');";
 
-        $q_Hardware_Class = "SELECT * FROM tbInventoryClass ORDER BY Name";
+        $q_Hardware_Class = "SELECT * FROM tbInventoryClass ORDER BY Title";
         // $q_Hardware_Class = "SELECT * FROM tbInventoryClass WHERE ClassID IN (1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 28) ORDER BY Name";
 
 
+
+/////////////////////////
+
+        // Закометировать для webnote.satin-pl.com/examples
+        $db = DbInventory::getDB(); // Создаём объект базы данных
+
+        // Закометировать для webnote.satin-pl.com/examples
         $hardwareClass = $db->select($q_Hardware_Class);
         $hardwareItems = $db->select($q_Hardware_Items);
+
+        // $hardwareClass = DB::select($q_Hardware_Class);
+        // $hardwareItems = DB::select($q_Hardware_Items);
+
+///////////////////////
+
 
         if ($hardwareItems == false) {
             return "<ul><li data-jstree='{ \"opened\" : \"true\", \"icon\" : \"".$icon_path."hardware.ico\" }'>Computer: ".$qhost."<ul><li>No data</li></ul></li></ul>";
@@ -56,112 +72,14 @@ class TreeRender
 
         $result .= "<ul><li data-jstree='{ \"opened\" : \"true\", \"icon\" : \"".$icon_path."hardware.ico\" }'>Computer: ".$qhost."<ul>";
 
-        $class_icon = "non-pnp.ico";
-
-
-////
+        // $class_icon = "non-pnp.ico";
 
         foreach ($hardwareClass as $itemC) {
-            switch ($itemC->Name) {
-                case "Win32_BIOS":
-                    $class_icon = "bios.ico";
-                    break;
-                case "Win32_ComputerSystem":
-                    $class_icon = "computer.ico";
-                    break;
-                case "Win32_DesktopMonitor":
-                    $class_icon = "monitor.ico";
-                    break;
-                case "Win32_DiskDrive":
-                    $class_icon = "disk.ico";
-                    break;
-                case "Win32_LogicalDisk":
-                    $class_icon = "disk.ico";
-                    break;
-                case "Win32_NetworkAdapter":
-                    $class_icon = "network.ico";
-                    break;
-                case "Win32_NetworkAdapterConfiguration":
-                    $class_icon = "network.ico";
-                    break;
-                case "Win32_OperatingSystem":
-                    $class_icon = "windows.ico";
-                    break;
-                case "Win32_Printer":
-                    $class_icon = "printer.ico";
-                    break;
-                case "Win32_Processor":
-                    $class_icon = "cpu.ico";
-                    break;
-                case "Win32_SoundDevice":
-                    $class_icon = "audio.ico";
-                    break;
-                case "Win32_VideoController":
-                    $class_icon = "video.ico";
-                    break;
-                case "Win32_PhysicalMemory":
-                    $class_icon = "ram.ico";
-                    break;
-                case "Win32_BaseBoard":
-                    $class_icon = "system.ico";
-                    break;
-                case "Win32_IDEController":
-                    $class_icon = "ide-controller.ico";
-                    break;
-                case "Win32_SCSIController":
-                    $class_icon = "scsi-controller.ico";
-                    break;
-                case "Win32_USBController":
-                    $class_icon = "usb-controller.ico";
-                    break;
-                case "Win32_USBHub":
-                    $class_icon = "usb.ico";
-                    break;
-                case "Win32_PointingDevice":
-                    $class_icon = "mouse.ico";
-                    break;
-                case "Win32_Keyboard":
-                    $class_icon = "keyboard.ico";
-                    break;
-                case "Win32_SerialPort":
-                    $class_icon = "com.ico";
-                    break;
-                case "Win32_ParallelPort":
-                    $class_icon = "lpt.ico";
-                    break;
-                case "Win32_ComputerSystemProduct":
-                    $class_icon = "non-pnp.ico";
-                    break;
-                case "Win32_DiskDriveToDiskPartition":
-                    $class_icon = "non-pnp.ico";
-                    break;
-                case "Win32_LogicalDiskToPartition":
-                    $class_icon = "non-pnp.ico";
-                    break;
-                case "Win32_PhysicalMemoryArray":
-                    $class_icon = "ram.ico";
-                    break;
-                case "Win32_Product":
-                    $class_icon = "non-pnp.ico";
-                    break;
-                case "SoftwareLicensingProduct":
-                    $class_icon = "non-pnp.ico";
-                    break;
-                case "MSStorageDriver_FailurePredictStatus":
-                    $class_icon = "non-pnp.ico";
-                    break;
-                case "Win32_QuickFixEngineering":
-                    $class_icon = "non-pnp.ico";
-                    break;
-                default:
-                    $class_icon = "non-pnp.ico";
-            }
 
-////
+            $class_icon = $itemC->Icon;
 
+            $result .= "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$itemC->Title."<ul>";
 
-            $result .= "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$itemC->Name."<ul>";
-////
             $itemIarr = array();
             $itemName = array();
             $itemCaption = array();
@@ -236,7 +154,6 @@ class TreeRender
             }
 
 
-////
             $result .= "</ul></li>"; //Конец класса
 
         }

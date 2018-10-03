@@ -34,6 +34,8 @@ class IndexController extends MonitoringAwareController
                 'os' => '_host_os',
                 'cpu' => '_host_cpu',
                 'ram' => '_host_ram',
+                'manufacturer' => '_host_manufacturer',
+                'model' => '_host_model',
 
             ])
             ->applyFilter(Filter::fromQueryString('_host_os_type >'))
