@@ -2,9 +2,9 @@
 
 ## Requirements
 
-  * [Icinga Web 2](https://www.icinga.com/products/icinga-web-2/) (>= 2.4.1)
-  * [MySQL](https://www.mysql.com) (>=5.5)
-  * [PHP](https://www.php.net)
+* [Icinga Web 2](https://www.icinga.com/products/icinga-web-2/) (>= 2.4.1)
+* [MySQL](https://www.mysql.com) (>=5.5)
+* [PHP](https://www.php.net)
 
 ## Installation the Hardwareinfo module
 
@@ -25,7 +25,3 @@ You can also enable the module by using the `icingacli` command:
 ```bash
 icingacli module enable hardwareinfo
 ```
-
-## Configuration
-
-Read the [Configuration](03_module_configuration.md) section for details.

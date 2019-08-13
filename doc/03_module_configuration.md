@@ -8,7 +8,7 @@ Setting            | Description
 -------------------|-------------------
 Database type      | Not implemented yet.
 Host               | **Required.** MySQL server host name.
-Database           | **Required.** Database name. 
+Database           | **Required.** Database name.
 User               | **Required.** Database user name.
 Password           | **Required.** Database user password.
 
@@ -26,7 +26,3 @@ object Host "server1" {
 }
 
 ```
-
-## Data collection
-
-Read the [How to collect data](04_collect_data.md) section for details.
