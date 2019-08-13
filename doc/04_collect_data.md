@@ -4,7 +4,6 @@
 
 To collect information, it's enough to run the powershell script [check_hard_inventory.ps1](https://github.com/plsatin/icingaweb2-module-hardwareinfo/blob/master/powershell/check_hard_inventory.ps1) on the local system.
 
-
 ## Collect data with the icinga2 service on Windows systems
 
 ```
@@ -54,7 +53,6 @@ apply Service "hardware-inventory" {
 ## Collect data on Linux systems
 
 A script is being developed to collect information about the hardware for Linux hosts. The Python script [check_hard_inventory.py](https://github.com/plsatin/icingaweb2-module-hardwareinfo/blob/master/powershell/check_hard_inventory.py) uses the `python-dmidecode` and `python-mysqldb` modules.
-
 
 You may need to install the following packages:
 

@@ -6,7 +6,6 @@
   * [MySQL](https://www.mysql.com) (>=5.5)
   * [PHP](https://www.php.net)
 
-
 ## Installation the Hardwareinfo module
 
 Create a MySQL database using the script: [inventory.sql](https://github.com/plsatin/icingaweb2-module-hardwareinfo/blob/master/sql/inventory.sql)
@@ -26,3 +25,7 @@ You can also enable the module by using the `icingacli` command:
 ```bash
 icingacli module enable hardwareinfo
 ```
+
+## Configuration
+
+Read the [Configuration](doc/03_module_configuration.md) section for details.

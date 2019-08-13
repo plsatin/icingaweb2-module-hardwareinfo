@@ -12,11 +12,9 @@ Database           | **Required.** Database name.
 User               | **Required.** Database user name.
 Password           | **Required.** Database user password.
 
-
 ## Host configuration
 
 In order for the host to appear in the main module list, it is necessary to set the variable `vars.os_type` in the host configuration.
-
 
 ```
 object Host "server1" {
@@ -28,3 +26,7 @@ object Host "server1" {
 }
 
 ```
+
+## Data collection
+
+Read the [How to collect data](doc/04_collect_data.md) section for details.
