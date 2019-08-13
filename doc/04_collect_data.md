@@ -11,20 +11,20 @@ To collect information, it's enough to run the powershell script [check_hard_inv
 object CheckCommand "powershell" {
     import "plugin-check-command"
     timeout = 5m
-    
+
     command = [ "powershell.exe" ]
     arguments = {
-                        "-command" = {
-                                skip_key = true
-                		value = "$ps_command$"
-                                order = 0
-                                }
-    			"-args" = {
-                                skip_key = true
-                		value = "$ps_args$"
-                    	        order = 1
-                                }
-		}
+        "-command" = {
+            skip_key = true
+            value = "$ps_command$"
+            order = 0
+        }
+        "-args" = {
+            skip_key = true
+            value = "$ps_args$"
+            order = 1
+        }
+    }
 
 }
 
