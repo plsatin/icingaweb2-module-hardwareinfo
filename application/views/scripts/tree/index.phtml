@@ -21,7 +21,11 @@ use Icinga\Web\Url;
     <div style="width: 100%;">
         <h1><?php echo $this->translate('Hardware Information') ?></h1>
         <div class="treesearch">
-            <input type="text" id="jstreehtml_q" name="q" style="width: 8em" class="search" value="" placeholder="Search...">
+            <div class="filter icinga-controls">
+                <form method="post" class="search inline">
+                    <input type="text" id="jstreehtml_q" name="q" style="width: 8em;padding-left: 18px;" class="search" value="" placeholder="Search...">
+                </form>
+            </div>
         </div>
         <br>
         <div id="jstreehtml" class="">
@@ -40,6 +44,11 @@ echo $r_AllClass;
 
 
 
+<style>
+.vakata-context {
+    z-index: 100000;
+}
+</style>
 
 <script type="text/javascript">
 $(function () {
@@ -49,7 +58,39 @@ $(function () {
             "icon" : "jstree-file"
         }
     },
-    "plugins" : [ "types", "search" ]
+    "contextmenu" : {
+        "items" : function($node) {
+            return {
+                "Create": {
+                    "separator_before": false,
+                    "separator_after": false,
+                    "icon": false,
+                    "label": "Copy value",
+                    "action": function (obj) {
+                        var cpValue = $node.text;
+                        console.log(cpValue);
+
+                        //Копирование в буфер обмена на чистом JavaScript
+                        // Create new element
+                        var el = document.createElement('textarea');
+                        // Set value (string to be copied)
+                        el.value = cpValue;
+                        // Set non-editable to avoid focus and move outside of view
+                        el.setAttribute('readonly', '');
+                        el.style = {position: 'absolute', left: '-9999px'};
+                        document.body.appendChild(el);
+                        // Select text inside element
+                        el.select();
+                        // Copy text to clipboard
+                        document.execCommand('copy');
+                        // Remove temporary element
+                        document.body.removeChild(el);
+                    }
+                }
+            };
+        }
+    },
+    "plugins" : [ "types", "search", "contextmenu" ]
   });
   var to = false;
   $('#jstreehtml_q').keyup(function () {
@@ -60,5 +101,6 @@ $(function () {
     }, 250);
   });
 });
+// $('.vakata-context').css('z-index', 10000);
 
 </script>

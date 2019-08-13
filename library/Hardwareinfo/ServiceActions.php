@@ -19,6 +19,20 @@ class ServiceActions extends ServiceActionsHook
             
             );
         }
+        if ($service->getName() == "hardware-inventory-cycle2") {
+            $elements = array();
+            $elements[mt('hardwareinfo', 'Hardware Information')] = array('url'  => Url::fromPath('hardwareinfo/tree', array('host' => $service->getHost()->getName())),
+            'icon' => 'host',
+            
+            );
+        }
+        if ($service->getName() == "hardware-inventory-cycle3") {
+            $elements = array();
+            $elements[mt('hardwareinfo', 'Hardware Information')] = array('url'  => Url::fromPath('hardwareinfo/tree', array('host' => $service->getHost()->getName())),
+            'icon' => 'host',
+            
+            );
+        }
 
 
 
