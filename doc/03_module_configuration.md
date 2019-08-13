@@ -29,4 +29,4 @@ object Host "server1" {
 
 ## Data collection
 
-Read the [How to collect data](doc/04_collect_data.md) section for details.
+Read the [How to collect data](04_collect_data.md) section for details.

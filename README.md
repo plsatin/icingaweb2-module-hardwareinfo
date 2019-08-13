@@ -18,7 +18,7 @@ Icinga Web 2 and this Icinga Web 2 module are licensed under the terms of the GN
 
 ## Installation
 
-For installing Hradrwareinfo module please read [doc/02_installation.md](doc/02_installation.md).
+For installing Hradrwareinfo module please read [02_installation.md](doc/02_installation.md).
 
 ## Documentation
 

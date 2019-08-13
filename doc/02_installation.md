@@ -28,4 +28,4 @@ icingacli module enable hardwareinfo
 
 ## Configuration
 
-Read the [Configuration](doc/03_module_configuration.md) section for details.
+Read the [Configuration](03_module_configuration.md) section for details.

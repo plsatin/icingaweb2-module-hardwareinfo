@@ -16,4 +16,4 @@ Icinga Web 2 and this Icinga Web 2 module are licensed under the terms of the GN
 
 ## Installation
 
-Read the [Installation](doc/02_installation.md) section for details.
+Read the [Installation](02_installation.md) section for details.
