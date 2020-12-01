@@ -318,7 +318,7 @@ INSERT INTO `tbInventoryProperty` (`PropertyID`, `ClassID`, `Name`, `Type`, `Des
 (206,	11,	'Manufacturer',	'String',	''),
 (207,	11,	'Description',	'String',	''),
 (208,	29,	'Name',	'String',	''),
-(209,	29,	'BatteryStatus',	'Uint16',	'Description of the battery\'s charge status. The value 10 (Undefined) is not valid in the Common Information Model (CIM) schema because in Desktop Management Interface (DMI) it indicates that no battery is installed. In this case, this object should not be instantiated.'),
+(209,	29,	'BatteryStatus',	'Uint16',	'Description of the battery s charge status. The value 10 (Undefined) is not valid in the Common Information Model (CIM) schema because in Desktop Management Interface (DMI) it indicates that no battery is installed. In this case, this object should not be instantiated.'),
 (210,	29,	'Caption',	'String',	''),
 (211,	29,	'DesignCapacity',	'Uint32',	'Design capacity of the battery in milliwatt-hours. If this property is not supported, enter 0 (zero).'),
 (212,	29,	'DesignVoltage',	'Uint64',	'Design voltage of the battery in millivolts. If this attribute is not supported, enter 0 (zero).'),
@@ -338,6 +338,9 @@ INSERT INTO `tbInventoryProperty` (`PropertyID`, `ClassID`, `Name`, `Type`, `Des
 (226,	30,	'EstimatedRunTime',	'Uint32',	'Estimate in minutes of the time to battery charge depletion under the present load conditions if the utility power is off, or lost and remains off, or a laptop is disconnected from a power source.'),
 (227,	30,	'FullChargeCapacity',	'Uint32',	'Full charge capacity of the battery in milliwatt-hours. Comparison of the value to the DesignCapacity property determines when the battery requires replacement. A batterys end of life is typically when the FullChargeCapacity property falls below 80% of the DesignCapacity property. If the property is not supported, enter 0 (zero).'),
 (228,	30,	'ErrorDescription',	'String',	'Free-form string that supplies more information about the error recorded in LastErrorCode property, and information about any corrective actions that may be taken.'),
+(229,	2,	'AdminPasswordStatus',	'Uint16',	'System hardware security settings for administrator password status.'),
+(230,	2,	'BootupState',	'String',	'System is started. Fail-safe boot bypasses the user startuo files also called SafeBoot.'),
+(231,	2,	'ChassisBootupState',	'Uint16',	'This value comes from the Boot-up State member of the System Enclosure or Chassis structure in the SMBIOS information.'),
 (801,	81,	'GroupComponent',	'String',	''),
 (802,	81,	'PartComponent',	'String',	''),
 (803,	80,	'Status',	'String',	''),
@@ -373,48 +376,6 @@ INSERT INTO `tbInventoryProperty` (`PropertyID`, `ClassID`, `Name`, `Type`, `Des
 (941,	94,	'DeviceID',	'String',	''),
 (942,	94,	'ConfigManagerErrorCode',	'UInt32',	'Win32 Configuration Manager error code.');
 
-DROP TABLE IF EXISTS `tbNetworkInventory`;
-CREATE TABLE `tbNetworkInventory` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
-  `IPAddress` char(17) NOT NULL,
-  `RoundtripTime` int(3) NOT NULL,
-  `MACAddress` char(18) NOT NULL,
-  `DeviceVendor` varchar(256) DEFAULT NULL,
-  `DNSName` varchar(256) DEFAULT NULL,
-  `ScannedPorts` text COMMENT 'List of ports in Json format',
-  `Description` text,
-  `ComputerTargetId` varchar(255) DEFAULT NULL,
-  `NetworkName` varchar(256) DEFAULT NULL,
-  `NetworkTargetId` varchar(255) DEFAULT NULL,
-  `LastScanDateTime` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-DROP TABLE IF EXISTS `tbNetworkTarget`;
-CREATE TABLE `tbNetworkTarget` (
-  `id` int(5) NOT NULL AUTO_INCREMENT,
-  `NetworkTargetId` varchar(255) DEFAULT NULL,
-  `Name` varchar(256) NOT NULL,
-  `IPAddress` char(22) NOT NULL,
-  `LastScanDateTime` datetime DEFAULT NULL,
-  `Description` varchar(256) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `Name` (`Name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
-DROP VIEW IF EXISTS `vwComputerInventory`;
-CREATE TABLE `vwComputerInventory` (`Name` varchar(256), `ClassName` varchar(256), `PropertyName` varchar(256), `Value` varchar(256), `InstanceId` int(5));
-
-
-DROP VIEW IF EXISTS `vwComputerSoftInventory`;
-CREATE TABLE `vwComputerSoftInventory` (`Name` varchar(256), `PropertyName` varchar(256), `Value` varchar(256), `InstanceId` int(5));
-
-
-DROP VIEW IF EXISTS `vwComputerUpdatesInventory`;
-CREATE TABLE `vwComputerUpdatesInventory` (`Name` varchar(256), `PropertyName` varchar(256), `Value` varchar(256), `InstanceId` int(5));
-
 
 DROP TABLE IF EXISTS `vwComputerInventory`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwComputerInventory` AS select `tbComputerTarget`.`Name` AS `Name`,`tbInventoryClass`.`Name` AS `ClassName`,`tbInventoryProperty`.`Name` AS `PropertyName`,`tbComputerInventory`.`Value` AS `Value`,`tbComputerInventory`.`InstanceId` AS `InstanceId` from (((`tbComputerInventory` join `tbInventoryClass` on((`tbComputerInventory`.`ClassID` = `tbInventoryClass`.`ClassID`))) join `tbInventoryProperty` on((`tbComputerInventory`.`PropertyID` = `tbInventoryProperty`.`PropertyID`))) join `tbComputerTarget` on((`tbComputerInventory`.`ComputerTargetId` = `tbComputerTarget`.`ComputerTargetId`))) order by `tbComputerTarget`.`Name`;
@@ -425,4 +386,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwComputerSoftInventory` A
 DROP TABLE IF EXISTS `vwComputerUpdatesInventory`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwComputerUpdatesInventory` AS select `tbComputerTarget`.`Name` AS `Name`,`tbInventoryProperty`.`Name` AS `PropertyName`,`tbComputerUpdatesInventory`.`Value` AS `Value`,`tbComputerUpdatesInventory`.`InstanceId` AS `InstanceId` from ((`tbComputerUpdatesInventory` join `tbInventoryProperty` on((`tbComputerUpdatesInventory`.`PropertyID` = `tbInventoryProperty`.`PropertyID`))) join `tbComputerTarget` on((`tbComputerUpdatesInventory`.`ComputerTargetId` = `tbComputerTarget`.`ComputerTargetId`))) order by `tbComputerTarget`.`Name`;
 
--- 2019-08-13 11:01:23
+-- 2019-11-28 15:20:18
