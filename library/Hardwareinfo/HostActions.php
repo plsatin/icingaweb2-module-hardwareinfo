@@ -15,11 +15,9 @@ class HostActions extends HostActionsHook
             'icon' => 'host',
         );
         $elements[mt('softwareinfo', 'Software Report')] = array('url' => Url::fromPath('/icingaweb2/iframe?url=/reports/SoftwareByHost.php?host='.$host->getName()),
-            'icon' => 'doc-text', 'data-base-target' => "_self",
-        );
+            'icon' => 'doc-text', );
         $elements[mt('updatesinfo', 'Updates Report')] = array('url' => Url::fromPath('/icingaweb2/iframe?url=/reports/UpdatesByHost.php?host='.$host->getName()),
-            'icon' => 'doc-text', 'data-base-target' => "_self",
-        );
+            'icon' => 'doc-text', );
 
         return $this->createNavigation($elements);
 
