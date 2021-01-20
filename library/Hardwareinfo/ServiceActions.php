@@ -36,12 +36,12 @@ class ServiceActions extends ServiceActionsHook
         if ($service->getName() == "inventory-cycle") {
             $elements = array();
             $elements[mt('hardwareinfo', 'Hardware Information')] = array('url' => Url::fromPath('hardwareinfo/tree',
-                array('host' => $host->getName())),
+                array('host' => $service->getHost()->getName())),
                 'icon' => 'host',
             );
-            $elements[mt('softwareinfo', 'Software Report')] = array('url' => Url::fromPath('/icingaweb2/iframe?url=/reports/SoftwareByHost.php?host='.$host->getName()),
+            $elements[mt('softwareinfo', 'Software Report')] = array('url' => Url::fromPath('/icingaweb2/iframe?url=/reports/SoftwareByHost.php?host='.$service->getHost()->getName()),
                 'icon' => 'doc-text', );
-            $elements[mt('updatesinfo', 'Updates Report')] = array('url' => Url::fromPath('/icingaweb2/iframe?url=/reports/UpdatesByHost.php?host='.$host->getName()),
+            $elements[mt('updatesinfo', 'Updates Report')] = array('url' => Url::fromPath('/icingaweb2/iframe?url=/reports/UpdatesByHost.php?host='.$service->getHost()->getName()),
                 'icon' => 'doc-text', );
         }
 
