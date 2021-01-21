@@ -109,8 +109,8 @@ INSERT INTO `tbInventoryClass` (`ClassID`, `Name`, `Namespace`, `Title`, `Descri
 (80,	'Win32_UserAccount',	'root\\cimv2',	'User accounts',	'The Win32_UserAccount WMI class contains information about a user account on a computer system running Windows.\r\n\r\nBecause both the Name and Domain are key properties, enumerating Win32_UserAccount on a large network can negatively affect performance. Calling GetObject or querying for a specific instance has less impact.',	'user.ico',	3),
 (81,	'Win32_GroupUser',	'root\\cimv2',	'Group users',	'The Win32_GroupUser association WMI class relates a group and an account that is a member of that group.',	'user.ico',	0),
 (90,	'Win32_Product',	'root\\cimv2',	'Software',	'The Win32_Product WMI class represents products as they are installed by Windows Installer. A product generally correlates to one installation package.\r\n\r\nFor more information about support or requirements for installation of a specific operating system, see Operating System Availability of WMI Components.',	'non-pnp.ico',	0),
-(91,	'SoftwareLicensingProduct',	'root\\cimv2',	'Software license',	'This class exposes the product-specific properties and methods of the Software Licensing service.',	'non-pnp.ico',	0),
-(92,	'MSStorageDriver_FailurePredictStatus',	'root\\wmi',	'Storage driver failure predict status',	'Articles:\r\nhttps://learn-powershell.net/2011/08/20/checking-for-failing-hard-drives-using-s-m-a-r-t-and-powershell/\r\n\r\nhttps://isazonov.wordpress.com/2016/05/24/sccm-check-disk-health/',	'non-pnp.ico',	1),
+(91,	'SoftwareLicensingProduct',	'root\\cimv2',	'Software license',	'This class exposes the product-specific properties and methods of the Software Licensing service.',	'non-pnp.ico',	3),
+(92,	'MSStorageDriver_FailurePredictStatus',	'root\\wmi',	'Storage driver failure predict status',	'Articles:\r\nhttps://learn-powershell.net/2011/08/20/checking-for-failing-hard-drives-using-s-m-a-r-t-and-powershell/\r\n\r\nhttps://isazonov.wordpress.com/2016/05/24/sccm-check-disk-health/',	'non-pnp.ico',	0),
 (93,	'Win32_QuickFixEngineering',	'root\\cimv2',	'Windows updates',	'The Win32_QuickFixEngineering WMI class represents a small system-wide update, commonly referred to as a quick-fix engineering (QFE) update, applied to the current operating system.',	'non-pnp.ico',	0),
 (94,	'Win32_PNPEntity',	'root\\cimv2',	'Problem devices',	'The Win32_PnPEntity WMI class represents the properties of a Plug and Play device. Plug and Play entities are shown as entries in the Device Manager located in Control Panel.',	'other.ico',	0);
 
@@ -341,6 +341,7 @@ INSERT INTO `tbInventoryProperty` (`PropertyID`, `ClassID`, `Name`, `Type`, `Des
 (229,	2,	'AdminPasswordStatus',	'Uint16',	'System hardware security settings for administrator password status.'),
 (230,	2,	'BootupState',	'String',	'System is started. Fail-safe boot bypasses the user startuo files also called SafeBoot.'),
 (231,	2,	'ChassisBootupState',	'Uint16',	'This value comes from the Boot-up State member of the System Enclosure or Chassis structure in the SMBIOS information.'),
+(232,	4,	'Status',	'String',	'Current status of the object. Various operational and nonoperational statuses can be defined. Operational statuses include: OK, Degraded, and Pred Fail (an element, such as a SMART-enabled hard disk drive, may be functioning properly but predicting a failure in the near future). Nonoperational statuses include: Error, Starting, Stopping, and Service. The latter, Service, could apply during mirror-resilvering of a disk, reload of a user permissions list, or other administrative work. Not all such work is online, yet the managed element is neither OK nor in one of the other states.'),
 (801,	81,	'GroupComponent',	'String',	''),
 (802,	81,	'PartComponent',	'String',	''),
 (803,	80,	'Status',	'String',	''),
@@ -376,6 +377,17 @@ INSERT INTO `tbInventoryProperty` (`PropertyID`, `ClassID`, `Name`, `Type`, `Des
 (941,	94,	'DeviceID',	'String',	''),
 (942,	94,	'ConfigManagerErrorCode',	'UInt32',	'Win32 Configuration Manager error code.');
 
+DROP VIEW IF EXISTS `vwComputerInventory`;
+CREATE TABLE `vwComputerInventory` (`Name` varchar(256), `ClassName` varchar(256), `PropertyName` varchar(256), `Value` varchar(256), `InstanceId` int(5));
+
+
+DROP VIEW IF EXISTS `vwComputerSoftInventory`;
+CREATE TABLE `vwComputerSoftInventory` (`Name` varchar(256), `PropertyName` varchar(256), `Value` varchar(256), `InstanceId` int(5));
+
+
+DROP VIEW IF EXISTS `vwComputerUpdatesInventory`;
+CREATE TABLE `vwComputerUpdatesInventory` (`Name` varchar(256), `PropertyName` varchar(256), `Value` varchar(256), `InstanceId` int(5));
+
 
 DROP TABLE IF EXISTS `vwComputerInventory`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwComputerInventory` AS select `tbComputerTarget`.`Name` AS `Name`,`tbInventoryClass`.`Name` AS `ClassName`,`tbInventoryProperty`.`Name` AS `PropertyName`,`tbComputerInventory`.`Value` AS `Value`,`tbComputerInventory`.`InstanceId` AS `InstanceId` from (((`tbComputerInventory` join `tbInventoryClass` on((`tbComputerInventory`.`ClassID` = `tbInventoryClass`.`ClassID`))) join `tbInventoryProperty` on((`tbComputerInventory`.`PropertyID` = `tbInventoryProperty`.`PropertyID`))) join `tbComputerTarget` on((`tbComputerInventory`.`ComputerTargetId` = `tbComputerTarget`.`ComputerTargetId`))) order by `tbComputerTarget`.`Name`;
@@ -386,4 +398,4 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwComputerSoftInventory` A
 DROP TABLE IF EXISTS `vwComputerUpdatesInventory`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `vwComputerUpdatesInventory` AS select `tbComputerTarget`.`Name` AS `Name`,`tbInventoryProperty`.`Name` AS `PropertyName`,`tbComputerUpdatesInventory`.`Value` AS `Value`,`tbComputerUpdatesInventory`.`InstanceId` AS `InstanceId` from ((`tbComputerUpdatesInventory` join `tbInventoryProperty` on((`tbComputerUpdatesInventory`.`PropertyID` = `tbInventoryProperty`.`PropertyID`))) join `tbComputerTarget` on((`tbComputerUpdatesInventory`.`ComputerTargetId` = `tbComputerTarget`.`ComputerTargetId`))) order by `tbComputerTarget`.`Name`;
 
--- 2019-11-28 15:20:18
+-- 2021-01-21 02:57:12
