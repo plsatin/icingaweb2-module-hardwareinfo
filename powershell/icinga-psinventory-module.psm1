@@ -39,8 +39,9 @@ function Invoke-MySQLQuery {
         # load MySQL driver and create connection
         Write-Verbose "Create Database Connection"
 
-        # Обязательно заменить в промышленной среде!!!
-        $icinga2ScriptsPath = "C:\ProgramData\icinga2\Scripts\icinga2"
+        # # Обязательно заменить в промышленной среде!!!
+        # $icinga2ScriptsPath = "C:\ProgramData\icinga2\Scripts\icinga2"
+        $icinga2ScriptsPath = $PSScriptRoot
 
         $mySQLDataDLL = "$icinga2ScriptsPath\bin\MySQL.Data.dll"
         [void][system.reflection.Assembly]::LoadFrom($mySQLDataDLL)

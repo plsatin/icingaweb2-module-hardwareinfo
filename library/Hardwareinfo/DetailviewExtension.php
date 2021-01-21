@@ -13,11 +13,15 @@ class DetailviewExtension extends DetailviewExtensionHook
 {
     public function getHtmlForObject(MonitoredObject $object)
     {
-        if ($object->getName() == "hardware-inventory") {
+        if ($object->getName() == "inventory-cycle") {
 
-            // $r_AllClass =  "";
-            // $r_AllClass = TreeRender::renderTree($object->host_name);
-            
+            $r_AllClass =  "";
+            $r_AllClass = TreeRender::renderTree($object->host_name);
+
+
+
+// Отображение дерева устройств во вкладке сервиса с именем hardware-inventory. Работает но с этим деревом не удобно работать так как оно обновляется вместе с обновлением вкладки.
+
             // $hardinfo_out = '
             // <br>
             // <div class="treesearch">
@@ -50,9 +54,9 @@ class DetailviewExtension extends DetailviewExtensionHook
             // ';
             
 
-            $hardinfo_out = '<h2>Detail View</h2><br><img src="/icingaweb2/img/hardwareinfo/logo-icinga.png"><br>';
+            $hardinfo_out = '<h2>Detail View [hardwareinfo]</h2><br><img src="/icingaweb2/img/hardwareinfo/logo-icinga.png"><br>';
 
-            $hardinfo_out = '';
+            // $hardinfo_out = '';
 
             return $hardinfo_out;
         
