@@ -1,5 +1,7 @@
 .hg/
-^.hgignore
-^.gitignore
+.hgignore
+.gitignore
+.hgtags
 Thumbs.db
 .vscode/
+notes.md
