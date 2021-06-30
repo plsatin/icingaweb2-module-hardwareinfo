@@ -72,21 +72,4 @@ class TreeController extends MonitoringAwareController
 
 
 
-
-    // /**
-    //  * Apply filters on a DataView
-    //  *
-    //  * @param DataView  $dataView       The DataView to apply filters on
-    //  */
-    // protected function filterQuery(DataView $dataView)
-    // {
-    //     $this->setupFilterControl(
-    //         $dataView,
-    //         null,
-    //         null,
-    //         array_merge(['format', 'stateType', 'addColumns', 'problems']
-    //     ));
-    //     $this->handleFormatRequest($dataView);
-    // }
-
 }

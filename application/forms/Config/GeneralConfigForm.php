@@ -3,6 +3,8 @@
 
 namespace Icinga\Module\Hardwareinfo\Forms\Config;
 
+use Exception;
+use Icinga\Data\ResourceFactory;
 use Icinga\Forms\ConfigForm;
 
 class GeneralConfigForm extends ConfigForm
@@ -14,63 +16,30 @@ class GeneralConfigForm extends ConfigForm
         $this->setSubmitLabel($this->translate('Save Changes'));
     }
 
+
     public function createElements(array $formData)
     {
+        $resources = array();
+        foreach (ResourceFactory::getResourceConfigs() as $name => $config) {
+            if ($config->type === 'db') {
+                $resources[] = $name;
+            }
+        }
 
         $this->addElement(
             'select',
-            'db_adapter',
+            'db_resource',
             array(
-                'value'         => 'PDO_MYSQL',
-                'label'         => $this->translate('Database type'),
-                'multiOptions'  => array (
-                    'PDO_MYSQL'     => $this->translate('PDO_MYSQL'),
-                    ),
-                'description'   => $this->translate('The type of the database.')
+                'description'   => $this->translate('The resource to use'),
+                'label'         => $this->translate('Resource'),
+                'multiOptions'  => array_combine($resources, $resources),
+                'required'      => true
             )
         );
 
-        $this->addElement(
-            'text',
-            'db_host',
-            array(
-                'value'         => 'localhost',
-                'label'         => $this->translate('Host'),
-                'requirement'   => $this->translate('The hostname of the database.')
-            )
-        );
-
-        $this->addElement(
-            'text',
-            'db_name',
-            array(
-                'value'         => 'inventory',
-                'label'         => $this->translate('Database'),
-                'requirement'   => $this->translate('The name of the database.')
-            )
-        );
-
-        $this->addElement(
-            'text',
-            'db_user',
-            array(
-                'value'         => 'inventory',
-                'label'         => $this->translate('User'),
-                'requirement'   => $this->translate('The user of the database.')
-            )
-        );
-
-        $this->addElement(
-            'password',
-            'db_password',
-            array(
-                'renderPassword'=> true,
-                'value'         => '',
-                'label'         => $this->translate('Password'),
-                'requirement'   => $this->translate('The user passsword of the database.')
-            )
-        );
-
-
+        if (isset($formData['skip_validation']) && $formData['skip_validation']) {
+            $this->addSkipValidationCheckbox();
+        }
     }
+
 }

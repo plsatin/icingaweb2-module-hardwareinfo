@@ -58,39 +58,40 @@ $(function () {
             "icon" : "jstree-file"
         }
     },
-    "contextmenu" : {
-        "items" : function($node) {
-            return {
-                "Create": {
-                    "separator_before": false,
-                    "separator_after": false,
-                    "icon": false,
-                    "label": "Copy value",
-                    "action": function (obj) {
-                        var cpValue = $node.text;
-                        console.log(cpValue);
+    // "contextmenu" : {
+    //     "items" : function($node) {
+    //         return {
+    //             "Create": {
+    //                 "separator_before": false,
+    //                 "separator_after": false,
+    //                 "icon": false,
+    //                 "label": "Copy value",
+    //                 "action": function (obj) {
+    //                     var cpValue = $node.text;
+    //                     console.log(cpValue);
 
-                        //Копирование в буфер обмена на чистом JavaScript
-                        // Create new element
-                        var el = document.createElement('textarea');
-                        // Set value (string to be copied)
-                        el.value = cpValue;
-                        // Set non-editable to avoid focus and move outside of view
-                        el.setAttribute('readonly', '');
-                        el.style = {position: 'absolute', left: '-9999px'};
-                        document.body.appendChild(el);
-                        // Select text inside element
-                        el.select();
-                        // Copy text to clipboard
-                        document.execCommand('copy');
-                        // Remove temporary element
-                        document.body.removeChild(el);
-                    }
-                }
-            };
-        }
-    },
-    "plugins" : [ "types", "search", "contextmenu" ]
+    //                     //Копирование в буфер обмена на чистом JavaScript
+    //                     // Create new element
+    //                     var el = document.createElement('textarea');
+    //                     // Set value (string to be copied)
+    //                     el.value = cpValue;
+    //                     // Set non-editable to avoid focus and move outside of view
+    //                     el.setAttribute('readonly', '');
+    //                     el.style = {position: 'absolute', left: '-9999px'};
+    //                     document.body.appendChild(el);
+    //                     // Select text inside element
+    //                     el.select();
+    //                     // Copy text to clipboard
+    //                     document.execCommand('copy');
+    //                     // Remove temporary element
+    //                     document.body.removeChild(el);
+    //                 }
+    //             }
+    //         };
+    //     }
+    // },
+    // "plugins" : [ "types", "search", "contextmenu" ]
+    "plugins" : [ "types", "search" ]
   });
   var to = false;
   $('#jstreehtml_q').keyup(function () {

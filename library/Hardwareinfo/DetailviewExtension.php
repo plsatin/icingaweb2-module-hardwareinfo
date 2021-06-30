@@ -20,7 +20,7 @@ class DetailviewExtension extends DetailviewExtensionHook
 
 
 
-// Отображение дерева устройств во вкладке сервиса с именем hardware-inventory. Работает но с этим деревом не удобно работать так как оно обновляется вместе с обновлением вкладки.
+// Отображение дерева устройств во вкладке сервиса с именем inventory-cycle. Работает но с этим деревом не удобно работать так как оно обновляется вместе с обновлением вкладки.
 
             // $hardinfo_out = '
             // <br>
@@ -53,6 +53,8 @@ class DetailviewExtension extends DetailviewExtensionHook
             // </script>
             // ';
             
+
+            // Дутальный вид на вкладке сервиса - в разработке ...
 
             $hardinfo_out = '<h2>Detail View [hardwareinfo]</h2><br><img src="/icingaweb2/img/hardwareinfo/logo-icinga.png"><br>';
 

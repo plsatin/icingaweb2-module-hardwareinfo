@@ -1,8 +1,8 @@
 <?php
-
 namespace Icinga\Module\Hardwareinfo\Web\Tree;
 
-use Icinga\Module\Hardwareinfo\Data\Db\DbInventory;
+// use Icinga\Module\Hardwareinfo\Data\Db\DbInventory;
+use Icinga\Module\Hardwareinfo\Db;
 
 use Icinga\Web\Url;
 
@@ -15,20 +15,8 @@ use Icinga\Web\Url;
 
 define('ICON_DIR', '/icingaweb2/img/hardwareinfo/icons/');
 
-
-
-
 class TreeRender
 {
-
-    private $_db = null;
-    private $_category_arr = array();
-
-    public function __construct() {
-        //Подключаемся к базе данных, и записываем подключение в переменную _db
-        $this->_db = DbInventory::getDB(); // Создаём объект базы данных
-
-    }
 
     public static function renderTree($host)
     {
@@ -38,31 +26,40 @@ class TreeRender
         $icon_path = ICON_DIR;
         $result = null;
 
-        $q_Hardware_Items = "SELECT tbInventoryClass.Name AS ClassName, tbInventoryProperty.Name AS PropertyName, tbComputerInventory.Value, tbComputerInventory.InstanceId
-        FROM tbComputerInventory INNER JOIN
-        tbInventoryClass ON tbComputerInventory.ClassID = tbInventoryClass.ClassID INNER JOIN
-        tbInventoryProperty ON tbComputerInventory.PropertyID = tbInventoryProperty.PropertyID INNER JOIN
-        tbComputerTarget ON tbComputerInventory.ComputerTargetId = tbComputerTarget.ComputerTargetId
-        WHERE  (tbComputerTarget.Name LIKE '%$qhost%');";
+        // $q_Hardware_Items = "SELECT tbInventoryClass.Name AS ClassName, tbInventoryProperty.Name AS PropertyName, tbComputerInventory.Value, tbComputerInventory.InstanceId
+        // FROM tbComputerInventory INNER JOIN
+        // tbInventoryClass ON tbComputerInventory.ClassID = tbInventoryClass.ClassID INNER JOIN
+        // tbInventoryProperty ON tbComputerInventory.PropertyID = tbInventoryProperty.PropertyID INNER JOIN
+        // tbComputerTarget ON tbComputerInventory.ComputerTargetId = tbComputerTarget.ComputerTargetId
+        // WHERE  (tbComputerTarget.Name LIKE '%$qhost%');";
 
-        $q_Hardware_Class = "SELECT * FROM tbInventoryClass ORDER BY Title";
-        // $q_Hardware_Class = "SELECT * FROM tbInventoryClass WHERE ClassID IN (1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 28) ORDER BY Name";
+        // $q_Hardware_Class = "SELECT * FROM tbInventoryClass ORDER BY Title";
+
+        $db = Db::newConfiguredInstance();
+
+        $queryClass = $db->select();
+        $queryClass->from('tbInventoryClass',
+        array(
+            'ClassID',
+            'Name',
+            'Namespace',
+            'Title',
+            'Description',
+            'Icon',
+            'Enabled'
+        ));
+        $queryClass->order('Title');
+        $hardwareClass = $queryClass->fetchAll();
 
 
-
-/////////////////////////
-
-        // Закометировать для webnote.satin-pl.com/examples
-        $db = DbInventory::getDB(); // Создаём объект базы данных
-
-        // Закометировать для webnote.satin-pl.com/examples
-        $hardwareClass = $db->select($q_Hardware_Class);
-        $hardwareItems = $db->select($q_Hardware_Items);
-
-        // $hardwareClass = DB::select($q_Hardware_Class);
-        // $hardwareItems = DB::select($q_Hardware_Items);
-
-///////////////////////
+        $queryItems = $db->select()
+        ->from(array('i' => 'tbComputerInventory'),
+            array('ClassName' => 'c.Name', 'PropertyName' => 'p.Name', 'Value', 'InstanceId'))
+            ->join(array('c' => 'tbInventoryClass'), 'i.ClassID = c.ClassID')
+                ->join(array('p' => 'tbInventoryProperty'), 'i.PropertyID = p.PropertyID')
+                    ->join(array('t' => 'tbComputerTarget'), 'i.ComputerTargetId = t.ComputerTargetId')
+                        ->where('t.Name', $qhost); 
+        $hardwareItems = $queryItems->fetchAll();
 
 
         if ($hardwareItems == false) {
@@ -72,13 +69,13 @@ class TreeRender
 
         $result .= "<ul><li data-jstree='{ \"opened\" : \"true\", \"icon\" : \"".$icon_path."hardware.ico\" }'>Computer: ".$qhost."<ul>";
 
-        // $class_icon = "non-pnp.ico";
 
         foreach ($hardwareClass as $itemC) {
+            // return var_dump($itemC->Icon);
+            $itemC = get_object_vars($itemC);
+            $class_icon = $itemC['icon'];
 
-            $class_icon = $itemC->Icon;
-
-            $result .= "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$itemC->Title."<ul>";
+            $result .= "<li data-jstree='{ \"icon\" : \"".$icon_path.$class_icon."\" }'>".$itemC['title']."<ul>";
 
             $itemIarr = array();
             $itemName = array();
@@ -93,8 +90,9 @@ class TreeRender
             $itemIcon[0] = "";
 
             foreach ($hardwareItems as $itemI) {
-                if ($itemI->ClassName == $itemC->Name) {
-                        $i = $itemI->InstanceId;
+                $itemI = get_object_vars($itemI);
+                if ($itemI['classname'] == $itemC['name']) {
+                        $i = $itemI['instanceid'];
                         if (!isset($itemIarr[$i])) {
                             $itemIarr[$i] = "";
                             $itemName[$i] = "";
@@ -103,17 +101,17 @@ class TreeRender
                             $itemIcon[$i] = $class_icon;
                         }
 
-                        $itemIarr[$i] .= "<li>".$itemI->PropertyName.": ".$itemI->Value."</li>";
-                        if ($itemI->PropertyName == "Name") {
-                            $itemName[$i] = $itemI->Value;
-                        } elseif ($itemI->PropertyName == "Caption") {
-                            $itemCaption[$i] = $itemI->Value;
-                        } elseif ($itemI->PropertyName == "Description") {
-                            $itemDescription[$i] = $itemI->Value;
-                        } elseif ($itemI->PropertyName == "DriveType") {
-                            if ($itemI->Value == 5) {
+                        $itemIarr[$i] .= "<li>".$itemI['propertyname'].": ".$itemI['value']."</li>";
+                        if ($itemI['propertyname'] == "Name") {
+                            $itemName[$i] = $itemI['value'];
+                        } elseif ($itemI['propertyname'] == "Caption") {
+                            $itemCaption[$i] = $itemI['value'];
+                        } elseif ($itemI['propertyname'] == "Description") {
+                            $itemDescription[$i] = $itemI['value'];
+                        } elseif ($itemI['propertyname'] == "DriveType") {
+                            if ($itemI['value'] == 5) {
                                 $itemIcon[$i] = "cdrom.ico";
-                            } elseif ($itemI->Value == 2) {
+                            } elseif ($itemI['value'] == 2) {
                                 $itemIcon[$i] = "disk-usb.ico";
                             }
 
@@ -162,6 +160,8 @@ class TreeRender
 
         return $result;
     }
+
+
 
 
 
