@@ -2,15 +2,30 @@
 
 ## Global configuration
 
-You can edit global configuration settings in Icinga Web 2 in `Configuration -> Modules -> hardwareinfo -> Configuration`.
+You need to go to the Icinga Web 2 resource configuration and create a new database resource
+
+`Configuration -> Application -> Resources -> Create a New Resource`
 
 Setting            | Description
 -------------------|-------------------
-Database type      | Not implemented yet.
-Host               | **Required.** MySQL server host name.
-Database           | **Required.** Database name.
-User               | **Required.** Database user name.
-Password           | **Required.** Database user password.
+Resource Type      | **Required.** SQL Database
+Resource Name      | **Required.** Resource name
+Database Type      | **Required.** Database type - MySQL
+Host               | **Required.** MySQL server host name
+Port               | MySQL server port number
+Database Name      | **Required.** Database name
+Userme             | **Required.** Database user name
+Password           | **Required.** Database user password
+Character Set      | Supported character sets MySQL
+Use SSL            | Yes/No
+
+Then save your changes.
+
+Now you can edit module configuration settings in `Configuration -> Modules -> hardwareinfo -> Configuration`
+
+Setting            | Description
+-------------------|-------------------
+Resource           | **Required.** Resource name
 
 ## Host configuration
 

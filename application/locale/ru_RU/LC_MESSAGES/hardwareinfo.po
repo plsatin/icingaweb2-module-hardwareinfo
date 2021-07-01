@@ -1,161 +1,168 @@
 # Icinga Web 2 - Head for multiple monitoring backends.
-# Copyright (C) 2018 Icinga Development Team
+# Copyright (C) 2021 Icinga Development Team
 # This file is distributed under the same license as Hardwareinfo Module.
 # Pavel Satin <pslater.ru@gmail.com>, 2018.
-# 
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Hardwareinfo Module (0.3.0)\n"
+"Project-Id-Version: Hardwareinfo Module (0.3.2.2)\n"
 "Report-Msgid-Bugs-To: dev@icinga.com\n"
-"POT-Creation-Date: 2018-01-27 21:41+0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2021-07-01 20:44+0500\n"
+"PO-Revision-Date: 2021-07-01 21:07+0500\n"
 "Language: ru_RU\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Basepath: .\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 3.0\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: ../../../../modules/hardwareinfo/configuration.php:32
+#: ../../../../configuration.php:32
 msgid "Adjust the general configuration of the hardwareinfo module"
 msgstr "Настроить основную конфигурацию модуля Hardware Information"
 
-#: ../../../../modules/hardwareinfo/configuration.php:13
+#: ../../../../configuration.php:13
 msgid "Allow unrestricted access to query data in Hardware Information"
 msgstr "Разрешить неограниченный доступ к данным запроса в Hardware Information"
 
-#: ../../../../modules/hardwareinfo/application/views/scripts/tree/index.phtml:26
-msgid "Computer"
-msgstr "Компьютер"
-
-#: ../../../../modules/hardwareinfo/configuration.php:33
+#: ../../../../configuration.php:33
 msgid "Configuration"
 msgstr "Конфигурация"
 
-#: ../../../../modules/hardwareinfo/application/controllers/IndexController.php:50
+#: ../../../../application/controllers/IndexController.php:50
 msgid "Current State"
 msgstr "Текущее состояние"
 
-#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:48
-msgid "Database"
-msgstr "База данных"
+#: ../../../../application/views/scripts/index/index.phtml:41
+msgid "HW Model"
+msgstr "Модель ПК"
 
-#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:25
-msgid "Database type"
-msgstr "Тип базы данных"
-
-#: ../../../../modules/hardwareinfo/library/Hardwareinfo/HostActions.php:12
-#: ../../../../modules/hardwareinfo/library/Hardwareinfo/ServiceActions.php:16
-#: ../../../../modules/hardwareinfo/application/controllers/IndexController.php:87
-#: ../../../../modules/hardwareinfo/application/controllers/TreeController.php:90
-#: ../../../../modules/hardwareinfo/application/controllers/TreeController.php:102
-#: ../../../../modules/hardwareinfo/application/views/scripts/tree/index.phtml:23
+#: ../../../../library/Hardwareinfo/HostActions.php:13
+#: ../../../../library/Hardwareinfo/ServiceActions.php:17
+#: ../../../../application/controllers/IndexController.php:84
+#: ../../../../application/controllers/TreeController.php:52
+#: ../../../../application/controllers/TreeController.php:64
+#: ../../../../application/views/scripts/tree/index.phtml:22
 msgid "Hardware Information"
 msgstr "Информация об оборудовании"
 
-#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:38
-msgid "Host"
-msgstr "Узел"
-
-#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:41
+#: ../../../../application/views/scripts/index/index.phtml:42
 msgid "Host CPU"
-msgstr "ЦПУ узла"
+msgstr "ЦП узла"
 
-#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:39
+#: ../../../../application/views/scripts/index/index.phtml:39
 msgid "Host Name"
 msgstr "Имя узла"
 
-#: ../../../../modules/hardwareinfo/application/controllers/IndexController.php:49
-#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:40
+#: ../../../../application/controllers/IndexController.php:49
+#: ../../../../application/views/scripts/index/index.phtml:40
 msgid "Host OS"
 msgstr "ОС узла"
 
-#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:42
+#: ../../../../application/views/scripts/index/index.phtml:43
 msgid "Host RAM"
 msgstr "ОЗУ узла"
 
-#: ../../../../modules/hardwareinfo/application/controllers/IndexController.php:48
+#: ../../../../application/controllers/IndexController.php:48
 msgid "Hostname"
 msgstr "Имя узла"
 
-#: ../../../../modules/hardwareinfo/application/controllers/IndexController.php:76
-#: ../../../../modules/hardwareinfo/application/controllers/TreeController.php:83
+#: ../../../../application/controllers/IndexController.php:73
+#: ../../../../application/controllers/TreeController.php:45
 msgid "Hosts"
 msgstr "Узлы"
 
-#: ../../../../modules/hardwareinfo/application/controllers/IndexController.php:86
-#: ../../../../modules/hardwareinfo/application/controllers/TreeController.php:89
-#: ../../../../modules/hardwareinfo/application/controllers/TreeController.php:101
+#: ../../../../application/controllers/IndexController.php:83
+#: ../../../../application/controllers/TreeController.php:51
+#: ../../../../application/controllers/TreeController.php:63
 msgid "Information"
 msgstr "Информация"
 
-#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:115
+#: ../../../../application/views/scripts/index/index.phtml:122
 msgid "No hosts found matching the filter."
 msgstr "Не найдено узлов, соответствующих фильтру."
 
-#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:27
-msgid "PDO_MYSQL"
-msgstr "PDO_MYSQL"
+#: ../../../../application/forms/Config/GeneralConfigForm.php:34
+msgid "Resource"
+msgstr "Ресурс"
 
-#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:69
-msgid "Password"
-msgstr "Пароль"
-
-#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:14
+#: ../../../../application/forms/Config/GeneralConfigForm.php:16
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
-#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:67
+#: ../../../../application/views/scripts/index/index.phtml:68
 msgid "Show detailed information for host "
-msgstr "Детальная информация о хосте "
+msgstr "Детальная информация об узле "
 
-#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:68
+#: ../../../../application/views/scripts/index/index.phtml:69
 msgid "Show hardware information for host "
-msgstr "Информация об оборудовании"
+msgstr "Информация об оборудовании "
 
-#: ../../../../modules/hardwareinfo/library/Hardwareinfo/HostActions.php:17
+#: ../../../../library/Hardwareinfo/HostActions.php:17
+#: ../../../../library/Hardwareinfo/ServiceActions.php:21
 msgid "Software Report"
-msgstr "Отчет по ПО"
+msgstr "Отчет о программах"
 
-#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:38
+#: ../../../../application/views/scripts/index/index.phtml:38
 msgid "State"
 msgstr "Состояние"
 
-#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:39
-msgid "The hostname of the database."
-msgstr "Узел базы данных"
+#: ../../../../application/forms/Config/GeneralConfigForm.php:33
+msgid "The resource to use"
+msgstr "Ресурс для использования"
 
-#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:49
-msgid "The name of the database."
-msgstr "Имя базы данных"
-
-#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:29
-msgid "The type of the database."
-msgstr "Тип базы данных"
-
-#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:59
-msgid "The user of the database."
-msgstr "Пользователь базы данных"
-
-#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:70
-msgid "The user passsword of the database."
-msgstr "Пароль пользователя базы данных"
-
-#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:62
+#: ../../../../application/views/scripts/index/index.phtml:63
 msgid "Unknown"
 msgstr "Неизвестно"
 
-#: ../../../../modules/hardwareinfo/application/forms/Config/GeneralConfigForm.php:58
-msgid "User"
-msgstr "Пользователь"
+#: ../../../../library/Hardwareinfo/HostActions.php:19
+#: ../../../../library/Hardwareinfo/ServiceActions.php:23
+msgid "Updates Report"
+msgstr "Отчет об обновлениях"
 
-#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:52
+#: ../../../../application/views/scripts/index/index.phtml:53
 msgid "Zone is connected."
 msgstr "Зона подключена."
 
-#: ../../../../modules/hardwareinfo/application/views/scripts/index/index.phtml:57
+#: ../../../../application/views/scripts/index/index.phtml:58
 msgid "Zone is not connected."
 msgstr "Зона не подключена."
+
+#~ msgid "Computer"
+#~ msgstr "Компьютер"
+
+#~ msgid "Database"
+#~ msgstr "База данных"
+
+#~ msgid "Database type"
+#~ msgstr "Тип базы данных"
+
+#~ msgid "Host"
+#~ msgstr "Узел"
+
+#~ msgid "PDO_MYSQL"
+#~ msgstr "PDO_MYSQL"
+
+#~ msgid "Password"
+#~ msgstr "Пароль"
+
+#~ msgid "The hostname of the database."
+#~ msgstr "Узел базы данных"
+
+#~ msgid "The name of the database."
+#~ msgstr "Имя базы данных"
+
+#~ msgid "The type of the database."
+#~ msgstr "Тип базы данных"
+
+#~ msgid "The user of the database."
+#~ msgstr "Пользователь базы данных"
+
+#~ msgid "The user passsword of the database."
+#~ msgstr "Пароль пользователя базы данных"
+
+#~ msgid "User"
+#~ msgstr "Пользователь"
