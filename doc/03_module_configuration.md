@@ -31,13 +31,11 @@ Resource           | **Required.** Resource name
 
 In order for the host to appear in the main module list, it is necessary to set the variable `vars.os_type` in the host configuration.
 
-```
+```conf
 object Host "server1" {
   import "generic-host"
   check_command = "cluster-zone"
-
   vars.os_type = "Windows Server"
-
 }
 
 ```
