@@ -8,7 +8,7 @@
 
 ## Installation the Hardwareinfo module
 
-Create a MySQL database using the script: [inventory.sql](https://github.com/plsatin/icingaweb2-module-hardwareinfo/blob/master/sql/inventory.sql)
+Create a MySQL database using the script: [inventory.sql](../sql/inventory.sql)
 
 Extract this module to your Icinga Web 2 modules directory as `hardwareinfo` directory.
 
