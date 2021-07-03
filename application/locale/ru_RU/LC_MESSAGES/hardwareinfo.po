@@ -2,22 +2,22 @@
 # Copyright (C) 2021 Icinga Development Team
 # This file is distributed under the same license as Hardwareinfo Module.
 # Pavel Satin <pslater.ru@gmail.com>, 2018.
-#
+# 
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Hardwareinfo Module (0.3.2.2)\n"
 "Report-Msgid-Bugs-To: dev@icinga.com\n"
-"POT-Creation-Date: 2021-07-01 20:44+0500\n"
-"PO-Revision-Date: 2021-07-01 21:07+0500\n"
+"POT-Creation-Date: 2021-07-03 21:37+0500\n"
+"PO-Revision-Date: 2021-07-03 21:33+0500\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru_RU\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Basepath: .\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"X-Generator: Poedit 3.0\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: ../../../../configuration.php:32
@@ -26,7 +26,8 @@ msgstr "Настроить основную конфигурацию модул�
 
 #: ../../../../configuration.php:13
 msgid "Allow unrestricted access to query data in Hardware Information"
-msgstr "Разрешить неограниченный доступ к данным запроса в Hardware Information"
+msgstr ""
+"Разрешить неограниченный доступ к данным запроса в Hardware Information"
 
 #: ../../../../configuration.php:33
 msgid "Configuration"
@@ -40,6 +41,7 @@ msgstr "Текущее состояние"
 msgid "HW Model"
 msgstr "Модель ПК"
 
+#: ../../../../configuration.php:23
 #: ../../../../library/Hardwareinfo/HostActions.php:13
 #: ../../../../library/Hardwareinfo/ServiceActions.php:17
 #: ../../../../application/controllers/IndexController.php:84
@@ -48,6 +50,10 @@ msgstr "Модель ПК"
 #: ../../../../application/views/scripts/tree/index.phtml:22
 msgid "Hardware Information"
 msgstr "Информация об оборудовании"
+
+#: ../../../../configuration.php:21
+msgid "Hardware inventory"
+msgstr "Инвентаризация"
 
 #: ../../../../application/views/scripts/index/index.phtml:42
 msgid "Host CPU"

@@ -20,7 +20,6 @@ class TreeRender
 
     public static function renderTree($host)
     {
-
         $qhost = $host;
         $win32class = 1; //$ClassId;
         $icon_path = ICON_DIR;
@@ -39,14 +38,14 @@ class TreeRender
 
         $queryClass = $db->select();
         $queryClass->from('tbInventoryClass',
-        array(
-            'ClassID',
-            'Name',
-            'Namespace',
-            'Title',
-            'Description',
-            'Icon',
-            'Enabled'
+            array(
+                'ClassID',
+                'Name',
+                'Namespace',
+                'Title',
+                'Description',
+                'Icon',
+                'Enabled'
         ));
         $queryClass->order('Title');
         $hardwareClass = $queryClass->fetchAll();
@@ -71,7 +70,6 @@ class TreeRender
 
 
         foreach ($hardwareClass as $itemC) {
-            // return var_dump($itemC->Icon);
             $itemC = get_object_vars($itemC);
             $class_icon = $itemC['icon'];
 
@@ -92,34 +90,33 @@ class TreeRender
             foreach ($hardwareItems as $itemI) {
                 $itemI = get_object_vars($itemI);
                 if ($itemI['classname'] == $itemC['name']) {
-                        $i = $itemI['instanceid'];
-                        if (!isset($itemIarr[$i])) {
-                            $itemIarr[$i] = "";
-                            $itemName[$i] = "";
-                            $itemCaption[$i] = "";
-                            $itemDescription[$i] = "";
-                            $itemIcon[$i] = $class_icon;
-                        }
+                    $i = $itemI['instanceid'];
+                    if (!isset($itemIarr[$i])) {
+                        $itemIarr[$i] = "";
+                        $itemName[$i] = "";
+                        $itemCaption[$i] = "";
+                        $itemDescription[$i] = "";
+                        $itemIcon[$i] = $class_icon;
+                    }
 
-                        $itemIarr[$i] .= "<li>".$itemI['propertyname'].": ".$itemI['value']."</li>";
-                        if ($itemI['propertyname'] == "Name") {
-                            $itemName[$i] = $itemI['value'];
-                        } elseif ($itemI['propertyname'] == "Caption") {
-                            $itemCaption[$i] = $itemI['value'];
-                        } elseif ($itemI['propertyname'] == "Description") {
-                            $itemDescription[$i] = $itemI['value'];
-                        } elseif ($itemI['propertyname'] == "DriveType") {
-                            if ($itemI['value'] == 5) {
-                                $itemIcon[$i] = "cdrom.ico";
-                            } elseif ($itemI['value'] == 2) {
-                                $itemIcon[$i] = "disk-usb.ico";
-                            }
-
+                    $itemIarr[$i] .= "<li>".$itemI['propertyname'].": ".$itemI['value']."</li>";
+                    if ($itemI['propertyname'] == "Name") {
+                        $itemName[$i] = $itemI['value'];
+                    } elseif ($itemI['propertyname'] == "Caption") {
+                        $itemCaption[$i] = $itemI['value'];
+                    } elseif ($itemI['propertyname'] == "Description") {
+                        $itemDescription[$i] = $itemI['value'];
+                    } elseif ($itemI['propertyname'] == "DriveType") {
+                        if ($itemI['value'] == 5) {
+                            $itemIcon[$i] = "cdrom.ico";
+                        } elseif ($itemI['value'] == 2) {
+                            $itemIcon[$i] = "disk-usb.ico";
                         }
-                    
+                    }
                 }
 
             }
+
             $i = 0;
             foreach ($itemIarr as $itemIa) {
                 if ($itemIa != "") {
@@ -150,21 +147,11 @@ class TreeRender
                 }
                 $i ++;
             }
-
-
             $result .= "</ul></li>"; //Конец класса
-
         }
-        
         $result .= "</ul></li></ul>"; //Конец дерева
-
         return $result;
     }
-
-
-
-
-
 
 }
 

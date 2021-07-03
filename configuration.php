@@ -18,9 +18,9 @@ $this->providePermission(
 if ($auth->hasPermission('hardwareinfo/hosts'))
 {
 
-    $section = $this->menuSection('Hardware', array(
+    $section = $this->menuSection($this->translate('Hardware inventory'), array(
         'url' => 'hardwareinfo',
-        'title' => 'Hardware Information',
+        'title' => $this->translate('Hardware Information'),
         'icon' => 'host'
     ));
 
@@ -38,4 +38,3 @@ $this->provideCssFile('jstree/style.css');
 
 $this->provideJsFile('jstree/jstree.min.js');
 //$this->provideJsFile('jstree/jstree.init.js');
-
