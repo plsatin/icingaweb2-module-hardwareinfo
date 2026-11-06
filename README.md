@@ -4,7 +4,7 @@
 
 The module is designed to display information (so far only for Windows systems) about the hardware from the MySQL database. For Linux systems, information can be collected using [OMI](https://github.com/Microsoft/omi)/powershell or using this python script [powershell/check_hard_inventory.py](https://github.com/plsatin/icingaweb2-module-hardwareinfo/blob/master/powershell/check_hard_inventory.py) (in development). The module used the [jsTree](https://www.jstree.com) library.
 
-[Description of the project, while in Russian.](http://webnote.satin-pl.com/2017/05/09/icingaweb2_module_hardwareinfo/)
+[Description of the project, while in Russian.](http://webnote.satin-pl.ru/2017/05/09/icingaweb2_module_hardwareinfo/)
 
 ![Pic5](doc/images/icingaweb2_module_hardwareinfo_pic5.png)
 
